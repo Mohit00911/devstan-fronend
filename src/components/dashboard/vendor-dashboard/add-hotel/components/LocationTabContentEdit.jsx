@@ -1,3 +1,4 @@
+import DateSearch from "@/components/activity-list/common/DateSearch";
 import React, { useState,useEffect } from "react";
 const LocationTabContent = ({ onDataFromChild,onSaveChanges,initialValues}) => {
   const [tourData, setTourData] = useState({
@@ -110,6 +111,9 @@ const LocationTabContent = ({ onDataFromChild,onSaveChanges,initialValues}) => {
             <label className="lh-1 text-16 text-light-1">Available Dates</label>
           </div>
         </div>
+
+
+        <DateSearch/>
       </div>
       <div className="d-inline-block pt-30">
         <button

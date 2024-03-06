@@ -20,8 +20,8 @@ const isVendor=localStorage.getItem("accountType")
     }
   };
   const vendorId = localStorage.getItem('vendorID');
-  console.log(localStorage)
-console.log(vendorId)
+
+
   useEffect(() => {
     window.addEventListener("scroll", changeBackground);
     const body = document.querySelector("body");

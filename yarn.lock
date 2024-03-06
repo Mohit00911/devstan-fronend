@@ -2281,10 +2281,10 @@ react-modal-video@^2.0.1:
     react-transition-group "^4.4.2"
     stringify "^5.2.0"
 
-react-multi-date-picker@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.npmjs.org/react-multi-date-picker/-/react-multi-date-picker-4.4.0.tgz"
-  integrity sha512-bh7y1xh+yvl15/yPVXHnJVvaVAFjTApvZ4G6u4iY+OJouWYSt4COHuykniQD1/13XYe2PTHpdTz/uvBVCZFe0Q==
+react-multi-date-picker@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.npmjs.org/react-multi-date-picker/-/react-multi-date-picker-4.4.1.tgz"
+  integrity sha512-z0utCiMYijt2w3UoVJkYgsReE9l1k6DkiL13Vr2RKHnBnorKK0IYq7xpfkuMimvt7sLumFr5wTKsWumCgSkXkA==
   dependencies:
     react-date-object "^2.1.8"
     react-element-popper "^2.1.6"

@@ -7,21 +7,17 @@ import { BASE_URL } from "@/utils/headers";
 
 const Tours = () => {
   const [allTours,setAllTours]=useState("")
-  console.log(allTours)
+
   const fetchAllTours = async () => {
     try {
-
-      const response = await fetch(`${BASE_URL}/api/allTours`, {
-      });
-      
-      const data = await response.json();
-      setAllTours(data)
+      const response = await fetch(`${BASE_URL}/api/allTours`);
+        const data = await response.json();
+        setAllTours(data);
   
     } catch (error) {
       console.error("Error fetching tours:", error);
     }
   };
-
   useEffect(() => {
     
   

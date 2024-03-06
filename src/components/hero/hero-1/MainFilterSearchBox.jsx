@@ -21,7 +21,7 @@ const MainFilterSearchBox = ({ onTabChange }) => {
             }`}
             onClick={() => {
               dispatch(addCurrentTab(tab?.name));
-              onTabChange(tab?.name); // Call the callback function with the tab name
+              onTabChange(tab?.name);
             }}
           >
             {tab?.name}
@@ -33,8 +33,6 @@ const MainFilterSearchBox = ({ onTabChange }) => {
         <div className="mainSearch -w-900 bg-white px-10 py-10 lg:px-20 lg:pt-5 lg:pb-20 rounded-100">
           <div className="button-grid items-center">
             <LocationSearch />
-            {/* End Location */}
-
             <div className="searchMenu-date px-30 lg:py-20 lg:px-0 js-form-dd js-calendar">
               <div>
                 <h4 className="text-15 fw-500 ls-2 lh-16">
@@ -43,11 +41,8 @@ const MainFilterSearchBox = ({ onTabChange }) => {
                 <DateSearch />
               </div>
             </div>
-            {/* End check-in-out */}
 
             <GuestSearch />
-            {/* End guest */}
-
             <div className="button-item">
               <button
                 className="mainSearch__submit button -dark-1 h-60 px-35 col-12 rounded-100 bg-blue-1 text-white"
@@ -57,12 +52,10 @@ const MainFilterSearchBox = ({ onTabChange }) => {
                 Search
               </button>
             </div>
-            {/* End search button_item */}
           </div>
         </div>
-        {/* End .mainSearch */}
       </div>
-      {/* End serarchbox tab-content */}
+     
     </>
   );
 };

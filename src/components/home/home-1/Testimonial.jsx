@@ -2,8 +2,37 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar } from "swiper";
 import { testimonial1 } from "../../../data/testimonialData";
+import { BASE_URL } from "@/utils/headers";
+import { useEffect, useState } from "react";
 
 const Testimonial = () => {
+
+
+  const [testimonials,setTestimonials]=useState("")
+  const fetchAllTours = async () => {
+    try {
+
+      const response = await fetch(`${BASE_URL}/api/getTestimonials`)
+      const contentType = response.headers.get('content-type');
+      
+      
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+        console.log(data)
+        setTestimonials(data);
+      } else {
+        console.error('Unexpected response content type:', contentType);
+      }
+    } catch (error) {
+      console.error("Error fetching tours:", error);
+    }
+  };
+console.log(testimonials)
+  useEffect(() => {
+    
+  
+    fetchAllTours();
+  }, []);
   return (
     <>
       <Swiper
@@ -13,12 +42,12 @@ const Testimonial = () => {
         }}
         modules={[Scrollbar]}
       >
-        {testimonial1.map((item) => (
+        {testimonials  && testimonials.map((item) => (
           <SwiperSlide key={item.id}>
             <div className="row items-center x-gap-15 y-gap-20">
               <div className="col-auto">
                 <img
-                  src={item.avatar}
+                  src={item.image}
                   alt="image"
                   className="js-lazy rounded-circle"
                 />
@@ -26,12 +55,12 @@ const Testimonial = () => {
               <div className="col-auto">
                 <h5 className="text-16 fw-500">{item.name}</h5>
                 <div className="text-15 text-light-1 lh-15">
-                  {item.designation}
+                  {item.profile}
                 </div>
               </div>
             </div>
             <p className="text-18 fw-500 text-dark-1 mt-30 sm:mt-20">
-              {item.text}
+              {item.description}
             </p>
           </SwiperSlide>
         ))}

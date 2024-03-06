@@ -1,20 +1,26 @@
+import DateSearch from "@/components/hero/DateSearch";
 import Education from "./location/Education";
 import Health from "./location/Health";
 import Location from "./location/Location";
 import Sorroundings from "./location/Sorroundings";
 import Transportation from "./location/Transportation";
 import React, { useState } from "react";
+import DatePicker, { DateObject } from "react-multi-date-picker";
 import { v4 as uuidv4 } from "uuid";
-const LocationTabContent = ({ onDataFromChild,onSaveChanges}) => {
+const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
   const [tourData, setTourData] = useState({
-   
     cancellationPolicy: "",
     languages: "",
     highlights: "",
     whatsIncluded: "",
-    whatsExcluded:"",
-    availableDates:""
+    whatsExcluded: "",
+    availableDates: "",
   });
+
+  const [dates, setDates] = useState([
+    new DateObject().setDay(5),
+    new DateObject().setDay(14).add(1, "month"),
+  ]);
 
   const handleTourDataChange = (fieldName, value) => {
     setTourData((prevData) => ({
@@ -23,16 +29,20 @@ const LocationTabContent = ({ onDataFromChild,onSaveChanges}) => {
     }));
     onDataFromChild(tourData);
   };
- 
+  console.log(tourData)
+  const handleDateSelection = (selectedDates) => {
+    setDates(selectedDates);
+    const formattedDates = selectedDates
+    .map((dateObject) => dateObject.format("MMMM DD, YYYY"))
+    .join(" - ");
+    handleTourDataChange("availableDates", formattedDates);
+  };
   const handleSaveChanges = () => {
-    onSaveChanges(); 
-   
+    onSaveChanges();
   };
 
-  
   return (
     <div className="col-xl-10">
-      
       <div className="row x-gap-20 y-gap-20">
         <div className="col-12">
           <div className="form-input">
@@ -40,12 +50,15 @@ const LocationTabContent = ({ onDataFromChild,onSaveChanges}) => {
               type="text"
               required
               value={tourData.cancellationPolicy}
-              onChange={(e) => handleTourDataChange("cancellationPolicy", e.target.value)}
+              onChange={(e) =>
+                handleTourDataChange("cancellationPolicy", e.target.value)
+              }
             />
-            <label className="lh-1 text-16 text-light-1">Cancellation Policy</label>
+            <label className="lh-1 text-16 text-light-1">
+              Cancellation Policy
+            </label>
           </div>
         </div>
-    
 
         <div className="col-12">
           <div className="form-input">
@@ -54,9 +67,13 @@ const LocationTabContent = ({ onDataFromChild,onSaveChanges}) => {
               rows={5}
               defaultValue={""}
               value={tourData.languages}
-              onChange={(e) => handleTourDataChange("languages", e.target.value)}
+              onChange={(e) =>
+                handleTourDataChange("languages", e.target.value)
+              }
             />
-            <label className="lh-1 text-16 text-light-1">Available Languages</label>
+            <label className="lh-1 text-16 text-light-1">
+              Available Languages
+            </label>
           </div>
         </div>
 
@@ -66,7 +83,9 @@ const LocationTabContent = ({ onDataFromChild,onSaveChanges}) => {
               type="text"
               required
               value={tourData.highlights}
-              onChange={(e) => handleTourDataChange("highlights", e.target.value)}
+              onChange={(e) =>
+                handleTourDataChange("highlights", e.target.value)
+              }
             />
             <label className="lh-1 text-16 text-light-1">Highlights</label>
           </div>
@@ -77,7 +96,9 @@ const LocationTabContent = ({ onDataFromChild,onSaveChanges}) => {
               type="text"
               required
               value={tourData.whatsIncluded}
-              onChange={(e) => handleTourDataChange("whatsIncluded", e.target.value)}
+              onChange={(e) =>
+                handleTourDataChange("whatsIncluded", e.target.value)
+              }
             />
             <label className="lh-1 text-16 text-light-1">What's Included</label>
           </div>
@@ -89,21 +110,33 @@ const LocationTabContent = ({ onDataFromChild,onSaveChanges}) => {
               type="text"
               required
               value={tourData.whatsExcluded}
-              onChange={(e) => handleTourDataChange("whatsExcluded", e.target.value)}
+              onChange={(e) =>
+                handleTourDataChange("whatsExcluded", e.target.value)
+              }
             />
             <label className="lh-1 text-16 text-light-1">What's Excluded</label>
           </div>
         </div>
         <div className="col-12">
-          <div className="form-input">
-            <input
-              type="text"
-              required
-              value={tourData.availableDates}
-              onChange={(e) => handleTourDataChange("availableDates", e.target.value)}
-            />
-            <label className="lh-1 text-16 text-light-1">Available Dates</label>
-          </div>
+        <div className="col-12">
+      <div className="form-input">
+        <DatePicker
+          placeholder={<input type="text" required />}
+          inputClass="custom_input-picker"
+          containerClassName="custom_container-picker"
+          value={dates}
+          onChange={handleDateSelection}
+          numberOfMonths={2}
+          offsetY={10}
+          range
+          rangeHover
+          format="MMMM DD"
+        />
+        <label className="lh-1 text-16 text-light-1">
+          Available Dates
+        </label>
+      </div>
+    </div>
         </div>
       </div>
       <div className="d-inline-block pt-30">

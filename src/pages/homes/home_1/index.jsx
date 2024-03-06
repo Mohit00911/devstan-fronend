@@ -25,9 +25,7 @@ const Home_1 = () => {
   const [selectedTab, setSelectedTab] = useState('Hotel');
 
   const handleTabChange = (tabName) => {
-  
     setSelectedTab(tabName);
-   
   };
   
   return (

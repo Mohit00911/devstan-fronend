@@ -1,105 +1,87 @@
 import { useState, useEffect } from "react";
 import Pagination from "../../common/Pagination";
 import ActionsButton from "../components/ActionsButton";
-import { useNavigate } from 'react-router-dom';
-import CryptoJS from 'crypto-js';
+import { useNavigate } from "react-router-dom";
+import CryptoJS from "crypto-js";
 import { BASE_URL } from "@/utils/headers";
-
 
 const BookingTable = () => {
   const navigate = useNavigate();
- const [tours,setTours] =useState("")
+  const [tours, setTours] = useState("");
   const [activeTab, setActiveTab] = useState(0);
-const secretKey="sh121"
-const fetchTours = async () => {
-  try {
-    const vendorId = localStorage.getItem("vendorID");
+  const secretKey = "sh121";
+  const fetchTours = async () => {
+    try {
+      const vendorId = localStorage.getItem("vendorID");
 
-    const payload = {
-      vendorId
-    };
-    const response = await fetch(`${BASE_URL}/api/vendorTours`, {
-   
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-    
-    const data = await response.json();
-    console.log(data)
-    setTours(data);
-  } catch (error) {
-    console.error("Error fetching tours:", error);
-  }
-};
+      const payload = {
+        vendorId,
+      };
+      const response = await fetch(`${BASE_URL}/api/vendorTours`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+      console.log(data);
+      setTours(data);
+    } catch (error) {
+      console.error("Error fetching tours:", error);
+    }
+  };
   const handleEditClick = (tourId) => {
-
-   
     navigate(`/vendor-dashboard/edit-tour/${tourId}`);
   };
 
-  
-
   const handleEnableButtonClick = async (tourId) => {
     try {
-   
-     
-      // Make an API call to update the status in the backend
       const response = await fetch(`${BASE_URL}/api/updateTour/${tourId}`, {
-     
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ status: 'enabled' }),
+        body: JSON.stringify({ status: "enabled" }),
       });
-  
+
       if (response.ok) {
-        // Handle success
-        fetchTours()
-        console.log('API call successful');
+        fetchTours();
+        console.log("API call successful");
       } else {
-        // Handle error
-        console.error('API call failed');
+        console.error("API call failed");
       }
     } catch (error) {
-      console.error('Error:', error);
-    } 
+      console.error("Error:", error);
+    }
   };
-  
 
   const handleDeleteButtonClick = async (tourId) => {
     try {
-   
-     
       const response = await fetch(`${BASE_URL}/api/updateTour/${tourId}`, {
-      
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ status: 'disabled' }),
+        body: JSON.stringify({ status: "disabled" }),
       });
-  
+
       if (response.ok) {
         // Handle success
-        fetchTours()
-        console.log('API call successful');
+        fetchTours();
+        console.log("API call successful");
       } else {
         // Handle error
-        console.error('API call failed');
+        console.error("API call failed");
       }
     } catch (error) {
-      console.error('Error:', error);
-    } 
+      console.error("Error:", error);
+    }
   };
   const handleTabClick = (index) => {
     setActiveTab(index);
   };
-
-
   const tabItems = [
     "All Tours",
     "Completed",
@@ -111,8 +93,6 @@ const fetchTours = async () => {
     "Partial Payment",
   ];
   useEffect(() => {
-    
-  
     fetchTours();
   }, []);
   // Empty dependency array to run the effect only once on mount
@@ -161,92 +141,88 @@ const fetchTours = async () => {
                     <th>Action</th>
                   </tr>
                 </thead>
-               
+
                 <tbody>
-              
-                {
-  tours && tours.map((item) => (
-    
-    <tr key={item._id}>
-    {console.log(item.status)}
-      <td>
-        <div className="d-flex items-center">
-          <div className="form-checkbox ">
-            <input type="checkbox" name="name" />
-            <div className="form-checkbox__mark">
-              <div className="form-checkbox__icon icon-check" />
-            </div>
-          </div>
-        </div>
-      </td>
-      <td className="text-blue-1 fw-500">{item.name}</td>
-      <td>{item.location}</td>
-      <td>{item.vendorName}</td>
-      <td>
-      {item.status === 'confirmed' && (
-  <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-blue-1-05 text-blue-1">
-    Confirmed
-  </span>
-)}
-{item.status === 'pending' && (
-  <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-1 text-yellow-2">
-    Pending
-  </span>
-)}
-{item.status === 'disabled' && (
-  <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-red-1 text-white-2">
-    Disabled
-  </span>
-)}
-{item.status === 'enabled' && (
-  <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-green-1 text-green-2">
-    Enabled
-  </span>
-)}
+                  {tours &&
+                    tours.map((item) => (
+                      <tr key={item._id}>
+                        {console.log(item.status)}
+                        <td>
+                          <div className="d-flex items-center">
+                            <div className="form-checkbox ">
+                              <input type="checkbox" name="name" />
+                              <div className="form-checkbox__mark">
+                                <div className="form-checkbox__icon icon-check" />
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="text-blue-1 fw-500">{item.name}</td>
+                        <td>{item.location}</td>
+                        <td>{item.vendorName}</td>
+                        <td>
+                          {item.status === "confirmed" && (
+                            <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-blue-1-05 text-blue-1">
+                              Confirmed
+                            </span>
+                          )}
+                          {item.status === "pending" && (
+                            <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-1 text-yellow-2">
+                              Pending
+                            </span>
+                          )}
+                          {item.status === "disabled" && (
+                            <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-red-1 text-white-2">
+                              Disabled
+                            </span>
+                          )}
+                          {item.status === "enabled" && (
+                            <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-green-1 text-green-2">
+                              Enabled
+                            </span>
+                          )}
+                        </td>
+                        <td>
+                          <div className="rounded-4 size-35 bg-blue-1 text-white flex-center text-12 fw-600">
+                            4.8
+                          </div>
+                        </td>
 
-      </td>
-      <td>
-        <div className="rounded-4 size-35 bg-blue-1 text-white flex-center text-12 fw-600">
-          4.8
-        </div>
-      </td>
-
-      <td>{new Date(item.createdAt).toLocaleDateString()}</td>
-      <td>
-        <div className="row x-gap-10 y-gap-10 items-center">
-          <div className="col-auto">
-            <button className="flex-center bg-light-2 rounded-4 size-35"
-                        onClick={() => handleEnableButtonClick(item.uuid)}
-            >
-              <i className="icon-eye text-16 text-light-1" />
-            </button>
-          </div>
-          <div className="col-auto">
-            <button className="flex-center bg-light-2 rounded-4 size-35"
-            
-            onClick={() => handleEditClick(item.uuid)}>
-            
-              <i className="icon-edit text-16 text-light-1" />
-            </button>
-          </div>
-          <div className="col-auto">
-            <button className="flex-center bg-light-2 rounded-4 size-35"
-          
-            onClick={() => handleDeleteButtonClick(item.uuid)}>
-           
-            
-            
-              <i className="icon-trash-2 text-16 text-light-1" />
-            </button>
-          </div>
-        </div>
-      </td>
-    </tr>
-  ))
-}
-
-
-                
+                        <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+                        <td>
+                          <div className="row x-gap-10 y-gap-10 items-center">
+                            <div className="col-auto">
+                              <button
+                                className="flex-center bg-light-2 rounded-4 size-35"
+                                onClick={() =>
+                                  handleEnableButtonClick(item.uuid)
+                                }
+                              >
+                                <i className="icon-eye text-16 text-light-1" />
+                              </button>
+                            </div>
+                            <div className="col-auto">
+                              <button
+                                className="flex-center bg-light-2 rounded-4 size-35"
+                                onClick={() => handleEditClick(item.uuid)}
+                              >
+                                <i className="icon-edit text-16 text-light-1" />
+                              </button>
+                            </div>
+                            <div className="col-auto">
+                              <button
+                                className="flex-center bg-light-2 rounded-4 size-35"
+                                onClick={() =>
+                                  handleDeleteButtonClick(item.uuid)
+                                }
+                              >
+                                <i className="icon-trash-2 text-16 text-light-1" />
+                              </button>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
                 {/* End tbody */}
               </table>

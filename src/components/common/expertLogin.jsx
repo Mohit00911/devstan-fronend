@@ -51,7 +51,7 @@ const ExpertLoginForm = () => {
       console.error("Error during login:", error);
     }
   };
-  console.log(localStorage)
+
   return (
     <form className="row y-gap-20">
       <div className="col-12">
