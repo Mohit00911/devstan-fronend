@@ -1,13 +1,13 @@
 import MainFilterSearchBox from "./MainFilterSearchBox";
-import React, { useState } from 'react';
-const index = ({ onTabChange }) => {
- 
-  const handleTabChange = (tabName) => {
-    // Do something with the tabName, for example, set it in the state
-    onTabChange(tabName);
-   
-  }
 
+import MainFilterSearchBoxTour from "./MainFilterSearchBoxTour";
+import React, { useState } from 'react';
+const index = ({ onTabChange}) => {
+  const [selectedTab, setSelectedTab] = useState('Hotel');
+  const handleTabChange = (tabName) => {
+    setSelectedTab(tabName)
+    onTabChange(tabName);
+  }
 
   return (
     <section className="masthead -type-1 z-5">
@@ -32,16 +32,18 @@ const index = ({ onTabChange }) => {
                 Discover amzaing places at exclusive deals
               </p>
             </div>
-            {/* End hero title */}
+          
 
             <div
               className="tabs -underline mt-60 js-tabs"
               data-aos="fade-up"
               data-aos-delay="200"
             >
-              <MainFilterSearchBox onTabChange={handleTabChange} />
+            {selectedTab == "Hotel" ? <MainFilterSearchBox onTabChange={handleTabChange} />:null}
+            {selectedTab == "Tour" ?  <MainFilterSearchBoxTour onTabChange={handleTabChange} />:null}
+             
             </div>
-            {/* End tab-filter */}
+           
           </div>
         </div>
       </div>

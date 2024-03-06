@@ -11,10 +11,11 @@ import Testimonial from "@/components/home/home-1/Testimonial";
 import TestimonialLeftCol from "@/components/home/home-1/TestimonialLeftCol";
 import Hotels from "@/components/hotels/Hotels";
 import SelectFilter from "@/components/hotels/filter-tabs/SelectFilter";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import MetaComponent from "@/components/common/MetaComponent";
 import Tours from "@/components/tours/Tours";
+import { BASE_URL } from "@/utils/headers";
 
 const metadata = {
   title: "Home-1 || GoTrip - Travel & Tour ReactJs Template",
@@ -23,6 +24,8 @@ const metadata = {
 
 const Home_1 = () => {
   const [selectedTab, setSelectedTab] = useState('Hotel');
+  
+
 
   const handleTabChange = (tabName) => {
     setSelectedTab(tabName);
@@ -44,7 +47,7 @@ const Home_1 = () => {
           <div className="row y-gap-20 justify-between items-end">
             <div className="col-auto">
               <div className="sectionTitle -md">
-                <h2 className="sectionTitle__title">Popular Destinations</h2>
+                <h2 className="sectionTitle__title">Popular Destinations</h2>s
                 <p className=" sectionTitle__text mt-5 sm:mt-0">
                   These popular destinations have a lot to offer
                 </p>

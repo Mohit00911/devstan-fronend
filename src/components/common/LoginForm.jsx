@@ -11,9 +11,13 @@ const LoginForm = () => {
     password: "",
     accountType:"user"
   });
+
+  
   const [showLoader, setshowLoader] = useState(false);
   const [error, setError] = useState(null); // Add error state
   const navigate = useNavigate();
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials((prevCredentials) => ({

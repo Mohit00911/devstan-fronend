@@ -152,7 +152,7 @@ function App() {
                 <Route path="recovery" element={<BDVendorRecovery />} />
               </Route>
 
-              <Route path="hotel-list-v1" element={<HotelListPage1 />} />
+              <Route path="/tour-list-v1" element={<HotelListPage1 />} queryParams={['location', 'date']} />
               <Route path="hotel-list-v2" element={<HotelListPage2 />} />
               <Route path="hotel-list-v3" element={<HotelListPage3 />} />
               <Route path="hotel-list-v4" element={<HotelListPage4 />} />

@@ -224,7 +224,7 @@ const BookingTable = () => {
                       </tr>
                     ))}
                 </tbody>
-                {/* End tbody */}
+               
               </table>
             </div>
           </div>

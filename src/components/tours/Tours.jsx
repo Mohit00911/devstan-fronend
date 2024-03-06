@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "@/utils/headers";
 
 const Tours = () => {
+
   const [allTours,setAllTours]=useState("")
 
   const fetchAllTours = async () => {
@@ -14,13 +15,14 @@ const Tours = () => {
         const data = await response.json();
         setAllTours(data);
   
+
     } catch (error) {
       console.error("Error fetching tours:", error);
     }
   };
   useEffect(() => {
-    
-  
+
+
     fetchAllTours();
   }, []);
   var settings = {
@@ -126,26 +128,23 @@ const Tours = () => {
 
                   <div className="cardImage__leftBadge">
                     <div
-                      className={`py-5 px-15 rounded-right-4 text-12 lh-16 fw-500 uppercase ${
-                        isTextMatched(item?.tag, "likely to sell out*")
+                      className={`py-5 px-15 rounded-right-4 text-12 lh-16 fw-500 uppercase ${isTextMatched(item?.tag, "likely to sell out*")
                           ? "bg-dark-1 text-white"
                           : ""
-                      } ${
-                        isTextMatched(item?.tag, "best seller")
+                        } ${isTextMatched(item?.tag, "best seller")
                           ? "bg-blue-1 text-white"
                           : ""
-                      }  ${
-                        isTextMatched(item?.tag, "top rated")
+                        }  ${isTextMatched(item?.tag, "top rated")
                           ? "bg-yellow-1 text-dark-1"
                           : ""
-                      }`}
+                        }`}
                     >
                       {item.tag}
                     </div>
                   </div>
                 </div>
               </div>
-            
+
 
               <div className="tourCard__content mt-10">
                 <div className="d-flex items-center lh-14 mb-5">
@@ -172,7 +171,7 @@ const Tours = () => {
                         <div className="icon-star text-yellow-1 text-10" />
                         <div className="icon-star text-yellow-1 text-10" />
                       </div>
-                    
+
 
                       <div className="text-14 text-light-1 ml-10">
                         {item?.numberOfReviews} reviews

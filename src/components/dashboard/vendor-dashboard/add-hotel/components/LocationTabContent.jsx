@@ -29,7 +29,7 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
     }));
     onDataFromChild(tourData);
   };
-  console.log(tourData)
+  
   const handleDateSelection = (selectedDates) => {
     setDates(selectedDates);
     const formattedDates = selectedDates

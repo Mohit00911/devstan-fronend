@@ -5,7 +5,7 @@ import GuestSearch from "./GuestSearch";
 import LocationSearch from "./LocationSearch";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
-const MainFilterSearchBox = ({ onTabChange }) => {
+const MainFilterSearchBox = ({ onTabChange}) => {
   const { tabs, currentTab } = useSelector((state) => state.hero) || {};
   const dispatch = useDispatch();
   const navigate = useNavigate();

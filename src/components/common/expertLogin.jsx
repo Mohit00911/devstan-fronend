@@ -3,6 +3,8 @@ import { useState } from "react";
 import {  useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { BASE_URL } from '../../utils/headers'
+import Loader from "../loader/loader";
+
 import 'react-toastify/dist/ReactToastify.css';
 
 const ExpertLoginForm = () => {
@@ -11,6 +13,8 @@ const ExpertLoginForm = () => {
     password: "",
     accountType:"vendor"
   });
+
+  const [showLoader, setshowLoader] = useState(false);
   const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,9 +25,9 @@ const ExpertLoginForm = () => {
   };
 
   const handleSubmitExpert = async (e) => {
-  
     e.preventDefault();
     try {
+      setshowLoader(true)
       const response = await fetch(`${BASE_URL}/expert/login`, {
         method: "POST",
         headers: {
@@ -101,14 +105,18 @@ const ExpertLoginForm = () => {
       {/* End .col */}
 
       <div className="col-12">
-        <button
-          type="submit"
-          onClick={handleSubmitExpert}
-          className="button py-20 -dark-1 bg-blue-1 text-white w-100"
-        >
-          Sign In <div className="icon-arrow-top-right ml-15" />
-        </button>
-      </div>
+  {showLoader ? (
+    <Loader />
+  ) : (
+    <button
+      type="submit"
+      className="button py-20 -dark-1 bg-blue-1 text-white w-100"
+      onClick={handleSubmitExpert}
+    >
+      Sign Up <div className="icon-arrow-top-right ml-15" />
+    </button>
+  )}
+</div>
       {/* End .col */}
     </form>
   );
