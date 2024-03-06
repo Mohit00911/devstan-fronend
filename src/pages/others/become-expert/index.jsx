@@ -45,6 +45,23 @@ const BecomeExpert = () => {
                 >
                   Register
                 </Link>
+
+                <Link
+                  to="/expert-login"
+                  className="button -md -blue-1 w-180 bg-blue-1 text-white text-dark-1 mt-30 md:mt-20"
+                >
+                  Login
+                </Link>
+
+                {/* <Link
+                      to="/become-expert"
+                      className="button px-30 fw-400 text-14 -blue-1 bg-blue-1 h-50 text-white"
+                    >
+                      Become An Expert
+                    </Link> */}
+
+                
+                
               </div>
             </div>
           </div>

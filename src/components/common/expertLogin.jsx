@@ -3,9 +3,9 @@ import { useState } from "react";
 import {  useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { BASE_URL } from '../../utils/headers'
-import Loader from "../loader/loader";
 
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from "../loader/loader";
 
 const ExpertLoginForm = () => {
   const [credentials, setCredentials] = useState({
@@ -111,6 +111,7 @@ const ExpertLoginForm = () => {
     <button
       type="submit"
       className="button py-20 -dark-1 bg-blue-1 text-white w-100"
+      onClick={handleSubmitExpert}
     >
       Sign Up <div className="icon-arrow-top-right ml-15" />
     </button>

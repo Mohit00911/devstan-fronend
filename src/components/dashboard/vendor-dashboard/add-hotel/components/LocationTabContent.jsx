@@ -1,20 +1,20 @@
-import Education from "./location/Education";
-import Health from "./location/Health";
-import Location from "./location/Location";
-import Sorroundings from "./location/Sorroundings";
-import Transportation from "./location/Transportation";
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-const LocationTabContent = ({ onDataFromChild,onSaveChanges}) => {
+import Loader from "@/components/loader/loader";
+
+const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
   const [tourData, setTourData] = useState({
-   
     cancellationPolicy: "",
     languages: "",
     highlights: "",
     whatsIncluded: "",
-    whatsExcluded:"",
-    availableDates:""
+    whatsExcluded: "",
+    availableDates: ""
   });
+
+  const [error, setError] = useState("");
+  const [showLoader, setShowLoader] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handleTourDataChange = (fieldName, value) => {
     setTourData((prevData) => ({
@@ -22,17 +22,40 @@ const LocationTabContent = ({ onDataFromChild,onSaveChanges}) => {
       [fieldName]: value,
     }));
     onDataFromChild(tourData);
-  };
- 
-  const handleSaveChanges = () => {
-    onSaveChanges(); 
-   
+    setError(""); // Clear error when user fills in any input field
   };
 
-  
+  const handleSaveChanges = () => {
+    if (isAnyFieldFilled()) {
+      setShowLoader(true);
+      onSaveChanges()
+        .then(() => {
+          setShowLoader(false);
+          setShowSuccessMessage(true);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          setShowLoader(false);
+          // Handle error if necessary
+        });
+    } else {
+      setShowLoader(false);
+      setShowSuccessMessage(false);
+      setError("Please fill at least one input field.");
+    }
+  };
+
+  const isAnyFieldFilled = () => {
+    for (let key in tourData) {
+      if (tourData[key].trim() !== "") {
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
     <div className="col-xl-10">
-      
       <div className="row x-gap-20 y-gap-20">
         <div className="col-12">
           <div className="form-input">
@@ -40,13 +63,17 @@ const LocationTabContent = ({ onDataFromChild,onSaveChanges}) => {
               type="text"
               required
               value={tourData.cancellationPolicy}
-              onChange={(e) => handleTourDataChange("cancellationPolicy", e.target.value)}
+              onChange={(e) =>
+                handleTourDataChange("cancellationPolicy", e.target.value)
+              }
             />
-            <label className="lh-1 text-16 text-light-1">Cancellation Policy</label>
+            <label className="lh-1 text-16 text-light-1">
+              Cancellation Policy
+            </label>
           </div>
         </div>
-    
 
+        {/* Other input fields */}
         <div className="col-12">
           <div className="form-input">
             <textarea
@@ -54,9 +81,13 @@ const LocationTabContent = ({ onDataFromChild,onSaveChanges}) => {
               rows={5}
               defaultValue={""}
               value={tourData.languages}
-              onChange={(e) => handleTourDataChange("languages", e.target.value)}
+              onChange={(e) =>
+                handleTourDataChange("languages", e.target.value)
+              }
             />
-            <label className="lh-1 text-16 text-light-1">Available Languages</label>
+            <label className="lh-1 text-16 text-light-1">
+              Available Languages
+            </label>
           </div>
         </div>
 
@@ -66,7 +97,9 @@ const LocationTabContent = ({ onDataFromChild,onSaveChanges}) => {
               type="text"
               required
               value={tourData.highlights}
-              onChange={(e) => handleTourDataChange("highlights", e.target.value)}
+              onChange={(e) =>
+                handleTourDataChange("highlights", e.target.value)
+              }
             />
             <label className="lh-1 text-16 text-light-1">Highlights</label>
           </div>
@@ -77,7 +110,9 @@ const LocationTabContent = ({ onDataFromChild,onSaveChanges}) => {
               type="text"
               required
               value={tourData.whatsIncluded}
-              onChange={(e) => handleTourDataChange("whatsIncluded", e.target.value)}
+              onChange={(e) =>
+                handleTourDataChange("whatsIncluded", e.target.value)
+              }
             />
             <label className="lh-1 text-16 text-light-1">What's Included</label>
           </div>
@@ -89,7 +124,9 @@ const LocationTabContent = ({ onDataFromChild,onSaveChanges}) => {
               type="text"
               required
               value={tourData.whatsExcluded}
-              onChange={(e) => handleTourDataChange("whatsExcluded", e.target.value)}
+              onChange={(e) =>
+                handleTourDataChange("whatsExcluded", e.target.value)
+              }
             />
             <label className="lh-1 text-16 text-light-1">What's Excluded</label>
           </div>
@@ -100,19 +137,29 @@ const LocationTabContent = ({ onDataFromChild,onSaveChanges}) => {
               type="text"
               required
               value={tourData.availableDates}
-              onChange={(e) => handleTourDataChange("availableDates", e.target.value)}
+              onChange={(e) =>
+                handleTourDataChange("availableDates", e.target.value)
+              }
             />
             <label className="lh-1 text-16 text-light-1">Available Dates</label>
           </div>
         </div>
       </div>
+      {error && <div className="text-danger">{error}</div>}
+      {showSuccessMessage && (
+        <div className="text-success">Tour Information saved successfully!</div>
+      )}
       <div className="d-inline-block pt-30">
-        <button
-          onClick={handleSaveChanges}
-          className="button h-50 px-24 -dark-1 bg-blue-1 text-white"
-        >
-          Save Changes <div className="icon-arrow-top-right ml-15" />
-        </button>
+        {showLoader ? (
+          <Loader />
+        ) : (
+          <button
+            onClick={handleSaveChanges}
+            className="button h-50 px-24 -dark-1 bg-blue-1 text-white"
+          >
+            Save Changes <div className="icon-arrow-top-right ml-15" />
+          </button>
+        )}
       </div>
     </div>
   );
