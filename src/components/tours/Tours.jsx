@@ -103,6 +103,7 @@ const Tours = () => {
     <>
       <Slider {...settings}>
         {allTours && allTours.map((item) => (
+        
           <div
             key={item?.uuid}
             data-aos="fade"
@@ -112,6 +113,12 @@ const Tours = () => {
               to={`/tour-single/${item.id}`}
               className="tourCard -type-1 rounded-4 hover-inside-slider"
             >
+              <img
+                            className="col-12 js-lazy"
+                            // src={slide}
+                            src="/img/dummy/7.webp"
+                            alt="image"
+                          />
               <div className="tourCard__image position-relative">
                 <div className="inside-slider">
                   <Slider
@@ -161,6 +168,7 @@ const Tours = () => {
 
               <div className="tourCard__content mt-10">
                 <div className="d-flex items-center lh-14 mb-5">
+                
                   <div className="text-14 text-light-1">
                     {item?.duration}+ hours
                   </div>

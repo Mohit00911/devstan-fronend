@@ -54,6 +54,8 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges, initialValues }) =>
           // Handle error if necessary
         });
     } else {
+      setShowLoader(false);
+      setShowSuccessMessage(false);
       setError("Please fill at least one input field.");
     }
   };
