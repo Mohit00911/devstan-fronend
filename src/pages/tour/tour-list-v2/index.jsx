@@ -21,6 +21,8 @@ import MainFilterSearchBox from "../../../components/tour-list/tour-list-v2/Main
 import DateSearch from "../../../components/hero/DateSearch";
 import LocationSearch from "../../../components/hero/hero-1/LocationSearch";
 import { useNavigate } from "react-router-dom";
+
+
 const metadata = {
   title: "Tour List v2 || GoTrip - Travel & Tour ReactJs Template",
   description: "GoTrip - Travel & Tour ReactJs Template",
@@ -38,6 +40,8 @@ const TourListPage2 = ({ onTabChange}) => {
   const [tours, setTours] = useState("");
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
+
+
   const searchTours = async () => {
     try {
       const locationParam = queryParams.get("location");
@@ -73,6 +77,7 @@ console.log("hii")
       <div className="header-margin"></div>
       <Header11 />
       <section className="layout-pt-md layout-pb-lg">
+     
         <div className="container">
           <div className="row y-gap-30">
             <div className="col-xl-3">
@@ -120,6 +125,7 @@ console.log("hii")
         <div className="button-item h-full"
          onClick={handleSearch}
         >
+  
           <button className="button -dark-1 py-15 px-40 h-full col-12 rounded-0 bg-blue-1 text-white"
          
           >
@@ -129,6 +135,7 @@ console.log("hii")
             
             Search
           </button>
+
         </div>
         {/* End search button_item */}
       </div>
@@ -236,7 +243,13 @@ console.log("hii")
               <TopHeaderFilter />
               <div className="mt-30"></div>
               <div className="row y-gap-30">
-                {tours &&
+              
+
+                {tours.length === 0 ?(
+                   <div className="text-center">
+                    <img src="/img/general/noData.png"/>
+                   </div>
+                ) :(
                   tours.map((item) => (
                     <div
                       className="col-lg-4 col-sm-6"
@@ -349,6 +362,7 @@ console.log("hii")
                         </div>
                       </Link>
                     </div>
+                  )
                   ))}
 
                 {/* <TourProperties tours={tours}/> */}

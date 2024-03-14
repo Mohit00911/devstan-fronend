@@ -34,6 +34,7 @@ const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
       }));
     }
     onDataFromChild(tourData);
+    setError("");
   };
 
   const handleSaveChanges = () => {
@@ -74,14 +75,27 @@ const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
     });
   };
 
+  // const isAnyFieldFilled = () => {
+  //   for (let key in tourData) {
+  //     if (typeof tourData[key] === "string" || tourData[key].trim() !== "") {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // };
+
   const isAnyFieldFilled = () => {
     for (let key in tourData) {
-      if (typeof tourData[key] === "string" || tourData[key].trim() !== "") {
-        return true;
-      }
+        if (Array.isArray(tourData[key])) {
+            if (tourData[key].some(item => typeof item === "string" && item.trim() !== "")) {
+                return true;
+            }
+        } else if (typeof tourData[key] === "string" && tourData[key].trim() !== "") {
+            return true;
+        }
     }
     return false;
-  };
+};
 
   return (
     <div className="col-xl-9 col-lg-11">

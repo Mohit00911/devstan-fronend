@@ -64,6 +64,9 @@ const LocationTabContentEdit = ({
     }
   };
 
+  
+ 
+
   const handleSaveChanges = async () => {
     if (Object.values(tourData).every((value) => value === "")) {
       setShowErrorMessage(true);

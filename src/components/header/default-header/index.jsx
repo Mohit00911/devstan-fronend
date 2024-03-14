@@ -36,13 +36,17 @@ const Header1 = () => {
               <div className="d-flex items-center">
                 {vendorId ? (
                   <div to="/" className="header-logo mr-20">
-                    <img src="/img/general/logo-dark.svg" alt="logo icon" />
-                    <img src="/img/general/logo-dark.svg" alt="logo icon" />
+                    {/* <img src="/img/general/logo-dark.svg" alt="logo icon" />
+                    <img src="/img/general/logo-dark.svg" alt="logo icon" /> */}
+          <img src="/img/logo/logo.png" alt="logo"/>
+
                   </div>
                 ) : (
                   <Link to="/" className="header-logo mr-20">
-                    <img src="/img/general/logo-dark.svg" alt="logo icon" />
-                    <img src="/img/general/logo-dark.svg" alt="logo icon" />
+                    {/* <img src="/img/general/logo-dark.svg" alt="logo icon" />
+                    <img src="/img/general/logo-dark.svg" alt="logo icon" /> */}
+          <img src="/img/logo/logo.png" alt="logo"/>
+
                   </Link>
                 )}
 

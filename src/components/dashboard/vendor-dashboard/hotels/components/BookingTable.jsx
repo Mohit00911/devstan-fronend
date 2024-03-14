@@ -99,6 +99,7 @@ const BookingTable = () => {
 
   return (
     <>
+    
       <div className="tabs -underline-2 js-tabs">
         <div className="tabs__controls row x-gap-40 y-gap-10 lg:x-gap-20 js-tabs-controls">
           {tabItems.map((item, index) => (
@@ -143,7 +144,13 @@ const BookingTable = () => {
                 </thead>
 
                 <tbody>
-                  {tours &&
+
+                  {
+                  tours.length === 0 ? (
+    <tr>
+      <td colSpan="8" className="text-center"><img src="/img/general/noData.png"/></td>
+    </tr>
+  ) : (
                     tours.map((item) => (
                       <tr key={item._id}>
                         {console.log(item.status)}
@@ -222,7 +229,11 @@ const BookingTable = () => {
                           </div>
                         </td>
                       </tr>
-                    ))}
+                      
+                    ))
+  )
+                  }
+      
                 </tbody>
                
               </table>

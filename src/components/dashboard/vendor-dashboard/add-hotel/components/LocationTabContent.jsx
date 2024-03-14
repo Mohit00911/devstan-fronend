@@ -51,6 +51,7 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
       }));
     }
     onDataFromChild(tourData);
+    setError("");
   };
 
   const handleDateSelection = (selectedDates) => {
@@ -80,14 +81,27 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
     }
   };
 
+  // const isAnyFieldFilled = () => {
+  //   for (let key in tourData) {
+  //     if (typeof tourData[key] === "string" || tourData[key].trim() !== "") {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // };
+
   const isAnyFieldFilled = () => {
     for (let key in tourData) {
-      if (typeof tourData[key] === "string" || tourData[key].trim() !== "") {
-        return true;
-      }
+        if (Array.isArray(tourData[key])) {
+            if (tourData[key].some(item => typeof item === "string" && item.trim() !== "")) {
+                return true;
+            }
+        } else if (typeof tourData[key] === "string" && tourData[key].trim() !== "") {
+            return true;
+        }
     }
     return false;
-  };
+};
 
   const handleAddFieldLanguage = () => {
     setTourData({ ...tourData, languages: [...tourData.languages, ""] });
