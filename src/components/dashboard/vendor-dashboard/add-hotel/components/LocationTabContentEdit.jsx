@@ -19,7 +19,9 @@ const LocationTabContentEdit = ({
  
   const [showLoader, setShowLoader] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  // const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [error, setError] = useState("");
+
 
   useEffect(() => {
     const commonFields = Object.keys(initialValues).reduce((acc, field) => {
@@ -62,27 +64,60 @@ const LocationTabContentEdit = ({
         return updatedData;
       });
     }
+    setError("");
   };
 
   
  
 
-  const handleSaveChanges = async () => {
-    if (Object.values(tourData).every((value) => value === "")) {
-      setShowErrorMessage(true);
-      return;
-    }
+  // const handleSaveChanges = async () => {
+  //   if (Object.values(tourData).every((value) => value === "")) {
+  //     setShowErrorMessage(true);
+  //     return;
+  //   }
 
-    setShowLoader(true);
-    try {
-      await onSaveChanges();
-      setShowSuccessMessage(true);
-    } catch (error) {
-      console.error("Error occurred:", error);
-    } finally {
+  //   setShowLoader(true);
+  //   try {
+  //     await onSaveChanges();
+  //     setShowSuccessMessage(true);
+  //   } catch (error) {
+  //     console.error("Error occurred:", error);
+  //   } finally {
+  //     setShowLoader(false);
+  //   }
+  // };
+
+  const handleSaveChanges = () => {
+    if (isAnyFieldFilled()) {
+      setShowLoader(true);
+      onSaveChanges()
+        .then(() => {
+          setShowLoader(false);
+          setShowSuccessMessage(true);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          setShowLoader(false);
+        });
+    } else {
       setShowLoader(false);
+      setShowSuccessMessage(false);
+      setError("Please fill at least one input field.");
     }
   };
+
+  const isAnyFieldFilled = () => {
+    for (let key in tourData) {
+        if (Array.isArray(tourData[key])) {
+            if (tourData[key].some(item => typeof item === "string" && item.trim() !== "")) {
+                return true;
+            }
+        } else if (typeof tourData[key] === "string" && tourData[key].trim() !== "") {
+            return true;
+        }
+    }
+    return false;
+};
 
   const handleAddFieldLanguage = () => {
     setTourData({ ...tourData, languages: [...tourData.languages, ""] });
@@ -219,10 +254,10 @@ const LocationTabContentEdit = ({
 
         <DateSearch />
       </div>
-      {showErrorMessage && (
-        <div className="text-error">Please enter at least one field.</div>
-      )}
-      {showSuccessMessage && !showErrorMessage && (
+      {error && 
+        <div className="text-danger">{error}</div>
+      }
+      {showSuccessMessage  && (
         <div className="text-success">Changes saved successfully.</div>
       )}
       <div className="d-inline-block pt-30">

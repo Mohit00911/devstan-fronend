@@ -165,6 +165,7 @@ const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
         ))}
         <button onClick={handleAddFieldknowBeforeYouGo}>Add</button>
 
+
         {tourData.additionalInfo.map((additionalInfo, index) => (
           <div key={index} className="col-12">
             <div className="form-input">

@@ -1,13 +1,7 @@
-
-
 import React, { useState, useEffect } from "react";
 import Loader from "@/components/loader/loader";
 
-const PricingTabContent = ({
-  onDataFromChild,
-  onSaveChanges,
-  initialValues,
-}) => {
+const PricingTabContentEdit = ({onDataFromChild, onSaveChanges, initialValues,}) => {
   const [tourData, setTourData] = useState({
     departureDetails: "",
     inclusions: [""],
@@ -53,7 +47,33 @@ const PricingTabContent = ({
         return updatedData;
       });
     }
+    setError("");
   };
+
+  const handleSaveChanges = () => {
+    if (isAnyFieldFilled()) {
+      setShowLoader(true);
+      onSaveChanges()
+        .then(() => {
+          setShowLoader(false);
+          setShowSuccessMessage(true);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          setShowLoader(false);
+          // Handle error if necessary
+        });
+    } else {
+      setShowLoader(false);
+      setShowSuccessMessage(false);
+      setError("Please fill at least one input field.");
+    }
+  };
+
+  
+  
+
+
   const handleAddFieldExclusions = () => {
     setTourData({ ...tourData, exclusions: [...tourData.exclusions, ""] });
   };
@@ -72,36 +92,49 @@ const PricingTabContent = ({
       additionalInfo: [...tourData.additionalInfo, ""],
     });
   };
-  const handleSaveChanges = () => {
-    if (isAnyFieldFilled()) {
-      setShowLoader(true);
-      onSaveChanges()
-        .then(() => {
-          setShowLoader(false);
-          setShowSuccessMessage(true);
-          setTimeout(() => setShowSuccessMessage(false), 3000);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          setShowLoader(false);
-        });
-    } else {
-      setError("Please fill at least one input field.");
-    }
-  };
+
+  // const handleSaveChanges = () => {
+  //   if (isAnyFieldFilled()) {
+  //     setShowLoader(true);
+  //     onSaveChanges()
+  //       .then(() => {
+  //         setShowLoader(false);
+  //         setShowSuccessMessage(true);
+  //         setTimeout(() => setShowSuccessMessage(false), 3000);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error:", error);
+  //         setShowLoader(false);
+  //       });
+  //   } else {
+  //     setError("Please fill at least one input field.");
+  //   }
+  // };
+
+  
+ 
 
   const isAnyFieldFilled = () => {
     for (let key in tourData) {
-      if (tourData[key].trim() !== "") {
-        return true;
-      }
+        if (Array.isArray(tourData[key])) {
+            if (tourData[key].some(item => typeof item === "string" && item.trim() !== "")) {
+                return true;
+            }
+        } else if (typeof tourData[key] === "string" && tourData[key].trim() !== "") {
+            return true;
+        }
     }
     return false;
-  };
+};
+
+
+
+
 
   return (
     <div className="col-xl-9 col-lg-11">
       <div className="row x-gap-20 y-gap-20">
+       
         <div className="col-12">
           <div className="form-input">
             <input
@@ -118,9 +151,12 @@ const PricingTabContent = ({
             </label>
           </div>
         </div>
-        <div className="col-12">
+
+
           {tourData.inclusions.map((item, index) => (
-            <div key={index} className="form-input">
+        <div key={index} className="col-12">
+
+            <div  className="form-input">
               <input
                 type="text"
                 name="inclusions"
@@ -132,12 +168,14 @@ const PricingTabContent = ({
               />
               <label className="lh-1 text-16 text-light-1">Inclusions</label>
             </div>
+            </div>
           ))}
-          <button onClick={handleAddFieldinclusions}>Add</button>
-        </div>
-        <div className="col-12">
+          <button className="button col-1 h-30  -dark-1 bg-blue-1 text-white" onClick={handleAddFieldinclusions}>Add</button>
+
+
           {tourData.exclusions.map((item, index) => (
-            <div key={index} className="form-input">
+        <div key={index} className="col-12">
+            <div  className="form-input">
               <input
                 type="text"
                 name="exclusions"
@@ -149,12 +187,14 @@ const PricingTabContent = ({
               />
               <label className="lh-1 text-16 text-light-1">Exclusions</label>
             </div>
+            </div>
           ))}
-        </div>
-        <button onClick={handleAddFieldExclusions}>Add</button>
-        <div className="col-12">
+        <button className="button col-1 h-30  -dark-1 bg-blue-1 text-white" onClick={handleAddFieldExclusions}>Add</button>
+
+
           {tourData.knowBeforeYouGo.map((item, index) => (
-            <div key={index} className="form-input">
+        <div key={index} className="col-12">
+            <div  className="form-input">
               <input
                 type="text"
                 name="knowBeforeYouGo"
@@ -168,13 +208,16 @@ const PricingTabContent = ({
                 knowBeforeYouGo
               </label>
             </div>
+            </div>
           ))}
-        </div>
-        <button onClick={handleAddFieldknowBeforeYouGo}>Add</button>
+              
+        <button className="button col-1 h-30  -dark-1 bg-blue-1 text-white"  onClick={handleAddFieldknowBeforeYouGo}>Add</button>
 
-        <div className="col-12">
+
+
           {tourData.additionalInfo.map((item, index) => (
-            <div key={index} className="form-input">
+        <div key={index} className="col-12">
+            <div  className="form-input">
               <input
                 type="text"
                 name="additionalInfo"
@@ -188,9 +231,9 @@ const PricingTabContent = ({
                 additionalInfo
               </label>
             </div>
+            </div>
           ))}
-        </div>
-        <button onClick={handleAddFieldadditionalInfo}>Add</button>
+        <button className="button col-1 h-30  -dark-1 bg-blue-1 text-white"   onClick={handleAddFieldadditionalInfo}>Add</button>
 
         {error && <div className="text-danger">{error}</div>}
 
@@ -198,12 +241,11 @@ const PricingTabContent = ({
           <div className="text-success">Changes saved successfully</div>
         )}
 
+<div className="d-inline-block mt-30">
+
         {showLoader ? (
-          <div className="col-md-12 d-inline-block mt-30">
             <Loader />
-          </div>
         ) : (
-          <div className="col-md-12 d-inline-block mt-30">
             <button
               type="button"
               className="button h-50 px-24 -dark-1 bg-blue-1 text-white"
@@ -211,11 +253,11 @@ const PricingTabContent = ({
             >
               Save Changes <div className="icon-arrow-top-right ml-15" />
             </button>
-          </div>
         )}
       </div>
+    </div>
     </div>
   );
 };
 
-export default PricingTabContent;
+export default PricingTabContentEdit;

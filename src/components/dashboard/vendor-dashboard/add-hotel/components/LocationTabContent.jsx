@@ -18,7 +18,6 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
     highlights: [""],
     whatsIncluded: [""],
     whatsExcluded: [""],
-
     availableDates: "",
   });
 
