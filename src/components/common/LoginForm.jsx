@@ -12,10 +12,12 @@ const LoginForm = () => {
     accountType:"user"
   });
 
+
   
   const [showLoader, setshowLoader] = useState(false);
   const [error, setError] = useState(null); // Add error state
   const navigate = useNavigate();
+
 
 
   const handleChange = (e) => {

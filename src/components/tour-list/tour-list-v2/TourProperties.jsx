@@ -4,11 +4,13 @@ import { Navigation, Pagination } from "swiper";
 import toursData from "../../../data/tours";
 import isTextMatched from "../../../utils/isTextMatched";
 
+
 const TourProperties = ({tours}) => {
   return (
     <>
   
       {tours && tours.map((item) => (
+
         <div
           className="col-lg-4 col-sm-6"
           key={item?.id}
@@ -82,7 +84,9 @@ const TourProperties = ({tours}) => {
                 <div className="text-14 text-light-1">{item?.tourType}</div>
               </div>
               <h4 className="tourCard__title text-dark-1 text-18 lh-16 fw-500">
+
                 <span>{item?.name}</span>
+
               </h4>
               <p className="text-light-1 lh-14 text-14 mt-5">
                 {item?.location}
@@ -110,7 +114,9 @@ const TourProperties = ({tours}) => {
                     From
                     <span className="text-16 fw-500 text-dark-1">
                       {" "}
+
                       US${item.cost}
+
                     </span>
                   </div>
                 </div>

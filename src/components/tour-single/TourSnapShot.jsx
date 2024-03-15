@@ -1,4 +1,6 @@
+
 const TourSnapShot = ({tour}) => {
+
   return (
     <div className="row y-gap-30 justify-between pt-20">
       <div className="col-md-auto col-6">
@@ -6,7 +8,9 @@ const TourSnapShot = ({tour}) => {
           <i className="icon-clock text-22 text-blue-1 mr-10"></i>
           <div className="text-15 lh-15">
             Duration:
+
             <br /> {tour.duration}
+
           </div>
         </div>
       </div>
@@ -17,7 +21,9 @@ const TourSnapShot = ({tour}) => {
           <i className="icon-customer text-22 text-blue-1 mr-10"></i>
           <div className="text-15 lh-15">
             Group size:
+
             <br /> {tour.groupSize}
+
           </div>
         </div>
       </div>

@@ -1,7 +1,9 @@
+
 import React, { useState, useEffect } from "react";
 import Loader from "@/components/loader/loader";
 
 const ContentTabContent = ({ onDataFromChild, onSaveChanges, initialValues }) => {
+
   const [tourData, setTourData] = useState({
     name: "",
     location: "",
@@ -10,9 +12,11 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges, initialValues }) =>
     groupSize: "",
   });
 
+
   const [error, setError] = useState("");
   const [showLoader, setShowLoader] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
 
   useEffect(() => {
     const commonFields = Object.keys(initialValues).reduce((acc, field) => {
@@ -37,6 +41,7 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges, initialValues }) =>
       ...tourData, 
       [fieldName]: value, 
     });
+
     setError(""); // Clear error when user fills in any input field
   };
 
@@ -69,6 +74,7 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges, initialValues }) =>
 
   return (
     <div className="col-xl-10">
+
       <div className="row x-gap-20 y-gap-20">
         <div className="col-12">
           <div className="form-input">
@@ -104,7 +110,9 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges, initialValues }) =>
               value={tourData.cost}
               onChange={(e) => handleTourDataChange("cost", e.target.value)}
             />
+
             <label className="lh-1 text-16 text-light-1">Price</label>
+
           </div>
         </div>
         <div className="col-12">
@@ -132,6 +140,7 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges, initialValues }) =>
         </div>
       </div>
 
+
       {error && <div className="text-danger">{error}</div>}
       {showSuccessMessage && (
         <div className="text-success">Changes saved successfully</div>
@@ -148,6 +157,7 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges, initialValues }) =>
             Save Changes <div className="icon-arrow-top-right ml-15" />
           </button>
       )}
+
       </div>
     </div>
   );

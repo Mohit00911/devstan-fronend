@@ -3,14 +3,18 @@ const ContactInfo = () => {
     {
       id: 1,
       title: "Toll Free Customer Care",
+
       action: "tel:+91 86-8381-8381",
       text: "+91 86-8381-8381",
+
     },
     {
       id: 2,
       title: "Need live support?",
+
       action: "mailto:info@devsthanexpert.com",
       text: "info@devsthanexpert.com",
+
     },
   ];
   return (

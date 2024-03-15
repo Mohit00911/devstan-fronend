@@ -1,3 +1,4 @@
+
 import DateSearch from "@/components/activity-list/common/DateSearch";
 
 import Loader from "@/components/loader/loader";
@@ -23,6 +24,7 @@ const LocationTabContentEdit = ({
   const [error, setError] = useState("");
 
 
+
   useEffect(() => {
     const commonFields = Object.keys(initialValues).reduce((acc, field) => {
       if (tourData.hasOwnProperty(field)) {
@@ -36,6 +38,7 @@ const LocationTabContentEdit = ({
       ...commonFields,
     }));
   }, [initialValues]);
+
 
   const handleTourDataChange = (fieldName, value, index) => {
     if (
@@ -140,6 +143,7 @@ const LocationTabContentEdit = ({
   };
   return (
     <div className="col-xl-10">
+
       <div className="row x-gap-20 y-gap-20">
         <div className="col-12">
           <div className="form-input">
@@ -147,6 +151,7 @@ const LocationTabContentEdit = ({
               type="text"
               required
               value={tourData.cancellationPolicy}
+
               onChange={(e) =>
                 handleTourDataChange("cancellationPolicy", e.target.value)
               }
@@ -238,19 +243,60 @@ const LocationTabContentEdit = ({
         </div>
         <button onClick={handleAddFieldwhatsExcluded}>Add</button>
 
+
+        <div className="col-12">
+          <div className="form-input">
+            <input
+              type="text"
+              required
+
+              value={tourData.availableDates}
+              onChange={(e) =>
+                handleTourDataChange("availableDates", e.target.value)
+              }
+
+              value={tourData.highlights}
+              onChange={(e) => handleTourDataChange("highlights", e.target.value)}
+            />
+            <label className="lh-1 text-16 text-light-1">Highlights</label>
+          </div>
+        </div>
+        <div className="col-12">
+          <div className="form-input">
+            <input
+              type="text"
+              required
+              value={tourData.whatsIncluded}
+              onChange={(e) => handleTourDataChange("whatsIncluded", e.target.value)}
+            />
+            <label className="lh-1 text-16 text-light-1">What's Included</label>
+          </div>
+        </div>
+
+        <div className="col-12">
+          <div className="form-input">
+            <input
+              type="text"
+              required
+              value={tourData.whatsExcluded}
+              onChange={(e) => handleTourDataChange("whatsExcluded", e.target.value)}
+            />
+            <label className="lh-1 text-16 text-light-1">What's Excluded</label>
+          </div>
+        </div>
         <div className="col-12">
           <div className="form-input">
             <input
               type="text"
               required
               value={tourData.availableDates}
-              onChange={(e) =>
-                handleTourDataChange("availableDates", e.target.value)
-              }
+              onChange={(e) => handleTourDataChange("availableDates", e.target.value)}
+
             />
             <label className="lh-1 text-16 text-light-1">Available Dates</label>
           </div>
         </div>
+
 
         <DateSearch />
       </div>
@@ -271,9 +317,12 @@ const LocationTabContentEdit = ({
             Save Changes <div className="icon-arrow-top-right ml-15" />
           </button>
         )}
+
       </div>
     </div>
   );
 };
 
+
 export default LocationTabContentEdit;
+

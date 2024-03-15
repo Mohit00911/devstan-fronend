@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import GalleryUploader from "./content/GalleryUploader";
 
+
 import { v4 as uuidv4 } from "uuid";
 import Loader from "@/components/loader/loader";
 
 const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
+
   const [tourData, setTourData] = useState({
     name: "",
     location: "",
@@ -13,9 +15,11 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
     groupSize: "",
   });
 
+
   const [showLoader, setShowLoader] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [error, setError] = useState("");
+
 
   const handleTourDataChange = (fieldName, value) => {
     setTourData((prevData) => ({
@@ -23,6 +27,7 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
       [fieldName]: value,
     }));
     onDataFromChild(tourData);
+
     // Clear error when user fills in any input field
     setError("");
   };
@@ -59,6 +64,7 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
   return (
     <div className="col-xl-10">
+
       <div className="row x-gap-20 y-gap-20">
         <div className="col-12">
           <div className="form-input">
@@ -73,7 +79,9 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
         </div>
         {/* End Name */}
 
+
         {/* Other input fields */}
+
         <div className="col-12">
           <div className="form-input">
             <textarea
@@ -95,7 +103,11 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
               value={tourData.cost}
               onChange={(e) => handleTourDataChange("cost", e.target.value)}
             />
+
             <label className="lh-1 text-16 text-light-1">Price</label>
+
+            <label className="lh-1 text-16 text-light-1">price</label>
+
           </div>
         </div>
         <div className="col-12">
@@ -139,7 +151,21 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
           </button>
         )}
       </div>
-      
+
+      {/* <div className="mt-30">
+        <div className="fw-500">Gallery</div>
+        <GalleryUploader onSaveImages={handleSaveImages} />
+      </div> */}
+
+      <div className="d-inline-block pt-30">
+        <button
+          className="button h-50 px-24 -dark-1 bg-blue-1 text-white"
+          onClick={handleSaveChanges}
+        >
+          Save Changes <div className="icon-arrow-top-right ml-15" />
+        </button>
+      </div>
+
     </div>
   );
 };

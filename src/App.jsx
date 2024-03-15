@@ -153,7 +153,9 @@ function App() {
               </Route>
 
 
+
               <Route path="/tour-list-v1" element={<TourListPage2 />} queryParams={['location', 'date']} />
+
 
               <Route path="hotel-list-v2" element={<HotelListPage2 />} />
               <Route path="hotel-list-v3" element={<HotelListPage3 />} />

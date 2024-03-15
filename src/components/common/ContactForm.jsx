@@ -1,3 +1,4 @@
+
 // import React, { useState } from "react";
 // import { BASE_URL } from "../../utils/headers";
 // import Loader from "../loader/loader";
@@ -156,7 +157,7 @@
 //             id="message"
 //             name="message"
 //             value={formData.message}
-//             onChange={handleChange}
+//             onChange={handleChange}s
 //             required
 //             rows="4"
 //           ></textarea>
@@ -397,6 +398,7 @@ const ContactForm = () => {
         </div>
       )}
     </div>
+
   );
 };
 

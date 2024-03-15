@@ -15,6 +15,7 @@ import Itinerary from "@/components/tour-single/itinerary";
 import ImportantInfo from "@/components/tour-single/ImportantInfo";
 import TourGallery from "@/components/tour-single/TourGallery";
 
+
 import SidebarRight from "@/components/tour-single/SidebarRight";
 import Overview from "@/components/tour-single/Overview";
 import TourSnapShot from "@/components/tour-single/TourSnapShot";
@@ -27,12 +28,14 @@ import MetaComponent from "@/components/common/MetaComponent";
 import { BASE_URL } from "@/utils/headers";
 import { useEffect, useState } from "react";
 
+
 const metadata = {
   title: "Tour Single || GoTrip - Travel & Tour ReactJs Template",
   description: "GoTrip - Travel & Tour ReactJs Template",
 };
 
 const TourSingleV1Dynamic = () => {
+
   const [isOpen, setOpen] = useState(false);
 const [tour,setTour]=useState("")
   const { id } = useParams();
@@ -53,9 +56,11 @@ const [tour,setTour]=useState("")
     searchTours();
   }, []);
 
+
   return (
     <>
       <MetaComponent meta={metadata} />
+
 
 
       <div className="header-margin"></div>
@@ -65,11 +70,14 @@ const [tour,setTour]=useState("")
       <TopBreadCrumb />
      
 
+
       <section className="pt-40">
         <div className="container">
           <div className="row y-gap-20 justify-between items-end">
             <div className="col-auto">
+
               <h1 className="text-30 fw-600">{tour?.name}</h1>
+
               <div className="row x-gap-20 y-gap-20 items-center pt-10">
                 <div className="col-auto">
                   <div className="d-flex items-center">
@@ -114,7 +122,9 @@ const [tour,setTour]=useState("")
                 </div>
               </div>
             </div>
+
             
+
 
             <div className="col-auto">
               <div className="row x-gap-10 y-gap-10">
@@ -133,7 +143,7 @@ const [tour,setTour]=useState("")
                 </div>
               </div>
             </div>
-           
+
           </div>
           
         </div>
@@ -276,6 +286,7 @@ const [tour,setTour]=useState("")
 
     
 
+
       <section className="pt-40">
         <div className="container">
           <div className="pt-40 border-top-light">
@@ -284,6 +295,7 @@ const [tour,setTour]=useState("")
                 <h3 className="text-22 fw-500">Important information</h3>
               </div>
             </div>
+
             
             <ImportantInfo tour={tour}/>
           </div>
@@ -293,13 +305,14 @@ const [tour,setTour]=useState("")
       </section>
     
 
+
       <section className="border-top-light  mt-40 pt-40">
         <div className="container">
           <h3 className="text-22 fw-500 mb-20">Itinerary</h3>
           <Itinerary />
         </div>
       </section>
-     
+
 
       <section className="mt-40">
         <div className="container ">
@@ -329,7 +342,7 @@ const [tour,setTour]=useState("")
         </div>
         {/* End .container */}
       </section>
-      
+
 
       <section className="mt-40 border-top-light pt-40">
         <div className="container">
@@ -390,7 +403,9 @@ const [tour,setTour]=useState("")
               <div className="sectionTitle -md">
                 <h2 className="sectionTitle__title">Most Popular Tours</h2>
                 <p className=" sectionTitle__text mt-5 sm:mt-0">
+
                   Interdum et malesuada fames ac ante ipsumðˇ
+
                 </p>
               </div>
             </div>

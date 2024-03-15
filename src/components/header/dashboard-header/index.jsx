@@ -21,7 +21,6 @@ const isVendor=localStorage.getItem("accountType")
   };
   const vendorId = localStorage.getItem('vendorID');
 
-
   useEffect(() => {
     window.addEventListener("scroll", changeBackground);
     const body = document.querySelector("body");
@@ -43,13 +42,16 @@ const isVendor=localStorage.getItem("accountType")
       {vendorId ? (
         /* If vendorId is present, don't render the Link */
         <div className="header-logo">
+
           {/* <img src="/img/general/logo-dark.svg" alt="logo icon" /> */}
           <img src="/img/logo/logo.png" alt="logo"/>
+
 
         </div>
       ) : (
         /* If vendorId is not present, render the Link */
         <Link to="/" className="header-logo">
+
           {/* <img src="/img/general/logo-dark.svg" alt="logo icon" /> */}
           <img src="/img/logo/logo.png" alt="logo"/>
 

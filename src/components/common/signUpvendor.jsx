@@ -1,3 +1,4 @@
+
 // import React, { useState } from "react";
 // import { BASE_URL } from "@/utils/headers";
 // import { Link } from "react-router-dom";
@@ -205,18 +206,21 @@ const expertSignUpApiCall = async (formData) => {
 };
 
 const ExpertSignUpForm = () => {
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
+
     phone: "",
     accountType: "vendor",
   });
   const [showLoader, setShowLoader] = useState(false);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -225,6 +229,7 @@ const ExpertSignUpForm = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -293,8 +298,10 @@ const ExpertSignUpForm = () => {
   };
 
   return (
-    <form className="row y-gap-20" onSubmit={handleSubmit}>
+    <>
+        <form className="row y-gap-20" onSubmit={handleSubmit}>
       <div className="col-12">
+
         <h1 className="text-22 fw-500">Create an account</h1>
         <p className="mt-10">
           Already have an account?{" "}
@@ -314,9 +321,11 @@ const ExpertSignUpForm = () => {
             required
           />
           <label className="lh-1 text-14 text-light-1">First Name</label>
+
           {errors.firstName && (
             <p className="text-red-1">{errors.firstName}</p>
           )}
+
         </div>
       </div>
 
@@ -330,9 +339,12 @@ const ExpertSignUpForm = () => {
             required
           />
           <label className="lh-1 text-14 text-light-1">Last Name</label>
+
           {errors.lastName && <p className="text-red-1">{errors.lastName}</p>}
         </div>
       </div>
+
+ 
 
       <div className="col-12">
         <div className="form-input ">
@@ -345,8 +357,11 @@ const ExpertSignUpForm = () => {
           />
           <label className="lh-1 text-14 text-light-1">Email</label>
         </div>
+
         {errors.email && <p className="text-red-1">{errors.email}</p>}
       </div>
+
+
 
       <div className="col-12">
         <div className="form-input ">
@@ -359,8 +374,11 @@ const ExpertSignUpForm = () => {
           />
           <label className="lh-1 text-14 text-light-1">Phone</label>
         </div>
+
         {errors.phone && <p className="text-red-1">{errors.phone}</p>}
       </div>
+
+
 
       <div className="col-12">
         <div className="form-input ">
@@ -373,11 +391,15 @@ const ExpertSignUpForm = () => {
           />
           <label className="lh-1 text-14 text-light-1">Password</label>
         </div>
+
         {errors.password && (
           <p className="text-red-1">{errors.password}</p>
         )}
 
       </div>
+
+
+    
 
       <div className="col-12">
         <div className="form-input ">
@@ -390,10 +412,12 @@ const ExpertSignUpForm = () => {
           />
           <label className="lh-1 text-14 text-light-1">Confirm Password</label>
         </div>
+
         {errors.confirmPassword && (
           <p className="text-red-1">{errors.confirmPassword}</p>
         )}
       </div>
+
 
       <div className="col-12">
         <div className="d-flex ">
@@ -415,6 +439,7 @@ const ExpertSignUpForm = () => {
         </div>
       </div>
 
+
       <div className="col-12">
         {showLoader ? (
           <Loader />
@@ -433,8 +458,14 @@ const ExpertSignUpForm = () => {
           <p className="text-red-1">{errors.general}</p>
         </div>
       )}
+
     </form>
+    
+    </>
+
   );
 };
 
+
 export default ExpertSignUpForm;
+

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { State, City } from "country-state-city";
 
@@ -48,6 +49,7 @@ const SearchBar = ({ onLocationSelect }) => {
   return (
     <>
        <div className="searchMenu-loc px-30 lg:py-20 lg:px-0 js-form-dd js-liverSearch">
+
         <div
           data-bs-toggle="dropdown"
           data-bs-auto-close="true"
@@ -67,6 +69,7 @@ const SearchBar = ({ onLocationSelect }) => {
         </div>
         {/* End location Field */}
 
+
         <div className="shadow-2 dropdown-menu min-width-400" style={{ maxHeight: '400px', overflowY: 'auto' }}>
           <div className="bg-white px-20 py-20 sm:px-0 sm:py-15 rounded-4">
             <ul className="y-gap-5 js-results">
@@ -79,6 +82,7 @@ const SearchBar = ({ onLocationSelect }) => {
                       : ""
                   }`}
                   key={index}
+
                   role="button"
                   onClick={() => handleOptionClick(item)}
                 >
@@ -86,10 +90,12 @@ const SearchBar = ({ onLocationSelect }) => {
                     <div className="icon-location-2 text-light-1 text-20 pt-4" />
                     <div className="ml-10">
                       <div className="text-15 lh-12 fw-500 js-search-option-target">
+
                         {item.value.name}
                       </div>
                       <div className="text-14 lh-12 text-light-1 mt-5">
                         {item.value.location}
+
                       </div>
                     </div>
                   </div>

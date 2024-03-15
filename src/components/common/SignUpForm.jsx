@@ -1,3 +1,4 @@
+
 // import React, { useState } from "react";
 // import { BASE_URL } from "@/utils/headers"; 
 // import { Link } from "react-router-dom";
@@ -459,12 +460,14 @@ const signUpApiCall = async (formData) => {
 };
 
 const SignUpForm = () => {
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
+
     phone: "",
     accountType: "user",
   });
@@ -549,6 +552,7 @@ const SignUpForm = () => {
   return (
     <form className="row y-gap-20" onSubmit={handleSubmit}>
       <div className="col-12">
+
         <h1 className="text-22 fw-500">Create an account</h1>
         <p className="mt-10">
           Already have an account?{" "}
@@ -558,8 +562,10 @@ const SignUpForm = () => {
         </p>
       </div>
 
+
       <div className="col-12">
         <div className="form-input">
+
           <input
             type="text"
             name="firstName"
@@ -568,14 +574,18 @@ const SignUpForm = () => {
             required
           />
           <label className="lh-1 text-14 text-light-1">First Name</label>
+
           {errors.firstName && (
             <p className="text-red-1">{errors.firstName}</p>
           )}
+
         </div>
       </div>
 
       <div className="col-12">
+
         <div className="form-input">
+
           <input
             type="text"
             name="lastName"
@@ -584,12 +594,21 @@ const SignUpForm = () => {
             required
           />
           <label className="lh-1 text-14 text-light-1">Last Name</label>
+
           {errors.lastName && <p className="text-red-1">{errors.lastName}</p>}
         </div>
       </div>
 
       <div className="col-12">
         <div className="form-input">
+
+        </div>
+      </div>
+      {/* End .col */}
+
+      <div className="col-12">
+        <div className="form-input ">
+
           <input
             type="text"
             name="email"
@@ -599,6 +618,7 @@ const SignUpForm = () => {
           />
           <label className="lh-1 text-14 text-light-1">Email</label>
         </div>
+
         {errors.email && <p className="text-red-1">{errors.email}</p>}
       </div>
 
@@ -613,12 +633,21 @@ const SignUpForm = () => {
           />
           <label className="lh-1 text-14 text-light-1">Phone</label>
 
+
         </div>
         {errors.phone && <p className="text-red-1">{errors.phone}</p>}
       </div>
 
       <div className="col-12">
         <div className="form-input">
+
+        </div>
+      </div>
+      {/* End .col */}
+
+      <div className="col-12">
+        <div className="form-input ">
+
           <input
             type="password"
             name="password"
@@ -628,14 +657,17 @@ const SignUpForm = () => {
           />
           <label className="lh-1 text-14 text-light-1">Password</label>
         </div>
+
         {errors.password && (
           <p className="text-red-1">{errors.password}</p>
         )}
 
       </div>
 
+   
       <div className="col-12">
-        <div className="form-input">
+        <div className="form-input ">
+
           <input
             type="password"
             name="confirmPassword"
@@ -644,6 +676,7 @@ const SignUpForm = () => {
             required
           />
           <label className="lh-1 text-14 text-light-1">Confirm Password</label>
+
 
         </div>
         {errors.confirmPassword && (
@@ -687,6 +720,7 @@ const SignUpForm = () => {
           <p className="text-red-1">{errors.general}</p>
         </div>
       )}
+
     </form>
   );
 };

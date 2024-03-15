@@ -24,6 +24,7 @@ const editTourIndex = ({uuid}) => {
       duration: "",
       groupSize:"",
       cancellationPolicy: "",
+
       languages: [''],
       highlights: [''],
       whatsIncluded: [''],
@@ -37,6 +38,7 @@ const editTourIndex = ({uuid}) => {
     }
   )
   console.log(receivedData)
+
 
 const handleDataFromChild = (data) => {
   setReceivedData((prevData) => ({
@@ -57,7 +59,7 @@ const handleDataFromChild = (data) => {
       ...receivedData,
     
     };
-    console.log(payload)
+
  
   const response = await fetch(`${BASE_URL}/api/updateTour/${receivedData.uuid}`, {
       method: "PUT",
@@ -66,7 +68,7 @@ const handleDataFromChild = (data) => {
       },
       body: JSON.stringify(payload),
     });
-    
+
 
     if (response.ok) {
       console.log("Tour details updated successfully");

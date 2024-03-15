@@ -3,8 +3,10 @@ import { Link ,useNavigate } from "react-router-dom";
 const Sidebar = () => {
   const navigate = useNavigate(); 
   const handleLogout = () => {
+
     localStorage.removeItem("userName");
     localStorage.removeItem("token");
+
     navigate("/");
   };
   const sidebarData = [
@@ -140,6 +142,7 @@ const Sidebar = () => {
             Booking Manager
           </a>
         </div>
+
         {sidebarData.map((item, index) => (
           <div className="sidebar__item" key={index}>
             <div className="accordion -db-sidebar js-accordion">

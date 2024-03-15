@@ -2,6 +2,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar } from "swiper";
 import { testimonial1 } from "../../../data/testimonialData";
+
 import { BASE_URL } from "@/utils/headers";
 import { useEffect, useState } from "react";
 
@@ -33,6 +34,7 @@ console.log(testimonials)
   
     fetchAllTours();
   }, []);
+
   return (
     <>
       <Swiper
@@ -42,12 +44,18 @@ console.log(testimonials)
         }}
         modules={[Scrollbar]}
       >
+
         {testimonials  && testimonials.map((item) => (
+
           <SwiperSlide key={item.id}>
             <div className="row items-center x-gap-15 y-gap-20">
               <div className="col-auto">
                 <img
+
                   src={item.image}
+
+                  src={item.avatar}
+
                   alt="image"
                   className="js-lazy rounded-circle"
                 />
@@ -55,12 +63,18 @@ console.log(testimonials)
               <div className="col-auto">
                 <h5 className="text-16 fw-500">{item.name}</h5>
                 <div className="text-15 text-light-1 lh-15">
+
                   {item.profile}
+
+                  {item.designation}
+
                 </div>
               </div>
             </div>
             <p className="text-18 fw-500 text-dark-1 mt-30 sm:mt-20">
+
               {item.description}
+
             </p>
           </SwiperSlide>
         ))}

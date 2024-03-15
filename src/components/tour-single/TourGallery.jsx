@@ -6,12 +6,18 @@ import { Gallery, Item } from "react-photoswipe-gallery";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import ModalVideo from "react-modal-video";
+
 import FilterBox from "../../components/tour-single/filter-box";
+
+
+
 export default function TourGallery({ tour }) {
   const [isOpen, setOpen] = useState(false);
   return (
     <>
+
      ` <ModalVideo
+
         channel="youtube"
         autoplay
         isOpen={isOpen}
@@ -86,7 +92,9 @@ export default function TourGallery({ tour }) {
               {/* slider gallery */}
 
               <h3 className="text-22 fw-500 mt-40">Tour snapshot</h3>
+
               <TourSnapShot tour={tour}/>
+
               {/* End toursnapshot */}
               <div className="border-top-light mt-40 mb-40"></div>
 
@@ -96,6 +104,7 @@ export default function TourGallery({ tour }) {
             {/* End .col-xl-8 */}
 
             <div className="col-xl-4">
+
             <div className="d-flex justify-end js-pin-content">
       <div className="w-360 lg:w-full d-flex flex-column items-center">
         <div className="px-30 py-30 rounded-4 border-light bg-white shadow-4">
@@ -133,13 +142,16 @@ export default function TourGallery({ tour }) {
       </div>
     </div>
               {/* <SidebarRight tour={tour} /> */}
+
             </div>
             {/* End .col-xl-4 */}
           </div>
           {/* End .row */}
         </div>
         {/* End container */}
+
       </section>`
+
     </>
   );
 }

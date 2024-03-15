@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import Loader from "@/components/loader/loader";
 
@@ -127,12 +128,9 @@ const PricingTabContentEdit = ({onDataFromChild, onSaveChanges, initialValues,})
     return false;
 };
 
-
-
-
-
   return (
     <div className="col-xl-9 col-lg-11">
+
       <div className="row x-gap-20 y-gap-20">
        
         <div className="col-12">
@@ -255,9 +253,11 @@ const PricingTabContentEdit = ({onDataFromChild, onSaveChanges, initialValues,})
             </button>
         )}
       </div>
+
     </div>
     </div>
   );
 };
+
 
 export default PricingTabContentEdit;

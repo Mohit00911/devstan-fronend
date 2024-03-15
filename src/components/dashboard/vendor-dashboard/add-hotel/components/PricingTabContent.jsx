@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import Loader from "@/components/loader/loader";
 
 const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
@@ -202,6 +203,7 @@ const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
           </button>
         )}
       </div>
+
     </div>
   );
 };

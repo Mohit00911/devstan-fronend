@@ -46,6 +46,7 @@ const BecomeExpert = () => {
                   Register
                 </Link>
 
+
                 <Link
                   to="/expert-login"
                   className="button -md -blue-1 w-180 bg-blue-1 text-white text-dark-1 mt-30 md:mt-20"
@@ -62,6 +63,7 @@ const BecomeExpert = () => {
 
                 
                 
+
               </div>
             </div>
           </div>

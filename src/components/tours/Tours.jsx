@@ -7,6 +7,7 @@ import { BASE_URL } from "@/utils/headers";
 
 const Tours = () => {
 
+
   const [allTours,setAllTours]=useState("")
 
   const fetchAllTours = async () => {
@@ -16,11 +17,14 @@ const Tours = () => {
         setAllTours(data);
   
 
+
     } catch (error) {
       console.error("Error fetching tours:", error);
     }
   };
+
   useEffect(() => {
+
 
 
     fetchAllTours();
@@ -128,6 +132,7 @@ const Tours = () => {
 
                   <div className="cardImage__leftBadge">
                     <div
+
                       className={`py-5 px-15 rounded-right-4 text-12 lh-16 fw-500 uppercase ${isTextMatched(item?.tag, "likely to sell out*")
                           ? "bg-dark-1 text-white"
                           : ""
@@ -138,6 +143,7 @@ const Tours = () => {
                           ? "bg-yellow-1 text-dark-1"
                           : ""
                         }`}
+
                     >
                       {item.tag}
                     </div>

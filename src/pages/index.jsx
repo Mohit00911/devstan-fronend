@@ -7,7 +7,7 @@ const metadata = {
   title: "Home-1 || GoTrip - Travel & Tour ReactJs Template",
   description: "GoTrip - Travel & Tour ReactJs Template",
 };
-console.log(localStorage)
+
 export default function Home() {
   return (
     <>

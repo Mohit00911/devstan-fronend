@@ -1,9 +1,12 @@
+
 import DateSearch from "@/components/hero/DateSearch";
+
 import Education from "./location/Education";
 import Health from "./location/Health";
 import Location from "./location/Location";
 import Sorroundings from "./location/Sorroundings";
 import Transportation from "./location/Transportation";
+
 
 import React, { useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
@@ -123,6 +126,7 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
   };
   return (
     <div className="col-xl-10">
+
       <div className="row x-gap-20 y-gap-20">
         <div className="col-12">
           <div className="form-input">
@@ -130,6 +134,7 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
               type="text"
               required
               value={tourData.cancellationPolicy}
+
               onChange={(e) =>
                 handleTourDataChange("cancellationPolicy", e.target.value)
               }
@@ -260,6 +265,7 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
             Save Changes <div className="icon-arrow-top-right ml-15" />
           </button>
         )}
+
       </div>
     </div>
   );

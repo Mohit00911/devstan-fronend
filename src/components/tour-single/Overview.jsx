@@ -1,9 +1,11 @@
+
 import { useEffect, useState } from "react";
 
 
 const Overview = ({tour}) => {
   
   console.log(tour)
+
   return (
     <>
       <div className="row x-gap-40 y-gap-40">
@@ -32,6 +34,7 @@ const Overview = ({tour}) => {
         <div className="col-md-6">
           <h5 className="text-16 fw-500">Available languages</h5>
           <div className="text-15 mt-10">
+
             {tour && tour.languages  && tour.languages.map((item)=>{
               return(
                 <>
@@ -39,19 +42,23 @@ const Overview = ({tour}) => {
                 </>
               )
             })}
+
           </div>
         </div>
 
         <div className="col-md-6">
           <h5 className="text-16 fw-500">Cancellation policy</h5>
           <div className="text-15 mt-10">
+
             {tour && tour.cancellationPolicy}
+
           </div>
         </div>
 
         <div className="col-12">
           <h5 className="text-16 fw-500">Highlights</h5>
           <ul className="list-disc text-15 mt-10">
+
          
           {tour && tour.highlights  && tour.highlights.map((item)=>{
               return(
@@ -62,6 +69,7 @@ const Overview = ({tour}) => {
             })}
             
           
+
           </ul>
         </div>
       </div>
@@ -81,13 +89,16 @@ const Overview = ({tour}) => {
             
                 
                 
+
               </div>
 
               <div className="col-md-6">
                 <div className="text-dark-1 text-15">
+
                   <i className="icon-close text-green-2 text-10 mr-10"></i> {tour.whatsExcluded}
                 </div>
                 
+
               </div>
             </div>
           </div>

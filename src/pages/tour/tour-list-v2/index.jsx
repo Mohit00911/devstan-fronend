@@ -5,6 +5,7 @@ import TopHeaderFilter from "@/components/tour-list/tour-list-v2/TopHeaderFilter
 import TourProperties from "@/components/tour-list/tour-list-v2/TourProperties";
 import Pagination from "@/components/tour-list/common/Pagination";
 import Sidebar from "@/components/tour-list/tour-list-v2/Sidebar";
+
 import { useLocation } from "react-router-dom";
 import MetaComponent from "@/components/common/MetaComponent";
 import { BASE_URL } from "@/utils/headers";
@@ -23,10 +24,12 @@ import LocationSearch from "../../../components/hero/hero-1/LocationSearch";
 import { useNavigate } from "react-router-dom";
 
 
+
 const metadata = {
   title: "Tour List v2 || GoTrip - Travel & Tour ReactJs Template",
   description: "GoTrip - Travel & Tour ReactJs Template",
 };
+
 const others = [{ name: "Free Cancellation", count: 92 }];
 const categories = [
   { name: "Tours", count: 92 },
@@ -78,10 +81,12 @@ console.log("hii")
       <Header11 />
       <section className="layout-pt-md layout-pb-lg">
      
+
         <div className="container">
           <div className="row y-gap-30">
             <div className="col-xl-3">
               <aside className="sidebar y-gap-40 xl:d-none">
+
 
 
                 {/* Sidebar */}
@@ -215,6 +220,7 @@ console.log("hii")
 
                 {/* <Sidebar /> */}
               </aside>
+
               <div
                 className="offcanvas offcanvas-start"
                 tabIndex="-1"
@@ -232,11 +238,13 @@ console.log("hii")
                   ></button>
                 </div>
 
+
                 <div className="offcanvas-body">
                   <aside className="sidebar y-gap-40  xl:d-block">
                     <Sidebar />
                   </aside>
                 </div>
+
               </div>
             </div>
             <div className="col-xl-9 ">
@@ -373,6 +381,7 @@ console.log("hii")
         </div>
       </section>
       <CallToActions />
+
       <DefaultFooter />
     </>
   );

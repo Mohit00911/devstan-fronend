@@ -7,6 +7,7 @@ import BookingTable from "./components/BookingTable";
 const index = () => {
   return (
     <>
+
       <div className="header-margin"></div>
 
       <Header />
@@ -14,6 +15,7 @@ const index = () => {
         <div className="dashboard__sidebar bg-white scroll-bar-1">
           <Sidebar />
         </div>
+
         <div className="dashboard__main">
           <div className="dashboard__content bg-light-2">
             <div className="row y-gap-20 justify-between items-end pb-60 lg:pb-40 md:pb-32">

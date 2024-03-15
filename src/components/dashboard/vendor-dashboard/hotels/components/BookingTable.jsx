@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Pagination from "../../common/Pagination";
 import ActionsButton from "../components/ActionsButton";
+
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { BASE_URL } from "@/utils/headers";
@@ -78,10 +79,15 @@ const BookingTable = () => {
     } catch (error) {
       console.error("Error:", error);
     }
+
   };
   const handleTabClick = (index) => {
     setActiveTab(index);
   };
+
+
+
+
   const tabItems = [
     "All Tours",
     "Completed",
@@ -93,13 +99,17 @@ const BookingTable = () => {
     "Partial Payment",
   ];
   useEffect(() => {
+
+    
+  
+
     fetchTours();
   }, []);
   // Empty dependency array to run the effect only once on mount
 
   return (
     <>
-    
+
       <div className="tabs -underline-2 js-tabs">
         <div className="tabs__controls row x-gap-40 y-gap-10 lg:x-gap-20 js-tabs-controls">
           {tabItems.map((item, index) => (
@@ -142,6 +152,7 @@ const BookingTable = () => {
                     <th>Action</th>
                   </tr>
                 </thead>
+
 
                 <tbody>
 
@@ -236,6 +247,7 @@ const BookingTable = () => {
       
                 </tbody>
                
+
               </table>
             </div>
           </div>
