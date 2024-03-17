@@ -10,7 +10,7 @@ const metadata = {
 
 export default function VendorAddHotel() {
   const { tourId } = useParams();
-  console.log(tourId)
+
   return (
     <>
       <MetaComponent meta={metadata} />

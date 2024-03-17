@@ -27,7 +27,7 @@ const BookingTable = () => {
       });
 
       const data = await response.json();
-      console.log(data);
+     
       setTours(data);
     } catch (error) {
       console.error("Error fetching tours:", error);
@@ -153,7 +153,7 @@ const BookingTable = () => {
 
                     tours.map((item) => (
                       <tr key={item._id}>
-                        {console.log(item.status)}
+                      
                         <td>
                           <div className="d-flex items-center">
                             <div className="form-checkbox ">

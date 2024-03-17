@@ -1,14 +1,15 @@
 import AccordionContent from "./ItineraryContent";
 import MapPropertyFinder from "./MapPropertyFinder";
 
-const index = () => {
+const index = ({tour}) => {
+
   return (
     <div className="row y-gap-30">
       <div className="col-lg-4">
         <div className="relative">
           <div className="border-test" />
           <div className="accordion -map row y-gap-20" id="itineraryContent">
-            <AccordionContent />
+            <AccordionContent tour={tour}/>
           </div>
         </div>
       </div>

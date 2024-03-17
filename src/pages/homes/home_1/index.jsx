@@ -27,7 +27,7 @@ const metadata = {
 const Home_1 = () => {
 
 
-  const [selectedTab, setSelectedTab] = useState('');
+  const [selectedTab, setSelectedTab] = useState('Hotel');
 
 
 

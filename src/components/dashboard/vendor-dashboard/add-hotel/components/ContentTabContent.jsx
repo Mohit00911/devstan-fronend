@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Loader from "@/components/loader/loader";
 
 const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
-
   const [tourData, setTourData] = useState({
     name: "",
     location: "",
@@ -12,15 +11,12 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
     groupSize: "",
     tourType: [],
   });
- 
 
   const [showLoader, setShowLoader] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [error, setError] = useState("");
 
-
   const handleTourDataChangeTypes = (fieldName, value) => {
-
     const formattedFieldName = fieldName.trim().toLowerCase();
 
     let updatedTourType = [...tourData.tourType];
@@ -42,20 +38,34 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
     setError("");
   };
 
-
+  
   const handleTourDataChange = (fieldName, value) => {
-    
-    const durationNumber = parseFloat(value);
-
-    if (!isNaN(durationNumber)) {
+    if (fieldName === "duration") {
+      const durationNumber = parseFloat(value);
+  
+      if (!isNaN(durationNumber)) {
         setTourData((prevData) => ({
-            ...prevData,
-            [fieldName]: durationNumber,
+          ...prevData,
+          [fieldName]: durationNumber,
         }));
-    } else {
+      } else {
         console.error("Invalid duration input:", value);
+      }
+    } else {
+      // For other fields, directly set the value without parsing
+      setTourData((prevData) => ({
+        ...prevData,
+        [fieldName]: value,
+      }));
+      onDataFromChild({
+        ...tourData, 
+        [fieldName]: value, 
+      });
+  
+      setError(""); 
     }
-};
+    
+  };
   const handleSaveChanges = () => {
     setShowLoader(true);
 
@@ -87,7 +97,6 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
   return (
     <div className="col-xl-10">
-
       <div className="row x-gap-20 y-gap-20">
         <div className="col-12">
           <div className="form-input">
@@ -102,7 +111,6 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
         </div>
         {/* End Name */}
 
-
         <div className="col-12">
           <div className="form-input">
             <textarea
@@ -115,7 +123,6 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
             <label className="lh-1 text-16 text-light-1">Location</label>
           </div>
         </div>
-
 
         <label htmlFor="tourTypes" className="text-16 text-light-1">
           Tour Types:
@@ -181,7 +188,6 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
           <label htmlFor="solo">Solo Tour</label>
         </div>
 
-
         <div className="col-12">
           <div className="form-input">
             <input
@@ -191,7 +197,6 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
               onChange={(e) => handleTourDataChange("cost", e.target.value)}
             />
             <label className="lh-1 text-16 text-light-1">Price</label>
-
           </div>
         </div>
         <div className="col-12">
@@ -200,11 +205,9 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
               type="text"
               required
               value={tourData.groupSize}
-
               onChange={(e) =>
                 handleTourDataChange("groupSize", e.target.value)
               }
-
             />
             <label className="lh-1 text-16 text-light-1">Group size</label>
           </div>
@@ -239,7 +242,6 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
           </button>
         )}
       </div>
-
     </div>
   );
 };

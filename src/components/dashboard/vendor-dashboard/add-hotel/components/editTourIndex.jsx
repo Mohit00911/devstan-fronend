@@ -36,10 +36,17 @@ const editTourIndex = ({uuid}) => {
       inclusions:[''],
       exclusions:[''],
       knowBeforeYouGo:[''],
-      additionalInfo:['']
+      additionalInfo:[''],
+      itineraries:[{
+        title: "",
+        durationMeal: "",
+        image: "",
+        description: "",
+        day:0
+      }],
     }
   )
-  console.log(receivedData)
+ 
 
 
 const handleDataFromChild = (data) => {
@@ -116,7 +123,7 @@ useEffect(() => {
     {
       label: "itinery",
       labelNo: 4,
-      content: <AttributesTabContentEdit />,
+      content: <AttributesTabContentEdit onDataFromChild={handleDataFromChild} onSaveChanges={handleSaveChanges} initialValues={receivedData}/>,
     },
   ];
 

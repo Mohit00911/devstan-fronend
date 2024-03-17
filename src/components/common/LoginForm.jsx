@@ -38,7 +38,7 @@ const LoginForm = () => {
         },
         body: JSON.stringify(credentials),
       });
-    console.log(response)
+  
       if (response.ok) {
         const data = await response.json();
         const { token, user,accountType } = data;
@@ -51,7 +51,7 @@ const LoginForm = () => {
       } else {
         setshowLoader(false)
         const errorData = await response.json();
-        console.log(response)
+      
         setError(errorData.error || "Something went wrong");
       }
     } catch (error) {

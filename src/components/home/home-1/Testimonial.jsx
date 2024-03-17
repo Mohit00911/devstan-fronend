@@ -19,7 +19,7 @@ const Testimonial = () => {
       
       if (contentType && contentType.includes('application/json')) {
         const data = await response.json();
-        console.log(data)
+        
         setTestimonials(data);
       } else {
         console.error('Unexpected response content type:', contentType);
@@ -28,7 +28,7 @@ const Testimonial = () => {
       console.error("Error fetching tours:", error);
     }
   };
-console.log(testimonials)
+
   useEffect(() => {
     
   

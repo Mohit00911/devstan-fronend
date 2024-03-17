@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 
-
-const DateSearch = ({onDateChange}) => {
-  
+const DateSearch = ({ onDateChange }) => {
   const handleDateSelection = (selectedDates) => {
     setDates(selectedDates);
     const formattedDates = selectedDates
-    .map((dateObject) => dateObject.format("MMMM DD, YYYY"))
-    .join(" - ");
-    onDateChange(formattedDates)
+      .map((dateObject) => dateObject.format("MMMM DD, YYYY"))
+      .join(" - ");
+    onDateChange(formattedDates);
   };
 
   const [dates, setDates] = useState([
@@ -20,17 +18,17 @@ const DateSearch = ({onDateChange}) => {
   return (
     <div className="text-15 text-light-1 ls-2 lh-16 custom_dual_datepicker">
       <DatePicker
-       placeholder={<input type="text" required />}
-          inputClass="custom_input-picker"
-          containerClassName="custom_container-picker"
-          value={dates}
-          onChange={handleDateSelection}
-          numberOfMonths={2}
-          offsetY={10}
-          range
-          rangeHover
-          format="MMMM DD"
-
+        placeholder={<input type="text" required />}
+        inputClass="custom_input-picker"
+        containerClassName="custom_container-picker"
+        value={dates}
+        onChange={handleDateSelection}
+        numberOfMonths={2}
+        offsetY={10}
+        range
+        rangeHover
+        format="MMMM DD"
+        closeOnSelect
       />
     </div>
   );

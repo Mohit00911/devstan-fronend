@@ -16,8 +16,8 @@ const PricingTabContentEdit = ({
     knowBeforeYouGo: [""],
     additionalInfo: [""],
   });
-  console.log(initialValues);
-  console.log(tourData);
+
+
 
   const [error, setError] = useState("");
   const [showLoader, setShowLoader] = useState(false);
@@ -55,7 +55,30 @@ const PricingTabContentEdit = ({
       });
     }
   };
-
+  const handleDeleteadditionalInfo = (index) => {
+    setTourData((prevData) => ({
+      ...prevData,
+      additionalInfo: prevData.additionalInfo.filter((_, i) => i !== index), 
+    }));
+  };
+  const handleDeleteinclusions = (index) => {
+    setTourData((prevData) => ({
+      ...prevData,
+      inclusions: prevData.inclusions.filter((_, i) => i !== index), 
+    }));
+  };
+  const handleDeleteexclusions = (index) => {
+    setTourData((prevData) => ({
+      ...prevData,
+      exclusions: prevData.exclusions.filter((_, i) => i !== index), 
+    }));
+  };
+  const handleDeleteknowBeforeYouGo = (index) => {
+    setTourData((prevData) => ({
+      ...prevData,
+      knowBeforeYouGo: prevData.knowBeforeYouGo.filter((_, i) => i !== index),
+    }));
+  };
   const handleAddFieldExclusions = () => {
     setTourData({ ...tourData, exclusions: [...tourData.exclusions, ""] });
   };
@@ -137,6 +160,13 @@ const PricingTabContentEdit = ({
                 }
               />
               <label className="lh-1 text-16 text-light-1">Inclusions</label>
+              {tourData.inclusions.length > 1 && ( // Check if there is more than one language field
+                <div className="col-2">
+                  <button onClick={() => handleDeleteinclusions(index)}>
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
           ))}
           <button onClick={handleAddFieldinclusions}>Add</button>
@@ -155,6 +185,13 @@ const PricingTabContentEdit = ({
                 }
               />
               <label className="lh-1 text-16 text-light-1">Exclusions</label>
+              {tourData.exclusions.length > 1 && ( // Check if there is more than one language field
+                <div className="col-2">
+                  <button onClick={() => handleDeleteexclusions(index)}>
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -175,6 +212,13 @@ const PricingTabContentEdit = ({
               <label className="lh-1 text-16 text-light-1">
                 knowBeforeYouGo
               </label>
+              {tourData.knowBeforeYouGo.length > 1 && ( // Check if there is more than one language field
+                <div className="col-2">
+                  <button onClick={() => handleDeleteknowBeforeYouGo(index)}>
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
 
           ))}
@@ -197,6 +241,14 @@ const PricingTabContentEdit = ({
               <label className="lh-1 text-16 text-light-1">
                 additionalInfo
               </label>
+              
+            {tourData.additionalInfo.length > 1 && ( // Check if there is more than one language field
+                <div className="col-2">
+                  <button onClick={() => handleDeleteadditionalInfo(index)}>
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>

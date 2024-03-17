@@ -49,7 +49,7 @@ const durationOptions = [
 
 const marks = [10000, 50000, 100000, 1500000, 200000];
 
-const stepSize = 200000 / (marks.length - 1);
+const stepSize = 200000 / (marks.length - 4);
 
 const TourListPage2 = ({ onTabChange }) => {
   const [range, setRange] = useState([10000, 200000]);
@@ -64,12 +64,15 @@ const TourListPage2 = ({ onTabChange }) => {
   const queryParams = new URLSearchParams(location.search);
   const locationParam = queryParams.get("location");
   const dateParam = queryParams.get("date");
+
   const searchTours = async () => {
     try {
+      
       const response = await fetch(
         `${BASE_URL}/api/tours/${locationParam}/${dateParam}`
       );
       const data = await response.json();
+   
       setTours(data);
     } catch (error) {
       console.error("Error fetching tours:", error);
@@ -77,8 +80,10 @@ const TourListPage2 = ({ onTabChange }) => {
     }
   };
   useEffect(() => {
-    searchTours();
-  }, [location.search]);
+    if (locationParam && dateParam) {
+      searchTours();
+    }
+  }, [locationParam, dateParam]);
 
   const handleRangeChange = (newRange) => {
     const [start, end] = newRange.sort((a, b) => a - b);
@@ -133,9 +138,9 @@ const TourListPage2 = ({ onTabChange }) => {
   const handleDurationChange = (duration) => {
 
     
-    const numbers = duration.match(/\d+/g); // Extract numbers using regular expression
-    const lowerCaseCategoryName = numbers ? parseInt(numbers.join(""), 10) : 0; // Convert extracted numbers to integer
-    // const lowerCaseCategoryName = duration.trim().toLowerCase();
+    const numbers = duration.match(/\d+/g);
+    const lowerCaseCategoryName = numbers ? parseInt(numbers.join(""), 10) : 0;
+  
 
     setCheckedDuration((prevCheckedDuration) => {
       if (prevCheckedDuration.includes(lowerCaseCategoryName)) {
@@ -147,7 +152,7 @@ const TourListPage2 = ({ onTabChange }) => {
       }
     });
   };
-  console.log(checkedDuration);
+ 
   const handleCheckboxChange = (categoryName) => {
     const lowerCaseCategoryName = categoryName.trim().toLowerCase();
 

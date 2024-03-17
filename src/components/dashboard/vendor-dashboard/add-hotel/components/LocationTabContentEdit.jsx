@@ -97,8 +97,30 @@ const LocationTabContentEdit = ({
       setShowLoader(false);
     }
   };
-
-
+  const handleDeletewhatsExcluded = (index) => {
+    setTourData((prevData) => ({
+      ...prevData,
+      whatsExcluded: prevData.whatsExcluded.filter((_, i) => i !== index), 
+    }));
+  };
+  const handleDeletewhatsIncluded = (index) => {
+    setTourData((prevData) => ({
+      ...prevData,
+      whatsIncluded: prevData.whatsIncluded.filter((_, i) => i !== index), 
+    }));
+  };
+  const handleDeleteHighlights = (index) => {
+    setTourData((prevData) => ({
+      ...prevData,
+      highlights: prevData.highlights.filter((_, i) => i !== index), 
+    }));
+  };
+  const handleDeleteLanguage = (index) => {
+    setTourData((prevData) => ({
+      ...prevData,
+      languages: prevData.languages.filter((_, i) => i !== index),
+    }));
+  };
   const handleAddFieldLanguage = () => {
     setTourData({ ...tourData, languages: [...tourData.languages, ""] });
   };
@@ -170,7 +192,15 @@ const LocationTabContentEdit = ({
               <label className="lh-1 text-16 text-light-1">
                 Available Languages
               </label>
+              {tourData.languages.length > 1 && ( // Check if there is more than one language field
+                <div className="col-2">
+                  <button onClick={() => handleDeleteLanguage(index)}>
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
+            
           ))}
         </div>
         <button onClick={handleAddFieldLanguage}>Add</button>
@@ -190,6 +220,14 @@ const LocationTabContentEdit = ({
               <label className="lh-1 text-16 text-light-1">
               Highlights
               </label>
+              
+              {tourData.highlights.length > 1 && ( // Check if there is more than one language field
+                <div className="col-2">
+                  <button onClick={() => handleDeleteHighlights(index)}>
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -210,6 +248,13 @@ const LocationTabContentEdit = ({
               <label className="lh-1 text-16 text-light-1">
               Whats Included
               </label>
+              {tourData.whatsIncluded.length > 1 && (
+                <div className="col-2">
+                  <button onClick={() => handleDeletewhatsIncluded(index)}>
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -231,6 +276,14 @@ const LocationTabContentEdit = ({
               <label className="lh-1 text-16 text-light-1">
               Whats Excluded
               </label>
+              
+              {tourData.whatsExcluded.length > 1 && ( 
+                <div className="col-2">
+                  <button onClick={() => handleDeletewhatsExcluded(index)}>
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
