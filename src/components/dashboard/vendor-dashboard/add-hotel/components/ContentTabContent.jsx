@@ -106,7 +106,7 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
             <label className="lh-1 text-16 text-light-1">Price</label>
 
-            <label className="lh-1 text-16 text-light-1">price</label>
+            {/* <label className="lh-1 text-16 text-light-1">price</label> */}
 
           </div>
         </div>
@@ -157,14 +157,14 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
         <GalleryUploader onSaveImages={handleSaveImages} />
       </div> */}
 
-      <div className="d-inline-block pt-30">
+      {/* <div className="d-inline-block pt-30">
         <button
           className="button h-50 px-24 -dark-1 bg-blue-1 text-white"
           onClick={handleSaveChanges}
         >
           Save Changes <div className="icon-arrow-top-right ml-15" />
         </button>
-      </div>
+      </div> */}
 
     </div>
   );
