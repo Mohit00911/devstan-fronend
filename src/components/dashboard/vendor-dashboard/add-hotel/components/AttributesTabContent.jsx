@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Loader from "@/components/loader/loader";
 import "../../../../../styles/checkbox.css";
+import { Link } from "react-router-dom";
 const DayItinerarySection = ({
   day,
   dayData,
@@ -16,7 +17,7 @@ const DayItinerarySection = ({
 
   const renderDeleteButton = () => {
     if (day === 1) return null;
-    return <button onClick={handleDeleteButtonClick}>Delete Day</button>;
+    return <button  className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={handleDeleteButtonClick}>Delete Day</button>;
   };
   console.log(dayData);
 
@@ -43,6 +44,7 @@ const DayItinerarySection = ({
   return (
     <div className="col-12">
       <h1>Day {day}</h1>
+      <div className="row x-gap-20 y-gap-20">
       <div className="form-input">
         <input
           type="text"
@@ -61,8 +63,8 @@ const DayItinerarySection = ({
         />
         <label className="lh-1 text-16 text-light-1">Duration</label>
       </div>
-      <div>
-      <div>
+      <div style={{display:"flex", alignItems: "center", justifyContent: "space-around"}}>
+      <div style={{display:"flex", alignItems: "center", gap: "5px"}}>
           <input
              type="checkbox"
               name="breakfast"
@@ -77,7 +79,7 @@ const DayItinerarySection = ({
       
 
         
-        <div>
+        <div style={{display:"flex", alignItems: "center", gap: "5px"}}>
           <input
              type="checkbox"
               name="lunch"
@@ -90,7 +92,7 @@ const DayItinerarySection = ({
           <label htmlFor="group">Lunch</label>
         </div>
 
-        <div>
+        <div style={{display:"flex", alignItems: "center", gap: "5px"}}>
           <input
             type="checkbox"
               name="dinner"
@@ -121,6 +123,7 @@ const DayItinerarySection = ({
           onChange={(e) => handleInputChange("description", e.target.value)}
         />
         <label className="lh-1 text-16 text-light-1">Description</label>
+      </div>
       </div>
       {renderDeleteButton()}
     </div>
@@ -219,7 +222,10 @@ const AttributesTabContent = ({ onDataFromChild, onSaveChanges }) => {
         />
       ))}
 
+     <div style={{display: "flex", alignItems : "center", justifyContent: "space-between"}}>
+
       <div className="d-inline-block mt-30">
+        
         <button
           type="button"
           className="button h-50 px-24 -dark-1 bg-blue-1 text-white"
@@ -236,6 +242,11 @@ const AttributesTabContent = ({ onDataFromChild, onSaveChanges }) => {
       )}
 
       <div className="d-inline-block mt-30">
+
+        <div style={{display: "flex", alignItems : "center", gap: "10px"}}>
+
+
+
         {showLoader ? (
           <Loader />
         ) : (
@@ -248,8 +259,21 @@ const AttributesTabContent = ({ onDataFromChild, onSaveChanges }) => {
             <div className="icon-arrow-top-right ml-15" />
           </button>
         )}
+        
+        <Link to = "/vendor-dashboard/tours">
+      <button
+            type="button"
+            className="button h-50 px-24  bg-red-1 text-white"
+          >
+            Cancel
+          </button>
+          </Link>
+        </div>
+
       </div>
     </div>
+    </div>
+
   );
 };
 

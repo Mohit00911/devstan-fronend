@@ -13,6 +13,7 @@ import DatePicker, { DateObject } from "react-multi-date-picker";
 import { v4 as uuidv4 } from "uuid";
 
 import Loader from "@/components/loader/loader";
+import { Link } from "react-router-dom";
 
 const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
   const [tourData, setTourData] = useState({
@@ -178,10 +179,8 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
         {/* Other input fields */}
         <div>
           {tourData.languages.map((language, index) => (
-
-            <div key={index} className="row align-items-center">
-              <div className="col-10">
-                <div className="form-input">
+              <div  key={index} className="col-12">
+                <div className="form-input mt-10">
                   <input
                     required
                     value={language}
@@ -193,25 +192,24 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
                     Available Languages
                   </label>
                 </div>
-              </div>
+
               {tourData.languages.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button onClick={() => handleDeleteLanguage(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteLanguage(index)}>
                     Delete
                   </button>
                 </div>
               )}
-
             </div>
           ))}
 
-          <button onClick={handleAddFieldLanguage}>Add</button>
+          <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldLanguage}>Add</button>
         </div>
 
         <div>
           {tourData.highlights.map((highlight, index) => (
             <div key={index} className="col-12">
-              <div className="form-input">
+              <div className="form-input mt-10">
                 <input
                   required
                   value={highlight}
@@ -224,7 +222,7 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
               {tourData.highlights.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button onClick={() => handleDeleteHighlights(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteHighlights(index)}>
                     Delete
                   </button>
                 </div>
@@ -233,14 +231,14 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
             </div>
           ))}
 
-          <button onClick={() => handleAddFieldHighlights("highlights")}>
+          <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={() => handleAddFieldHighlights("highlights")}>
             Add
           </button>
         </div>
         <div>
           {tourData.whatsIncluded.map((whatsIncluded, index) => (
             <div key={index} className="col-12">
-              <div className="form-input">
+              <div className="form-input mt-10">
                 <input
                   required
                   value={whatsIncluded}
@@ -255,7 +253,7 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
               {tourData.whatsIncluded.length > 1 && (
                 <div className="col-2">
-                  <button onClick={() => handleDeletewhatsIncluded(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeletewhatsIncluded(index)}>
                     Delete
                   </button>
                 </div>
@@ -264,13 +262,13 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
             </div>
           ))}
 
-          <button onClick={handleAddFieldwhatsIncluded}>Add</button>
+          <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldwhatsIncluded}>Add</button>
         </div>
 
         <div>
           {tourData.whatsExcluded.map((whatsExcluded, index) => (
             <div key={index} className="col-12">
-              <div className="form-input">
+              <div className="form-input mt-10">
                 <input
                   required
                   value={whatsExcluded}
@@ -285,7 +283,7 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
               {tourData.whatsExcluded.length > 1 && ( 
                 <div className="col-2">
-                  <button onClick={() => handleDeletewhatsExcluded(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeletewhatsExcluded(index)}>
                     Delete
                   </button>
                 </div>
@@ -294,7 +292,7 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
             </div>
           ))}
 
-          <button onClick={handleAddFieldwhatsExcluded}>Add</button>
+          <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldwhatsExcluded}>Add</button>
         </div>
         <div className="col-12">
           <div className="col-12">
@@ -322,7 +320,8 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
       {showSuccessMessage && (
         <div className="text-success">Tour Information saved successfully!</div>
       )}
-      <div className="d-inline-block pt-30">
+
+<div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "30px"}} >
         {showLoader ? (
           <Loader />
         ) : (
@@ -333,6 +332,14 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
             Save Changes <div className="icon-arrow-top-right ml-15" />
           </button>
         )}
+        <Link to = "/vendor-dashboard/tours">
+      <button
+            type="button"
+            className="button h-50 px-24  bg-red-1 text-white"
+          >
+            Cancel
+          </button>
+          </Link>
 
       </div>
     </div>

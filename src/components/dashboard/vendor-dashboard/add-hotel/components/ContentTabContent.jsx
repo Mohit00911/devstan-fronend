@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import Loader from "@/components/loader/loader";
+import { Link } from "react-router-dom";
 
 const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
   const [tourData, setTourData] = useState({
@@ -124,10 +125,16 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
           </div>
         </div>
 
+        
+
+
         <label htmlFor="tourTypes" className="text-16 text-light-1">
           Tour Types:
         </label>
-        <div>
+       
+        <div style={{display:"flex", alignItems: "center", justifyContent: "space-around"}}>
+
+        <div style={{display:"flex", alignItems: "center", gap: "5px"}}>
           <input
             type="checkbox"
             id="religious"
@@ -137,9 +144,9 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
               handleTourDataChangeTypes(e.target.value, e.target.checked)
             }
           />
-          <label htmlFor="religious">Religious</label>
+          <label className="lh-1 text-16 " htmlFor="religious">Religious</label>
         </div>
-        <div>
+        <div style={{display:"flex", alignItems: "center", gap: "5px"}}>
           <input
             type="checkbox"
             id="customized"
@@ -149,9 +156,9 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
               handleTourDataChangeTypes(e.target.value, e.target.checked)
             }
           />
-          <label htmlFor="customized">Customised</label>
+          <label className="lh-1 text-16 " htmlFor="customized">Customised</label>
         </div>
-        <div>
+        <div style={{display:"flex", alignItems: "center", gap: "5px"}}>
           <input
             type="checkbox"
             id="group"
@@ -161,9 +168,9 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
               handleTourDataChangeTypes(e.target.value, e.target.checked)
             }
           />
-          <label htmlFor="group">Group Tour</label>
+          <label className="lh-1 text-16 " htmlFor="group">Group Tour</label>
         </div>
-        <div>
+        <div style={{display:"flex", alignItems: "center", gap: "5px"}}> 
           <input
             type="checkbox"
             id="private"
@@ -173,9 +180,9 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
               handleTourDataChangeTypes(e.target.value, e.target.checked)
             }
           />
-          <label htmlFor="private">Private</label>
+          <label className="lh-1 text-16 " htmlFor="private">Private</label>
         </div>
-        <div>
+        <div style={{display:"flex", alignItems: "center", gap: "5px"}}>
           <input
             type="checkbox"
             id="solo"
@@ -185,8 +192,10 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
               handleTourDataChangeTypes(e.target.value, e.target.checked)
             }
           />
-          <label htmlFor="solo">Solo Tour</label>
+          <label className="lh-1 text-16 " htmlFor="solo">Solo Tour</label>
         </div>
+        </div>
+
 
         <div className="col-12">
           <div className="form-input">
@@ -196,7 +205,7 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
               value={tourData.cost}
               onChange={(e) => handleTourDataChange("cost", e.target.value)}
             />
-            <label className="lh-1 text-16 text-light-1">Price</label>
+            <label className="lh-1 text-16 ">Price</label>
           </div>
         </div>
         <div className="col-12">
@@ -226,11 +235,14 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
         </div>
       </div>
 
+      
       {error && <div className="text-danger">{error}</div>}
       {showSuccessMessage && (
         <div className="text-success">Tour Information saved successfully!</div>
       )}
-      <div className="d-inline-block pt-30">
+
+
+      <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "30px"}} >
         {showLoader ? (
           <Loader />
         ) : (
@@ -241,6 +253,14 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
             Save Changes <div className="icon-arrow-top-right ml-15" />
           </button>
         )}
+<Link to = "/vendor-dashboard/tours">
+      <button
+            type="button"
+            className="button h-50 px-24  bg-red-1 text-white"
+          >
+            Cancel
+          </button>
+          </Link>
       </div>
     </div>
   );

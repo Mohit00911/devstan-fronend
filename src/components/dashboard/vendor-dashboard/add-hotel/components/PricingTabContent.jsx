@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Loader from "@/components/loader/loader";
+import { Link } from "react-router-dom";
 
 const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
   const [tourData, setTourData] = useState({
@@ -144,15 +145,15 @@ const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
             </div>
             {tourData.inclusions.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button onClick={() => handleDeleteinclusions(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteinclusions(index)}>
                     Delete
                   </button>
                 </div>
               )}
 
+<button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldinclusions}>Add</button>
           </div>
         ))}
-        <button onClick={handleAddFieldinclusions}>Add</button>
 
         {tourData.exclusions.map((exclusion, index) => (
           <div key={index} className="col-12">
@@ -169,15 +170,15 @@ const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
             {tourData.exclusions.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button onClick={() => handleDeleteexclusions(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteexclusions(index)}>
                     Delete
                   </button>
                 </div>
               )}
 
+<button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldExclusions}>Add</button>
           </div>
         ))}
-        <button onClick={handleAddFieldExclusions}>Add</button>
 
         {tourData.knowBeforeYouGo.map((knowBeforeYouGo, index) => (
           <div key={index} className="col-12">
@@ -196,15 +197,15 @@ const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
             {tourData.knowBeforeYouGo.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button onClick={() => handleDeleteknowBeforeYouGo(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteknowBeforeYouGo(index)}>
                     Delete
                   </button>
                 </div>
               )}
 
+<button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldknowBeforeYouGo}>Add</button>
           </div>
         ))}
-        <button onClick={handleAddFieldknowBeforeYouGo}>Add</button>
 
 
         {tourData.additionalInfo.map((additionalInfo, index) => (
@@ -224,22 +225,25 @@ const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
             {tourData.additionalInfo.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button onClick={() => handleDeleteadditionalInfo(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteadditionalInfo(index)}>
                     Delete
                   </button>
                 </div>
               )}
 
+<button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldadditionalInfo}>Add</button>
           </div>
         ))}
-        <button onClick={handleAddFieldadditionalInfo}>Add</button>
       </div>
+
+      
       {error && <div className="text-danger">{error}</div>}
       {showSuccessMessage && (
         <div className="text-success">Tour Information saved successfully!</div>
       )}
-
+{/* 
       <div className=" d-inline-block mt-30">
+        
         {showLoader ? (
           <Loader />
         ) : (
@@ -251,6 +255,28 @@ const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
             Save Changes <div className="icon-arrow-top-right ml-15" />
           </button>
         )}
+      </div> */}
+
+<div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "30px"}} >
+        {showLoader ? (
+          <Loader />
+        ) : (
+          <button
+            onClick={handleSaveChanges}
+            className="button h-50 px-24 -dark-1 bg-blue-1 text-white"
+          >
+            Save Changes <div className="icon-arrow-top-right ml-15" />
+          </button>
+        )}
+        <Link to = "/vendor-dashboard/tours">
+      <button
+            type="button"
+            className="button h-50 px-24  bg-red-1 text-white"
+          >
+            Cancel
+          </button>
+          </Link>
+
       </div>
 
     </div>

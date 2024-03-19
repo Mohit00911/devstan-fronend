@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Loader from "@/components/loader/loader";
+import { Link } from "react-router-dom";
 
 const PricingTabContentEdit = ({
   onDataFromChild,
@@ -128,7 +129,6 @@ const PricingTabContentEdit = ({
   return (
     <div className="col-xl-9 col-lg-11">
       <div className="row x-gap-20 y-gap-20">
-
         <div className="col-12">
           <div className="form-input">
             <input
@@ -146,10 +146,10 @@ const PricingTabContentEdit = ({
           </div>
         </div>
 
-        <div className="col-12">
           {tourData.inclusions.map((item, index) => (
-            <div key={index} className="form-input">
+          <div key={index} className="col-12">
 
+            <div className="form-input">
               <input
                 type="text"
                 name="inclusions"
@@ -160,20 +160,23 @@ const PricingTabContentEdit = ({
                 }
               />
               <label className="lh-1 text-16 text-light-1">Inclusions</label>
+              </div>
               {tourData.inclusions.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button onClick={() => handleDeleteinclusions(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteinclusions(index)}>
                     Delete
                   </button>
                 </div>
               )}
+          <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldinclusions}>Add</button>
             </div>
           ))}
-          <button onClick={handleAddFieldinclusions}>Add</button>
-        </div>
-        <div className="col-12">
+
+
           {tourData.exclusions.map((item, index) => (
-            <div key={index} className="form-input">
+          <div key={index} className="col-12">
+
+            <div className="form-input">
 
               <input
                 type="text"
@@ -185,20 +188,23 @@ const PricingTabContentEdit = ({
                 }
               />
               <label className="lh-1 text-16 text-light-1">Exclusions</label>
+              </div>
               {tourData.exclusions.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button onClick={() => handleDeleteexclusions(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteexclusions(index)}>
                     Delete
                   </button>
                 </div>
               )}
-            </div>
-          ))}
+        <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldExclusions}>Add</button>
         </div>
-        <button onClick={handleAddFieldExclusions}>Add</button>
-        <div className="col-12">
+          ))}
+
+
           {tourData.knowBeforeYouGo.map((item, index) => (
-            <div key={index} className="form-input">
+          <div key={index} className="col-12">
+
+            <div  className="form-input">
 
               <input
                 type="text"
@@ -212,22 +218,23 @@ const PricingTabContentEdit = ({
               <label className="lh-1 text-16 text-light-1">
                 knowBeforeYouGo
               </label>
+              </div>
               {tourData.knowBeforeYouGo.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button onClick={() => handleDeleteknowBeforeYouGo(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteknowBeforeYouGo(index)}>
                     Delete
                   </button>
                 </div>
               )}
+        <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldknowBeforeYouGo}>Add</button>
             </div>
 
           ))}
-        </div>
-        <button onClick={handleAddFieldknowBeforeYouGo}>Add</button>
 
-        <div className="col-12">
           {tourData.additionalInfo.map((item, index) => (
-            <div key={index} className="form-input">
+          <div key={index} className="col-12">
+
+            <div className="form-input">
 
               <input
                 type="text"
@@ -241,33 +248,32 @@ const PricingTabContentEdit = ({
               <label className="lh-1 text-16 text-light-1">
                 additionalInfo
               </label>
+              </div>
               
             {tourData.additionalInfo.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button onClick={() => handleDeleteadditionalInfo(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteadditionalInfo(index)}>
                     Delete
                   </button>
                 </div>
               )}
-            </div>
+          <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldadditionalInfo}>Add</button>
+        </div>
           ))}
         </div>
-        <button onClick={handleAddFieldadditionalInfo}>Add</button>
+
 
 
         {error && <div className="text-danger">{error}</div>}
-
         {showSuccessMessage && (
           <div className="text-success">Changes saved successfully</div>
         )}
 
+<div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "30px"}} >
 
         {showLoader ? (
-          <div className="col-md-12 d-inline-block mt-30">
             <Loader />
-          </div>
         ) : (
-          <div className="col-md-12 d-inline-block mt-30">
 
             <button
               type="button"
@@ -277,8 +283,16 @@ const PricingTabContentEdit = ({
               Save Changes <div className="icon-arrow-top-right ml-15" />
             </button>
 
-          </div>
         )}
+
+<Link to = "/vendor-dashboard/tours">
+      <button
+            type="button"
+            className="button h-50 px-24  bg-red-1 text-white"
+          >
+            Cancel
+          </button>
+          </Link>
       </div>
 
     </div>

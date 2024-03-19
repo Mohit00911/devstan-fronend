@@ -4,6 +4,7 @@ import DatePicker, { DateObject } from "react-multi-date-picker";
 
 import Loader from "@/components/loader/loader";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const LocationTabContentEdit = ({
   onDataFromChild,
@@ -177,9 +178,12 @@ const LocationTabContentEdit = ({
           </div>
         </div>
 
-        <div className="col-12">
+
+        <div>
           {tourData.languages.map((item, index) => (
-            <div key={index} className="form-input">
+              <div  key={index} className="col-12">
+
+            <div className="form-input mt-10">
               <input
                 type="text"
                 name="inclusions"
@@ -192,22 +196,24 @@ const LocationTabContentEdit = ({
               <label className="lh-1 text-16 text-light-1">
                 Available Languages
               </label>
+              </div>
+
               {tourData.languages.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button onClick={() => handleDeleteLanguage(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteLanguage(index)}>
                     Delete
                   </button>
                 </div>
               )}
-            </div>
-            
+            </div> 
           ))}
+        <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldLanguage}>Add</button>
         </div>
-        <button onClick={handleAddFieldLanguage}>Add</button>
 
-        <div className="col-12">
+        <div >
           {tourData.highlights.map((item, index) => (
-            <div key={index} className="form-input">
+            <div key={index} className="col-12">
+            <div  className="form-input mt-10">
               <input
                 type="text"
                 name="highlights"
@@ -220,22 +226,24 @@ const LocationTabContentEdit = ({
               <label className="lh-1 text-16 text-light-1">
               Highlights
               </label>
-              
+              </div>
               {tourData.highlights.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button onClick={() => handleDeleteHighlights(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteHighlights(index)}>
                     Delete
                   </button>
                 </div>
               )}
             </div>
           ))}
+        <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldHighlights}>Add</button>
         </div>
-        <button onClick={handleAddFieldHighlights}>Add</button>
 
-        <div className="col-12">
+        <div>
           {tourData.whatsIncluded.map((item, index) => (
-            <div key={index} className="form-input">
+            <div key={index} className="col-12">
+
+            <div  className="form-input mt-10">
               <input
                 type="text"
                 name="whatsIncluded"
@@ -248,22 +256,25 @@ const LocationTabContentEdit = ({
               <label className="lh-1 text-16 text-light-1">
               Whats Included
               </label>
+              </div>
               {tourData.whatsIncluded.length > 1 && (
                 <div className="col-2">
-                  <button onClick={() => handleDeletewhatsIncluded(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeletewhatsIncluded(index)}>
                     Delete
                   </button>
                 </div>
               )}
             </div>
           ))}
+        <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldwhatsIncluded}>Add</button>
         </div>
-        <button onClick={handleAddFieldwhatsIncluded}>Add</button>
 
         
-        <div className="col-12">
+        <div>
           {tourData.whatsExcluded.map((item, index) => (
-            <div key={index} className="form-input">
+                        <div key={index} className="col-12">
+
+            <div  className="form-input mt-10">
               <input
                 type="text"
                 name="whatsExcluded"
@@ -276,18 +287,18 @@ const LocationTabContentEdit = ({
               <label className="lh-1 text-16 text-light-1">
               Whats Excluded
               </label>
-              
+              </div>
               {tourData.whatsExcluded.length > 1 && ( 
                 <div className="col-2">
-                  <button onClick={() => handleDeletewhatsExcluded(index)}>
+                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeletewhatsExcluded(index)}>
                     Delete
                   </button>
                 </div>
               )}
             </div>
           ))}
+        <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldwhatsExcluded}>Add</button>
         </div>
-        <button onClick={handleAddFieldwhatsExcluded}>Add</button>
 
         <div className="col-12">
           <div className="col-12">
@@ -320,7 +331,9 @@ const LocationTabContentEdit = ({
 
         <div className="text-success">Changes saved successfully.</div>
       )}
-      <div className="d-inline-block pt-30">
+
+
+      <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "30px"}} >
         {showLoader ? (
           <Loader />
         ) : (
@@ -331,6 +344,14 @@ const LocationTabContentEdit = ({
             Save Changes <div className="icon-arrow-top-right ml-15" />
           </button>
         )}
+        <Link to = "/vendor-dashboard/tours">
+      <button
+            type="button"
+            className="button h-50 px-24  bg-red-1 text-white"
+          >
+            Cancel
+          </button>
+          </Link>
 
       </div>
     </div>

@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import Loader from "@/components/loader/loader";
+import { Link } from "react-router-dom";
 
 const ContentTabContent = ({ onDataFromChild, onSaveChanges, initialValues }) => {
 
@@ -148,8 +149,9 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges, initialValues }) =>
       {showSuccessMessage && (
         <div className="text-success">Changes saved successfully</div>
       )}
-      
-        <div className="d-inline-block pt-30">
+
+      <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "30px"}} >
+        
         {showLoader ? (
         <Loader />
       ) : (
@@ -160,7 +162,14 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges, initialValues }) =>
             Save Changes <div className="icon-arrow-top-right ml-15" />
           </button>
       )}
-
+      <Link to = "/vendor-dashboard/tours">
+      <button
+            type="button"
+            className="button h-50 px-24  bg-red-1 text-white"
+          >
+            Cancel
+          </button>
+          </Link>
       </div>
     </div>
   );

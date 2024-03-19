@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Loader from "@/components/loader/loader";
+import { Link } from "react-router-dom";
 
 const AttributesTabContentEdit = ({
   onDataFromChild,
@@ -81,6 +82,8 @@ console.log(itineraryData)
       {itineraryData.map((dayData, index) => (
         <div className="col-12" key={index}>
           <h1>Day {index + 1}</h1>
+      <div className="row x-gap-20 y-gap-20">
+
           <div className="form-input">
             <input
               type="text"
@@ -106,8 +109,9 @@ console.log(itineraryData)
             </label>
           </div>
 
+          <div style={{display:"flex", alignItems: "center", justifyContent: "space-around"}}>
 
-          <div>
+          <div style={{display:"flex", alignItems: "center", gap: "5px"}}>
           <input
              type="checkbox"
               name="breakfast"
@@ -123,7 +127,7 @@ console.log(itineraryData)
       
 
         
-        <div>
+        <div style={{display:"flex", alignItems: "center", gap: "5px"}}>
           <input
              type="checkbox"
               name="lunch"
@@ -137,7 +141,7 @@ console.log(itineraryData)
           <label htmlFor="group">Lunch</label>
         </div>
 
-        <div>
+        <div style={{display:"flex", alignItems: "center", gap: "5px"}}>
           <input
             type="checkbox"
               name="dinner"
@@ -149,6 +153,7 @@ console.log(itineraryData)
             checked={dayData.meals.includes("dinner")}
           />
           <label htmlFor="group">Dinner</label>
+        </div>
         </div>
        
           <div className="form-input">
@@ -173,17 +178,20 @@ console.log(itineraryData)
             />
             <label className="lh-1 text-16 text-light-1">Description</label>
           </div>
-          <button
-            type="button"
-            className="button h-50 px-24 -dark-1 bg-red-1 text-white"
-            onClick={() => handleDeleteSection(index)}
-          >
-            Delete
-          </button>
+         
         </div>
+         <button
+         type="button"
+         className="button h-50 px-24 -dark-1 bg-red-1 text-white mt-10"
+         onClick={() => handleDeleteSection(index)}
+       >
+         Delete
+       </button>
+       </div>
+
       ))}
       
-      <div className="d-inline-block mt-30">
+     <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBlock:"20px"}}>
         <button
           type="button"
           className="button h-50 px-24 -dark-1 bg-blue-1 text-white"
@@ -191,6 +199,9 @@ console.log(itineraryData)
         >
           Add Section
         </button>
+
+        <div style={{display: "flex", alignItems: "center", gap: "10px"}}>
+
         <button
           type="button"
           className="button h-50 px-24 -dark-1 bg-blue-1 text-white ml-2"
@@ -199,7 +210,18 @@ console.log(itineraryData)
           Save Changes
           <div className="icon-arrow-top-right ml-15" />
         </button>
-      </div>
+
+        <Link to = "/vendor-dashboard/tours">
+      <button
+            type="button"
+            className="button h-50 px-24  bg-red-1 text-white"
+          >
+            Cancel
+          </button>
+          </Link>
+
+          </div>
+          </div>
 
       {showLoader && <Loader />}
       {showSuccessMessage && (
