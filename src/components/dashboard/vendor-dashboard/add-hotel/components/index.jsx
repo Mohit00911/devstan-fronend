@@ -36,7 +36,8 @@ const Index = () => {
     knowBeforeYouGo: "",
     itineraries:[{
       title: "",
-      durationMeal: "",
+      duration: "",
+      meals:[],
       image: "",
       description: "",
       day:0
@@ -44,7 +45,7 @@ const Index = () => {
     additionalInfo: "",
     tourType: "",
   });
-  console.log(receivedData.itineraries);
+  
 
   const handleDataFromChild = (data) => {
     setReceivedData((prevData) => ({

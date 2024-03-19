@@ -39,7 +39,8 @@ const editTourIndex = ({uuid}) => {
       additionalInfo:[''],
       itineraries:[{
         title: "",
-        durationMeal: "",
+        duration: "",
+        meals:[],
         image: "",
         description: "",
         day:0
@@ -48,7 +49,7 @@ const editTourIndex = ({uuid}) => {
   )
  
 
-
+console.log(receivedData)
 const handleDataFromChild = (data) => {
   setReceivedData((prevData) => ({
     ...prevData,

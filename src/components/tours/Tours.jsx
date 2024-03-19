@@ -12,11 +12,16 @@ const Tours = () => {
 
   const fetchAllTours = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/api/allTours`);
-        const data = await response.json();
-        setAllTours(data);
-  
-
+      const response = await fetch(`${BASE_URL}/api/allTours`, {
+        method: "POST", // Change the request method to POST
+        headers: {
+          "Content-Type": "application/json", // Set the content type header
+        },
+        // Optionally, you can send a request body if needed
+        // body: JSON.stringify({ /* Your request body */ }),
+      });
+      const data = await response.json();
+      setAllTours(data);
     } catch (error) {
       console.error("Error fetching tours:", error);
     }
@@ -92,13 +97,14 @@ const Tours = () => {
     <>
       <Slider {...settings}>
         {allTours && allTours.map((item) => (
+      
           <div
             key={item?.uuid}
             data-aos="fade"
             data-aos-delay={item?.delayAnimation}
           >
             <Link
-              to={`/tour-single/${item.id}`}
+              to={`/tour-single/${item.uuid}`}
               className="tourCard -type-1 rounded-4 hover-inside-slider"
             >
               <div className="tourCard__image position-relative">

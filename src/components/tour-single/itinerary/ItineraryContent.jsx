@@ -15,8 +15,22 @@ const ItineraryContent = ({ tour }) => {
               <div className="ml-20">
                 <div className="text-16 lh-15 fw-500">{item.title}</div>
                 <div className="text-14 lh-15 text-light-1 mt-5">
-                  {item.durationMeal}
+                  {item.duration}
                 </div>
+                
+                  { item.meals && item.meals.map((meal)=>{
+                    return(
+                      <>
+                <div className="text-14 lh-15 text-light-1 mt-5">
+              
+                   
+                  {meal}
+                     
+                </div>
+                </>
+                    )
+                   
+                  })}
                 <div
                   className={`accordion-collapse collapse ${item.day}`}
                   id={`collapse-${index}`}

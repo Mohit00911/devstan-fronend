@@ -10,7 +10,7 @@ const AttributesTabContentEdit = ({
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [itineraryData, setItineraryData] = useState([
-    { title: "", durationMeal: "", image: "", description: "", day: 1 },
+    { title: "", durationMeal: "", image: "", meals:[], description: "", day: 1 },
   ]);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const AttributesTabContentEdit = ({
   const handleAddSection = () => {
     setItineraryData(prevData => [
       ...prevData,
-      { title: "", durationMeal: "", image: "", description: "", day: prevData.length + 1 }
+      { title: "", durationMeal: "", image: "", description: "", meals:[],day: prevData.length + 1 }
     ]);
   };
 
@@ -42,7 +42,25 @@ const AttributesTabContentEdit = ({
     setItineraryData(updatedData);
     onDataFromChild({ itineraries: updatedData });
   };
+  const handleTourDataChangeTypes = (fieldName, isChecked, index) => {
+    const updatedData = [...itineraryData];
+    const dayData = updatedData[index];
+    let updatedMeals;
+    if (isChecked) {
+      updatedMeals = [...dayData.meals, fieldName];
+    } else {
+      updatedMeals = dayData.meals.filter((meal) => meal !== fieldName);
+    }
   
+    updatedData[index] = {
+      ...dayData,
+      meals: updatedMeals,
+    };
+  
+    setItineraryData(updatedData);
+    onDataFromChild({ itineraries: updatedData });
+  };
+console.log(itineraryData)
   const handleSaveChanges = () => {
     setShowLoader(true);
     // Perform save changes logic
@@ -80,20 +98,66 @@ const AttributesTabContentEdit = ({
               required
               value={dayData.durationMeal}
               onChange={(e) =>
-                handleDayDataChange(index, "durationMeal", e.target.value)
+                handleDayDataChange(index, "duration", e.target.value)
               }
             />
             <label className="lh-1 text-16 text-light-1">
-              Duration and Meal
+              Duration
             </label>
           </div>
+
+
+          <div>
+          <input
+             type="checkbox"
+              name="breakfast"
+              value="breakfast"
+              id="breakfastCheckbox"
+            onChange={(e) =>
+              handleTourDataChangeTypes(e.target.value, e.target.checked,index)
+            }
+            checked={dayData.meals.includes("breakfast")}
+          />
+          <label htmlFor="group">Breakfast</label>
+        </div>
+      
+
+        
+        <div>
+          <input
+             type="checkbox"
+              name="lunch"
+              value="lunch"
+              id="lunchCheckbox"
+            onChange={(e) =>
+              handleTourDataChangeTypes(e.target.value, e.target.checked ,index)
+            }
+            checked={dayData.meals.includes("lunch")}
+          />
+          <label htmlFor="group">Lunch</label>
+        </div>
+
+        <div>
+          <input
+            type="checkbox"
+              name="dinner"
+              value="dinner"
+              id="dinnerCheckbox"
+            onChange={(e) =>
+              handleTourDataChangeTypes(e.target.value, e.target.checked ,index)
+            }
+            checked={dayData.meals.includes("dinner")}
+          />
+          <label htmlFor="group">Dinner</label>
+        </div>
+       
           <div className="form-input">
             <input
               type="text"
               required
               value={dayData.image}
               onChange={(e) =>
-                handleDayDataChange(index, "image", e.target.value)
+                handleDayDataChange(index, "image", e.target.value )
               }
             />
             <label className="lh-1 text-16 text-light-1">Image</label>

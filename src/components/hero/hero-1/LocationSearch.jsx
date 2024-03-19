@@ -34,9 +34,10 @@ const SearchBar = ({ onLocationSelect }) => {
   };
 
   const handleOptionClick = (item) => {
+    console.log(item)
     setSearchValue(item.value.name);
     setSelectedItem(item.value);
-    onLocationSelect(item.value);
+    onLocationSelect(item.value.name);
   };
 
   const loadOptions = (inputValue) => {
@@ -57,14 +58,18 @@ const SearchBar = ({ onLocationSelect }) => {
         >
           <h4 className="text-15 fw-500 ls-2 lh-16">Location</h4>
           <div className="text-15 text-light-1 ls-2 lh-16">
-            <input
-              autoComplete="off"
-              type="search"
-              placeholder="Where are you going?"
-              className="js-search js-dd-focus"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-            />
+          <input
+  autoComplete="off"
+  type="search"
+  placeholder="Where are you going?"
+  className="js-search js-dd-focus"
+  value={searchValue}
+  onChange={(e) => {
+    setSearchValue(e.target.value);
+    onLocationSelect(e.target.value); // Assuming onLocationSelect is a function passed as a prop
+  }}
+/>
+
           </div>
         </div>
         {/* End location Field */}

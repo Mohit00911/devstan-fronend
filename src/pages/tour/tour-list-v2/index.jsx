@@ -59,31 +59,33 @@ const TourListPage2 = ({ onTabChange }) => {
   const [checkedDuration, setCheckedDuration] = useState([]);
 
   const [tourData, setTourData] = useState({ location: "", date: "" });
-  const [tours, setTours] = useState("");
+  const [tours1, setTours1] = useState([]);
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const locationParam = queryParams.get("location");
   const dateParam = queryParams.get("date");
 
-  const searchTours = async () => {
-    try {
-      
-      const response = await fetch(
-        `${BASE_URL}/api/tours/${locationParam}/${dateParam}`
-      );
-      const data = await response.json();
-   
-      setTours(data);
-    } catch (error) {
-      console.error("Error fetching tours:", error);
-    } finally {
-    }
-  };
-  useEffect(() => {
-    if (locationParam && dateParam) {
-      searchTours();
-    }
-  }, [locationParam, dateParam]);
+  // useEffect(() => {
+  //   const searchTours = async () => {
+  //     try {
+
+  //       const response = await fetch(
+  //         `${BASE_URL}/api/tours/${locationParam}/${dateParam}`
+  //       );
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch tours');
+  //       }
+  //       const data = await response.json();
+
+  //       setTours1(data);
+  //     } catch (error) {
+  //       console.error("Error fetching tours:", error);
+  //     }
+  //   };
+
+  //   searchTours();
+
+  // }, [locationParam, dateParam]);
 
   const handleRangeChange = (newRange) => {
     const [start, end] = newRange.sort((a, b) => a - b);
@@ -105,42 +107,36 @@ const TourListPage2 = ({ onTabChange }) => {
       `/tour-list-v2?location=${tourData.location}&date=${tourData.date}`
     );
   };
-
   useEffect(() => {
     const fetchToursByCategories = async () => {
       try {
-        const response = await fetch(
-          `${BASE_URL}/api/tours/${locationParam}/${dateParam}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
+        const response = await fetch(`${BASE_URL}/api/allTours`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            location: locationParam,
 
-            body: JSON.stringify({
-              tourType: checkedCategories,
-              minPrice,
-              maxPrice,
-              durations: checkedDuration,
-            }),
-          }
-        );
+            tourType: checkedCategories,
+            minPrice,
+            maxPrice,
+            durations: checkedDuration,
+          }),
+        });
         const data = await response.json();
-
-        setTours(data);
+        setTours1(data);
       } catch (error) {
         console.error("Error fetching tours:", error);
       }
     };
+
     fetchToursByCategories();
-  }, [checkedCategories, range, checkedDuration]);
-
+  }, [checkedCategories, minPrice, maxPrice, checkedDuration, location.search]);
+ 
   const handleDurationChange = (duration) => {
-
-    
     const numbers = duration.match(/\d+/g);
     const lowerCaseCategoryName = numbers ? parseInt(numbers.join(""), 10) : 0;
-  
 
     setCheckedDuration((prevCheckedDuration) => {
       if (prevCheckedDuration.includes(lowerCaseCategoryName)) {
@@ -152,7 +148,7 @@ const TourListPage2 = ({ onTabChange }) => {
       }
     });
   };
- 
+
   const handleCheckboxChange = (categoryName) => {
     const lowerCaseCategoryName = categoryName.trim().toLowerCase();
 
@@ -333,7 +329,7 @@ const TourListPage2 = ({ onTabChange }) => {
                 <div className="sidebar__item">
                   <h5 className="text-18 fw-500 mb-10">Languages</h5>
                   <div className="sidebar-checkbox">
-                    <Languages />
+                    {/* <Languages /> */}
                   </div>
                 </div>
               </aside>
@@ -366,8 +362,8 @@ const TourListPage2 = ({ onTabChange }) => {
               <TopHeaderFilter />
               <div className="mt-30"></div>
               <div className="row y-gap-30">
-                {tours &&
-                  tours.map((item) => (
+                {tours1 &&
+                  tours1.map((item) => (
                     <div
                       className="col-lg-4 col-sm-6"
                       key={item?.id}

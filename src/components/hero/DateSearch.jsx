@@ -10,10 +10,10 @@ const DateSearch = ({ onDateChange }) => {
     onDateChange(formattedDates);
   };
 
-  const [dates, setDates] = useState([
-    new DateObject().setDay(5),
-    new DateObject().setDay(14).add(1, "month"),
-  ]);
+  // Set the default selected dates here
+  const defaultStartDate = new DateObject().setDay(5);
+  const defaultEndDate = new DateObject().setDay(14).add(1, "month");
+  const [dates, setDates] = useState([defaultStartDate, defaultEndDate]);
 
   return (
     <div className="text-15 text-light-1 ls-2 lh-16 custom_dual_datepicker">

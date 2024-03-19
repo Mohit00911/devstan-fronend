@@ -241,15 +241,15 @@ const [tour,setTour]=useState("")
           <div className="text-14 text-light-1">
             From{" "}
             <span className="text-20 fw-500 text-dark-1 ml-5">
-              US${tour?.price}
+              Rs.{tour?.cost}
             </span>
           </div>
-          {/* End div */}
+         
 
           <div className="row y-gap-20 pt-30">
             <FilterBox />
           </div>
-          {/* End div */}
+         
 
           <div className="d-flex items-center pt-20">
             <div className="size-40 flex-center bg-light-2 rounded-full">
@@ -260,7 +260,7 @@ const [tour,setTour]=useState("")
             </div>
           </div>
         </div>
-        {/* End px-30 */}
+        
 
         <div className="px-30">
           <div className="text-14 text-light-1 mt-30">
@@ -268,19 +268,19 @@ const [tour,setTour]=useState("")
             for a full refund.
           </div>
         </div>
-        {/* End div */}
+       
       </div>
     </div>
-              {/* <SidebarRight tour={tour} /> */}
+              
             </div>
-            {/* End .col-xl-4 */}
+            
           </div>
-          {/* End .row */}
+          
         </div>
-        {/* End container */}
+        
       </section>
 
-      {/* <TourGallery tour={tour} /> */}
+      
 
     
 
@@ -430,12 +430,12 @@ const [tour,setTour]=useState("")
             </div>
             {/* End .col */}
           </div>
-          {/* End .row */}
+          
 
           <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
             <Tours />
           </div>
-          {/* End .row */}
+          
         </div>
         {/* End .container */}
       </section>

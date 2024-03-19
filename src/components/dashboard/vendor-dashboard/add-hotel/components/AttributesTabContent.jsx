@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import Loader from "@/components/loader/loader";
-
-const DayItinerarySection = ({ day, dayData, onDayDataChange, onDeleteDay }) => {
+import "../../../../../styles/checkbox.css";
+const DayItinerarySection = ({
+  day,
+  dayData,
+  onDayDataChange,
+  onDeleteDay,
+}) => {
   const handleDeleteButtonClick = () => {
     onDeleteDay(day);
   };
@@ -10,12 +15,34 @@ const DayItinerarySection = ({ day, dayData, onDayDataChange, onDeleteDay }) => 
   };
 
   const renderDeleteButton = () => {
-    if (day === 1) return null; // Don't render delete button for the first day
+    if (day === 1) return null;
     return <button onClick={handleDeleteButtonClick}>Delete Day</button>;
   };
+  console.log(dayData);
+
+  const handleTourDataChangeTypes = (fieldName, value) => {
+    const formattedFieldName = fieldName.trim().toLowerCase();
+
+    let updatedTourType = [...dayData.meals];
+
+    if (updatedTourType.includes(formattedFieldName)) {
+      updatedTourType = updatedTourType.filter(
+        (type) => type !== formattedFieldName
+      );
+    } else {
+      updatedTourType.push(formattedFieldName);
+    }
+
+    // Update the state with the new array of meals
+    onDayDataChange(day, { ...dayData, meals: updatedTourType });
+
+    // Clear any previous error messages
+    // setError("");
+  };
+
   return (
     <div className="col-12">
-      <h1>Day {day+1}</h1>
+      <h1>Day {day}</h1>
       <div className="form-input">
         <input
           type="text"
@@ -29,10 +56,53 @@ const DayItinerarySection = ({ day, dayData, onDayDataChange, onDeleteDay }) => 
         <input
           type="text"
           required
-          value={dayData.durationMeal}
-          onChange={(e) => handleInputChange("durationMeal", e.target.value)}
+          value={dayData.duration}
+          onChange={(e) => handleInputChange("duration", e.target.value)}
         />
-        <label className="lh-1 text-16 text-light-1">Duration and Meal</label>
+        <label className="lh-1 text-16 text-light-1">Duration</label>
+      </div>
+      <div>
+      <div>
+          <input
+             type="checkbox"
+              name="breakfast"
+              value="breakfast"
+              id="breakfastCheckbox"
+            onChange={(e) =>
+              handleTourDataChangeTypes(e.target.value, e.target.checked)
+            }
+          />
+          <label htmlFor="group">Breakfast</label>
+        </div>
+      
+
+        
+        <div>
+          <input
+             type="checkbox"
+              name="lunch"
+              value="lunch"
+              id="lunchCheckbox"
+            onChange={(e) =>
+              handleTourDataChangeTypes(e.target.value, e.target.checked)
+            }
+          />
+          <label htmlFor="group">Lunch</label>
+        </div>
+
+        <div>
+          <input
+            type="checkbox"
+              name="dinner"
+              value="dinner"
+              id="dinnerCheckbox"
+            onChange={(e) =>
+              handleTourDataChangeTypes(e.target.value, e.target.checked)
+            }
+          />
+          <label htmlFor="group">Dinner</label>
+        </div>
+       
       </div>
       <div className="form-input">
         <input
@@ -53,27 +123,33 @@ const DayItinerarySection = ({ day, dayData, onDayDataChange, onDeleteDay }) => 
         <label className="lh-1 text-16 text-light-1">Description</label>
       </div>
       {renderDeleteButton()}
-
     </div>
   );
 };
 
 const AttributesTabContent = ({ onDataFromChild, onSaveChanges }) => {
   const [itineraryData, setItineraryData] = useState([
-    { title: "", durationMeal: "", image: "", description: "", day: 1 }, 
+    {
+      title: "",
+      durationMeal: "",
+      image: "",
+      description: "",
+      meals: [],
+      day: 1,
+    },
   ]);
 
   const [error, setError] = useState("");
   const [showLoader, setShowLoader] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-const onDeleteDay = (day) => {
-  setItineraryData((prevData) => {
-    const newData = { ...prevData };
-    delete newData[day];
-    return newData;
-  });
-};
+  const onDeleteDay = (day) => {
+    setItineraryData((prevData) => {
+      const newData = { ...prevData };
+      delete newData[day];
+      return newData;
+    });
+  };
 
   const handleDayDataChange = (day, data) => {
     setItineraryData((prevData) => ({
@@ -82,7 +158,7 @@ const onDeleteDay = (day) => {
     }));
     onDataFromChild({ itineraries: itineraryData });
   };
-  
+
   const isAnyFieldFilled = () => {
     for (let key in itineraryData) {
       const dayData = itineraryData[key];
@@ -94,7 +170,7 @@ const onDeleteDay = (day) => {
     }
     return false;
   };
-  
+
   const handleSaveChanges = () => {
     setShowLoader(true);
 
@@ -117,13 +193,19 @@ const onDeleteDay = (day) => {
 
   const addDaySection = () => {
     const newDayNumber = Object.keys(itineraryData).length + 1;
-    const newDay = { title: "", durationMeal: "", image: "", description: "", day: newDayNumber };
-    setItineraryData(prevData => ({
+    const newDay = {
+      title: "",
+      duration: "",
+      image: "",
+      description: "",
+      meals: [],
+      day: newDayNumber,
+    };
+    setItineraryData((prevData) => ({
       ...prevData,
       [newDayNumber]: newDay,
     }));
-};
-
+  };
 
   return (
     <div className="col-xl-9 col-lg-11">
@@ -150,9 +232,7 @@ const onDeleteDay = (day) => {
 
       {error && <div className="text-danger">{error}</div>}
       {showSuccessMessage && (
-        <div className="text-success">
-          Tour information saved successfully!
-        </div>
+        <div className="text-success">Tour information saved successfully!</div>
       )}
 
       <div className="d-inline-block mt-30">

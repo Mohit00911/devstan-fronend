@@ -4,22 +4,28 @@ import DateSearch from "../DateSearch";
 import GuestSearch from "./GuestSearch";
 import LocationSearch from "./LocationSearch";
 import { useNavigate } from "react-router-dom";
+import DatePicker, { DateObject } from "react-multi-date-picker";
 import React, { useState } from 'react';
 const MainFilterSearchBoxTour = ({ onTabChange}) => {
-  const [tourData, setTourData] = useState({ location: "", date: "" });
+  const getDefaultDate = () => {
+    const defaultStartDate = new DateObject().setDay(5);
+    const defaultEndDate = new DateObject().setDay(14).add(1, 'month');
+    return [defaultStartDate, defaultEndDate];
+  };
   const { tabs, currentTab } = useSelector((state) => state.hero) || {};
+  const [tourData, setTourData] = useState({ location: '', date: getDefaultDate() });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLocationSelect = (selectedLocation) => {
-    setTourData((prevData) => ({ ...prevData, location: selectedLocation.location }));
+    setTourData((prevData) => ({ ...prevData, location: selectedLocation }));
   };
   const handledDateSelect = (selectedDates) => {
     setTourData((prevData) => ({ ...prevData, date: selectedDates }));
   };
   const handleSearch = () => {
     navigate(`/tour-list-v2?location=${tourData.location}&date=${tourData.date}`);
-   
   };
+
   return (
     <>
       <div className="tabs__controls d-flex x-gap-30 y-gap-20 justify-center sm:justify-start js-tabs-controls">
