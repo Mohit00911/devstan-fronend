@@ -7,9 +7,14 @@ const AttributesTabContentEdit = ({
   onSaveChanges,
   initialValues,
 }) => {
+
+
+
+  const [error, setError] = useState("");
   const [showLoader, setShowLoader] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
+
+
   const [itineraryData, setItineraryData] = useState([
     { title: "", durationMeal: "", image: "", meals:[], description: "", day: 1 },
   ]);
@@ -61,21 +66,48 @@ const AttributesTabContentEdit = ({
     setItineraryData(updatedData);
     onDataFromChild({ itineraries: updatedData });
   };
-console.log(itineraryData)
-  const handleSaveChanges = () => {
-    setShowLoader(true);
-    // Perform save changes logic
-    onSaveChanges({ itineraries: itineraryData })
-      .then(() => {
-        setShowLoader(false);
-        setShowSuccessMessage(true);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setShowLoader(false);
-        setShowErrorMessage(true);
-      });
-  };
+// console.log(itineraryData)
+
+
+const handleSaveChanges = () => {
+  if (!isAnyFieldFilled()) {
+    setShowLoader(false);
+    setShowSuccessMessage(false);
+    setError("Please fill at least one input field.");
+    return;
+  }
+
+  setShowLoader(true);
+
+  onSaveChanges()
+    .then(() => {
+      setShowLoader(false);
+      setShowSuccessMessage(true);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      setShowLoader(false);
+    });
+};
+
+const isAnyFieldFilled = () => {
+  for (let key in itineraryData) {
+    const dayData = itineraryData[key];
+    for (let field in dayData) {
+      if (Array.isArray(dayData[field])) {
+        if (dayData[field].some((item) => typeof item === "string" && item.trim() !== "")) {
+          return true;
+        }
+      } else {
+        if (typeof dayData[field] === "string" && dayData[field].trim() !== "") {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+};
+
   
   return (
     <>
@@ -182,7 +214,7 @@ console.log(itineraryData)
         </div>
          <button
          type="button"
-         className="button h-50 px-24 -dark-1 bg-red-1 text-white mt-10"
+         className="button h-50 px-24  bg-red-1 text-white mt-10"
          onClick={() => handleDeleteSection(index)}
        >
          Delete
@@ -200,7 +232,14 @@ console.log(itineraryData)
           Add Section
         </button>
 
+        {error && <div className="text-danger">{error}</div>}
+      {showSuccessMessage && (
+        <div className="text-success">Tour information saved successfully!</div>
+      )}
+
         <div style={{display: "flex", alignItems: "center", gap: "10px"}}>
+
+        {showLoader ? ( <Loader />):(
 
         <button
           type="button"
@@ -210,7 +249,7 @@ console.log(itineraryData)
           Save Changes
           <div className="icon-arrow-top-right ml-15" />
         </button>
-
+        )}
         <Link to = "/vendor-dashboard/tours">
       <button
             type="button"
@@ -223,13 +262,12 @@ console.log(itineraryData)
           </div>
           </div>
 
-      {showLoader && <Loader />}
-      {showSuccessMessage && (
+      {/* {showSuccessMessage && (
         <div className="text-success">Tour information saved successfully!</div>
       )}
       {showErrorMessage && (
         <div className="text-danger">Error occurred while saving changes</div>
-      )}
+      )} */}
     </>
   );
 };

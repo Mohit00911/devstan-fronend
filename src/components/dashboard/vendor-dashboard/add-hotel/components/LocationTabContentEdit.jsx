@@ -5,6 +5,8 @@ import DatePicker, { DateObject } from "react-multi-date-picker";
 import Loader from "@/components/loader/loader";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { MdAdd, MdDelete  } from "react-icons/md";
+
 
 const LocationTabContentEdit = ({
   onDataFromChild,
@@ -22,10 +24,14 @@ const LocationTabContentEdit = ({
     overview:"",
 
   });
- 
+
+  const [error, setError] = useState("");
   const [showLoader, setShowLoader] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
+ 
+  // const [showLoader, setShowLoader] = useState(false);
+  // const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  // const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [dates, setDates] = useState([
     new DateObject().setDay(5),
     new DateObject().setDay(14).add(1, "month"),
@@ -82,22 +88,78 @@ const LocationTabContentEdit = ({
       .join(" - ");
     handleTourDataChange("availableDates", formattedDates);
   };
-  const handleSaveChanges = async () => {
-    if (Object.values(tourData).every((value) => value === "")) {
-      setShowErrorMessage(true);
+
+
+  // const handleSaveChanges = async () => {
+  //   if (Object.values(tourData).every((value) => value === "")) {
+  //     setShowErrorMessage(true);
+  //     return;
+  //   }
+
+  //   setShowLoader(true);
+  //   try {
+  //     await onSaveChanges();
+  //     setShowSuccessMessage(true);
+  //   } catch (error) {
+  //     console.error("Error occurred:", error);
+  //   } finally {
+  //     setShowLoader(false);
+  //   }
+  // };
+
+  // const isAnyFieldEmpty = () => {
+  //   for (let key in tourData) {
+  //     const fieldValue = tourData[key];
+  //     if (Array.isArray(fieldValue)) {
+  //       if (fieldValue.some(value => value.trim() === "")) {
+  //         return true;
+  //       }
+  //     } else {
+  //       if (fieldValue.trim() === "") {
+  //         return true;
+  //       }
+  //     }
+  //   }
+  //   return false;
+  // };
+  
+  const handleSaveChanges = () => {
+    if (!isAnyFieldFilled()) {
+      setShowLoader(false);
+      setShowSuccessMessage(false);
+      setError("Please fill at least one input field.");
       return;
     }
-
+  
     setShowLoader(true);
-    try {
-      await onSaveChanges();
-      setShowSuccessMessage(true);
-    } catch (error) {
-      console.error("Error occurred:", error);
-    } finally {
-      setShowLoader(false);
-    }
+  
+    onSaveChanges()
+      .then(() => {
+        setShowLoader(false);
+        setShowSuccessMessage(true);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setShowLoader(false);
+      });
   };
+
+
+  const isAnyFieldFilled = () => {
+    for (let key in tourData) {
+      const value = tourData[key];
+      if (
+        (typeof value === "string" && value.trim() !== "") ||  // Check if string and not empty
+        (Array.isArray(value) && value.some(item => typeof item === "string" && item.trim() !== ""))  // Check if array and contains non-empty strings
+      ) {
+        return true;
+      }
+    }
+    return false;
+  };
+  
+
+
   const handleDeletewhatsExcluded = (index) => {
     setTourData((prevData) => ({
       ...prevData,
@@ -200,14 +262,16 @@ const LocationTabContentEdit = ({
 
               {tourData.languages.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteLanguage(index)}>
-                    Delete
+                  <button className="button h-40 px-10  bg-red-1 text-white mt-10" onClick={() => handleDeleteLanguage(index)}>
+                  <MdDelete style={{fontSize: "1.5rem"}}/> 
                   </button>
                 </div>
               )}
             </div> 
           ))}
-        <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldLanguage}>Add</button>
+        {/* <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldLanguage}>Add</button> */}
+        <button className="button h-40 px-10 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldLanguage}><MdAdd style={{fontSize: "1.5rem"}}/></button>
+
         </div>
 
         <div >
@@ -229,14 +293,17 @@ const LocationTabContentEdit = ({
               </div>
               {tourData.highlights.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteHighlights(index)}>
-                    Delete
+                  <button className="button h-40 px-10  bg-red-1 text-white mt-10" onClick={() => handleDeleteHighlights(index)}>
+                  <MdDelete style={{fontSize: "1.5rem"}}/> 
+
                   </button>
                 </div>
               )}
             </div>
           ))}
-        <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldHighlights}>Add</button>
+<button className="button h-40 px-10 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldHighlights}><MdAdd style={{fontSize: "1.5rem"}}/></button>
+
+        {/* <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldHighlights}>Add</button> */}
         </div>
 
         <div>
@@ -259,14 +326,16 @@ const LocationTabContentEdit = ({
               </div>
               {tourData.whatsIncluded.length > 1 && (
                 <div className="col-2">
-                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeletewhatsIncluded(index)}>
-                    Delete
+                 <button className="button h-40 px-10  bg-red-1 text-white mt-10" onClick={() => handleDeletewhatsIncluded(index)}>
+                  <MdDelete style={{fontSize: "1.5rem"}}/> 
                   </button>
                 </div>
               )}
             </div>
           ))}
-        <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldwhatsIncluded}>Add</button>
+<button className="button h-40 px-10 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldwhatsIncluded}><MdAdd style={{fontSize: "1.5rem"}}/></button>
+
+        {/* <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldwhatsIncluded}>Add</button> */}
         </div>
 
         
@@ -290,14 +359,16 @@ const LocationTabContentEdit = ({
               </div>
               {tourData.whatsExcluded.length > 1 && ( 
                 <div className="col-2">
-                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeletewhatsExcluded(index)}>
-                    Delete
+                   <button className="button h-40 px-10  bg-red-1 text-white mt-10" onClick={() => handleDeletewhatsExcluded(index)}>
+                  <MdDelete style={{fontSize: "1.5rem"}}/> 
                   </button>
                 </div>
               )}
             </div>
           ))}
-        <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldwhatsExcluded}>Add</button>
+<button className="button h-40 px-10 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldwhatsExcluded}><MdAdd style={{fontSize: "1.5rem"}}/></button>
+
+        {/* <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldwhatsExcluded}>Add</button> */}
         </div>
 
         <div className="col-12">
@@ -324,10 +395,10 @@ const LocationTabContentEdit = ({
 
        
       </div>
-      {showErrorMessage && (
-        <div className="text-error">Please enter at least one field.</div>
+      {error && (
+        <div className="text-danger">{error}</div>
       )}
-      {showSuccessMessage && !showErrorMessage && (
+      {showSuccessMessage  && (
 
         <div className="text-success">Changes saved successfully.</div>
       )}

@@ -162,37 +162,47 @@ const AttributesTabContent = ({ onDataFromChild, onSaveChanges }) => {
     onDataFromChild({ itineraries: itineraryData });
   };
 
+  const handleSaveChanges = () => {
+    if (!isAnyFieldFilled()) {
+      setShowLoader(false);
+      setShowSuccessMessage(false);
+      setError("Please fill at least one input field.");
+      return;
+    }
+  
+    setShowLoader(true);
+  
+    onSaveChanges()
+      .then(() => {
+        setShowLoader(false);
+        setShowSuccessMessage(true);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setShowLoader(false);
+      });
+  };
+  
   const isAnyFieldFilled = () => {
     for (let key in itineraryData) {
       const dayData = itineraryData[key];
       for (let field in dayData) {
-        if (dayData[field].trim() !== "") {
-          return true;
+        if (Array.isArray(dayData[field])) {
+          if (dayData[field].some((item) => typeof item === "string" && item.trim() !== "")) {
+            return true;
+          }
+        } else {
+          if (typeof dayData[field] === "string" && dayData[field].trim() !== "") {
+            return true;
+          }
         }
       }
     }
     return false;
   };
+  
+  
 
-  const handleSaveChanges = () => {
-    setShowLoader(true);
-
-    if (isAnyFieldFilled()) {
-      onSaveChanges()
-        .then(() => {
-          setShowLoader(false);
-          setShowSuccessMessage(true);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          setShowLoader(false);
-        });
-    } else {
-      setShowLoader(false);
-      setShowSuccessMessage(false);
-      setError("Please fill at least one input field.");
-    }
-  };
 
   const addDaySection = () => {
     const newDayNumber = Object.keys(itineraryData).length + 1;
@@ -222,6 +232,8 @@ const AttributesTabContent = ({ onDataFromChild, onSaveChanges }) => {
         />
       ))}
 
+
+     
      <div style={{display: "flex", alignItems : "center", justifyContent: "space-between"}}>
 
       <div className="d-inline-block mt-30">
@@ -236,12 +248,13 @@ const AttributesTabContent = ({ onDataFromChild, onSaveChanges }) => {
         </button>
       </div>
 
+     
+
+      <div className="d-inline-block mt-30">
       {error && <div className="text-danger">{error}</div>}
       {showSuccessMessage && (
         <div className="text-success">Tour information saved successfully!</div>
       )}
-
-      <div className="d-inline-block mt-30">
 
         <div style={{display: "flex", alignItems : "center", gap: "10px"}}>
 

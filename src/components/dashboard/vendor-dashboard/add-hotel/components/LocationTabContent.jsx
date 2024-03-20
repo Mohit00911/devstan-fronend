@@ -1,19 +1,15 @@
-
 import DateSearch from "@/components/hero/DateSearch";
-
 import Education from "./location/Education";
 import Health from "./location/Health";
 import Location from "./location/Location";
 import Sorroundings from "./location/Sorroundings";
 import Transportation from "./location/Transportation";
-
-
 import React, { useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import { v4 as uuidv4 } from "uuid";
-
 import Loader from "@/components/loader/loader";
 import { Link } from "react-router-dom";
+import { MdAdd, MdDelete  } from "react-icons/md";
 
 const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
   const [tourData, setTourData] = useState({
@@ -22,10 +18,7 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
     highlights: [""],
     whatsIncluded: [""],
     whatsExcluded: [""],
-
     overview: "",
-
-
     availableDates: "",
   });
 
@@ -58,9 +51,7 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
       }));
     }
     onDataFromChild(tourData);
-
     setError("");
-
   };
 
   const handleDateSelection = (selectedDates) => {
@@ -72,33 +63,38 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
   };
 
   const handleSaveChanges = () => {
-    if (isAnyFieldFilled()) {
-      setShowLoader(true);
-      onSaveChanges()
-        .then(() => {
-          setShowLoader(false);
-          setShowSuccessMessage(true);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          setShowLoader(false);
-        });
-    } else {
+    if (!isAnyFieldFilled()) {
       setShowLoader(false);
       setShowSuccessMessage(false);
       setError("Please fill at least one input field.");
+      return;
     }
+    setShowLoader(true);
+    onSaveChanges()
+      .then(() => {
+        setShowLoader(false);
+        setShowSuccessMessage(true);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setShowLoader(false);
+      });
   };
-
-
+  
   const isAnyFieldFilled = () => {
     for (let key in tourData) {
-      if (typeof tourData[key] === "string" || tourData[key].trim() !== "") {
+      const value = tourData[key];
+      if (
+        (typeof value === "string" && value.trim() !== "") ||  // Check if string and not empty
+        (Array.isArray(value) && value.some(item => typeof item === "string" && item.trim() !== ""))  // Check if array and contains non-empty strings
+      ) {
         return true;
       }
     }
     return false;
   };
+
+
   const handleDeletewhatsExcluded = (index) => {
     setTourData((prevData) => ({
       ...prevData,
@@ -123,11 +119,9 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
       languages: prevData.languages.filter((_, i) => i !== index),
     }));
   };
-
   const handleAddFieldLanguage = () => {
     setTourData({ ...tourData, languages: [...tourData.languages, ""] });
   };
-
   const handleAddFieldHighlights = () => {
     setTourData({ ...tourData, highlights: [...tourData.highlights, ""] });
   };
@@ -145,7 +139,6 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
   };
   return (
     <div className="col-xl-10">
-
       <div className="row x-gap-20 y-gap-20">
         <div className="col-12">
           <div className="form-input">
@@ -195,15 +188,15 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
               {tourData.languages.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteLanguage(index)}>
-                    Delete
+                  <button className="button h-40 px-10  bg-red-1 text-white mt-10" onClick={() => handleDeleteLanguage(index)}>
+                  <MdDelete style={{fontSize: "1.5rem"}}/> 
                   </button>
                 </div>
               )}
             </div>
           ))}
 
-          <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldLanguage}>Add</button>
+          <button className="button h-40 px-10 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldLanguage}><MdAdd style={{fontSize: "1.5rem"}}/></button>
         </div>
 
         <div>
@@ -222,8 +215,9 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
               {tourData.highlights.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteHighlights(index)}>
-                    Delete
+                  <button className="button h-40 px-10  bg-red-1 text-white mt-10" onClick={() => handleDeleteHighlights(index)}>
+                  <MdDelete style={{fontSize: "1.5rem"}}/> 
+
                   </button>
                 </div>
               )}
@@ -231,9 +225,8 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
             </div>
           ))}
 
-          <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={() => handleAddFieldHighlights("highlights")}>
-            Add
-          </button>
+<button className="button h-40 px-10 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldHighlights}><MdAdd style={{fontSize: "1.5rem"}}/></button>
+
         </div>
         <div>
           {tourData.whatsIncluded.map((whatsIncluded, index) => (
@@ -253,8 +246,8 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
               {tourData.whatsIncluded.length > 1 && (
                 <div className="col-2">
-                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeletewhatsIncluded(index)}>
-                    Delete
+                  <button className="button h-40 px-10  bg-red-1 text-white mt-10" onClick={() => handleDeletewhatsIncluded(index)}>
+                  <MdDelete style={{fontSize: "1.5rem"}}/> 
                   </button>
                 </div>
               )}
@@ -262,7 +255,8 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
             </div>
           ))}
 
-          <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldwhatsIncluded}>Add</button>
+<button className="button h-40 px-10 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldwhatsIncluded}><MdAdd style={{fontSize: "1.5rem"}}/></button>
+
         </div>
 
         <div>
@@ -283,8 +277,8 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
               {tourData.whatsExcluded.length > 1 && ( 
                 <div className="col-2">
-                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeletewhatsExcluded(index)}>
-                    Delete
+                  <button className="button h-40 px-10  bg-red-1 text-white mt-10" onClick={() => handleDeletewhatsExcluded(index)}>
+                  <MdDelete style={{fontSize: "1.5rem"}}/> 
                   </button>
                 </div>
               )}
@@ -292,7 +286,8 @@ const LocationTabContent = ({ onDataFromChild, onSaveChanges }) => {
             </div>
           ))}
 
-          <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldwhatsExcluded}>Add</button>
+<button className="button h-40 px-10 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldwhatsExcluded}><MdAdd style={{fontSize: "1.5rem"}}/></button>
+
         </div>
         <div className="col-12">
           <div className="col-12">

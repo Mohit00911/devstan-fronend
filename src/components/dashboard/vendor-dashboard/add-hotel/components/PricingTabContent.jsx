@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Loader from "@/components/loader/loader";
 import { Link } from "react-router-dom";
+import { MdAdd, MdDelete  } from "react-icons/md";
+
 
 const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
   const [tourData, setTourData] = useState({
@@ -40,25 +42,41 @@ const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
   };
 
+  
   const handleSaveChanges = () => {
-    if (isAnyFieldFilled()) {
-      setShowLoader(true);
-      onSaveChanges()
-        .then(() => {
-          setShowLoader(false);
-          setShowSuccessMessage(true);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          setShowLoader(false);
-          // Handle error if necessary
-        });
-    } else {
+    if (!isAnyFieldFilled()) {
       setShowLoader(false);
       setShowSuccessMessage(false);
       setError("Please fill at least one input field.");
+      return;
     }
+  
+    setShowLoader(true);
+  
+    onSaveChanges()
+      .then(() => {
+        setShowLoader(false);
+        setShowSuccessMessage(true);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setShowLoader(false);
+      });
   };
+  
+  const isAnyFieldFilled = () => {
+    for (let key in tourData) {
+      const value = tourData[key];
+      if (
+        (typeof value === "string" && value.trim() !== "") ||  // Check if string and not empty
+        (Array.isArray(value) && value.some(item => typeof item === "string" && item.trim() !== ""))  // Check if array and contains non-empty strings
+      ) {
+        return true;
+      }
+    }
+    return false;
+  };
+  
 
   const handleDeleteadditionalInfo = (index) => {
     setTourData((prevData) => ({
@@ -104,14 +122,14 @@ const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
     });
   };
 
-  const isAnyFieldFilled = () => {
-    for (let key in tourData) {
-      if (typeof tourData[key] === "string" || tourData[key].trim() !== "") {
-        return true;
-      }
-    }
-    return false;
-  };
+  // const isAnyFieldFilled = () => {
+  //   for (let key in tourData) {
+  //     if (typeof tourData[key] === "string" || tourData[key].trim() !== "") {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // };
 
   return (
     <div className="col-xl-9 col-lg-11">
@@ -145,13 +163,18 @@ const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
             </div>
             {tourData.inclusions.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteinclusions(index)}>
+                  {/* <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteinclusions(index)}>
                     Delete
+                  </button> */}
+                   <button className="button h-40 px-10  bg-red-1 text-white mt-10" onClick={() => handleDeleteinclusions(index)}>
+                  <MdDelete style={{fontSize: "1.5rem"}}/> 
                   </button>
                 </div>
               )}
 
-<button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldinclusions}>Add</button>
+{/* <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldinclusions}>Add</button> */}
+<button className="button h-40 px-10 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldinclusions}><MdAdd style={{fontSize: "1.5rem"}}/></button>
+
           </div>
         ))}
 
@@ -170,13 +193,18 @@ const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
             {tourData.exclusions.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteexclusions(index)}>
+                  {/* <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteexclusions(index)}>
                     Delete
+                  </button> */}
+                   <button className="button h-40 px-10  bg-red-1 text-white mt-10" onClick={() => handleDeleteexclusions(index)}>
+                  <MdDelete style={{fontSize: "1.5rem"}}/> 
                   </button>
                 </div>
               )}
 
-<button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldExclusions}>Add</button>
+{/* <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldExclusions}>Add</button> */}
+<button className="button h-40 px-10 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldExclusions}><MdAdd style={{fontSize: "1.5rem"}}/></button>
+
           </div>
         ))}
 
@@ -197,13 +225,18 @@ const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
             {tourData.knowBeforeYouGo.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteknowBeforeYouGo(index)}>
+                  {/* <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteknowBeforeYouGo(index)}>
                     Delete
+                  </button> */}
+                   <button className="button h-40 px-10  bg-red-1 text-white mt-10" onClick={() => handleDeleteknowBeforeYouGo(index)}>
+                  <MdDelete style={{fontSize: "1.5rem"}}/> 
                   </button>
                 </div>
               )}
 
-<button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldknowBeforeYouGo}>Add</button>
+{/* <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldknowBeforeYouGo}>Add</button> */}
+<button className="button h-40 px-10 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldknowBeforeYouGo}><MdAdd style={{fontSize: "1.5rem"}}/></button>
+
           </div>
         ))}
 
@@ -225,13 +258,18 @@ const PricingTabContent = ({ onDataFromChild, onSaveChanges }) => {
 
             {tourData.additionalInfo.length > 1 && ( // Check if there is more than one language field
                 <div className="col-2">
-                  <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteadditionalInfo(index)}>
+                  {/* <button className="button h-50 px-24  bg-red-1 text-white mt-10" onClick={() => handleDeleteadditionalInfo(index)}>
                     Delete
+                  </button> */}
+                   <button className="button h-40 px-10  bg-red-1 text-white mt-10" onClick={() => handleDeleteadditionalInfo(index)}>
+                  <MdDelete style={{fontSize: "1.5rem"}}/> 
                   </button>
                 </div>
               )}
 
-<button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldadditionalInfo}>Add</button>
+{/* <button className="button h-50 px-24 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldadditionalInfo}>Add</button> */}
+<button className="button h-40 px-10 -dark-1 bg-blue-1 text-white mt-10" onClick={handleAddFieldadditionalInfo}><MdAdd style={{fontSize: "1.5rem"}}/></button>
+
           </div>
         ))}
       </div>
