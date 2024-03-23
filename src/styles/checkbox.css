@@ -1,0 +1,28 @@
+/* CSS for the form-checkbox container */
+.form-checkbox {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* CSS for the checkbox input */
+  .form-checkbox input[type="checkbox"] {
+    appearance: none; /* Hide the default checkbox */
+    margin-right: 5px; /* Add some spacing between the checkbox and label */
+    width: 20px; /* Set the width of the checkbox */
+    height: 20px; /* Set the height of the checkbox */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 3px; /* Add some border radius */
+    cursor: pointer; /* Change cursor to pointer on hover */
+  }
+  
+  /* CSS for the checkbox input when checked */
+  .form-checkbox input[type="checkbox"]:checked {
+    background-color: #007bff; /* Change background color when checked */
+  }
+  
+  /* CSS for the checkbox label */
+  .form-checkbox label {
+    font-size: 16px; /* Set the font size of the label */
+    cursor: pointer; /* Change cursor to pointer on hover */
+  }
+  
