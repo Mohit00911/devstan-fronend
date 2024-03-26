@@ -8,15 +8,13 @@ import { Link } from 'react-router-dom';
 const OrderSubmittedInfo = () => {
   const [userData,setUserData]=useState("")
   const { paymentId } = useParams();
+
   const[tourData,setTourData]=useState("")
   useEffect(() => {
     
     const fetchUserData = async () => {
       try {
-       
-      
-      
-        const bookingResponse = await fetch(`${BASE_URL}/api/getBookedUserDetails`, {
+          const bookingResponse = await fetch(`${BASE_URL}/api/getBookedUserDetails`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

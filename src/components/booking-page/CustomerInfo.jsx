@@ -6,7 +6,7 @@ import { BASE_URL } from "@/utils/headers";
 const CustomerInfo = ({ tourData }) => {
   const token = localStorage.getItem("userId");
   const [userData, setUserData] = useState({
-    token:token,
+    token: token,
     firstName: "",
     email: "",
     lastName: "",
@@ -17,7 +17,7 @@ const CustomerInfo = ({ tourData }) => {
     postalCode: "",
     specialRequests: "",
   });
-console.log(tourData)
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -34,44 +34,34 @@ console.log(tourData)
         if (response.ok) {
           const data = await response.json();
           setUserData(data);
-          
         } else {
           throw new Error("Failed to fetch user data");
         }
-
-
-       
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
-   
+
     fetchUserData();
-   
   }, []);
   const handleUpdateUser = async () => {
-   
     try {
       const response = await fetch(`${BASE_URL}/api/updateUser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-        
         },
-        body: JSON.stringify(userData)
+        body: JSON.stringify(userData),
       });
-      console.log(response)
+      console.log(response);
 
       if (response.ok) {
-        
         console.log("User details updated successfully");
-        
-       
       } else {
-        throw new Error('Failed to update user details');
+        throw new Error("Failed to update user details");
       }
     } catch (error) {
-      console.error('Error updating user details:', error);
+      console.error("Error updating user details:", error);
     }
   };
   const handleInputChange = (e) => {
@@ -80,12 +70,10 @@ console.log(tourData)
       ...prevUserData,
       [name]: value,
     }));
-    
   };
 
   const handleSubmit = async () => {
     try {
-      
       const keyResponse = await fetch(`${BASE_URL}/api/getkey`);
       const keyData = await keyResponse.json();
       const key = keyData;
@@ -99,8 +87,6 @@ console.log(tourData)
       });
       const responseData = await response.json();
 
-  
-
       const options = {
         key,
         amount: tourData.cost,
@@ -108,7 +94,7 @@ console.log(tourData)
         name: "Mohit",
         description: "Test Transaction",
         image: "https://example.com/your_logo",
-        order_id:responseData.orderId,
+        order_id: responseData.orderId,
         handler: async function (responseData) {
           const body = { ...responseData };
 
@@ -124,7 +110,9 @@ console.log(tourData)
             const data = await response.json();
             const generateOrderId = () => {
               const timestamp = Date.now().toString();
-              const randomNumber = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+              const randomNumber = Math.floor(Math.random() * 1000000)
+                .toString()
+                .padStart(6, "0");
               return timestamp + randomNumber;
             };
 
@@ -147,23 +135,21 @@ console.log(tourData)
                   addressLine2: userData.addressLine2,
                   state: userData.state,
                   postalCode: userData.postalCode,
-                  specialRequirement: userData.specialRequests,
-                 
+                  specialRequirement: userData.specialRequests
                 },
                 totalPrice: tourData.cost,
                 paymentId: data.paymentId,
                 bookedTour: tourData.uuid,
                 vendorId: tourData.vendor,
-                status:"pending",
-                tourName:tourData.name,
-
+                status: "pending",
+                tourName: tourData.name
               }),
             });
-            
-            console.log(await bookingResponse.json());
-           
 
-            window.location.href = `${BASE_URL}/invoice-page/${data.paymentId}`;
+            console.log(await bookingResponse.json());
+            
+            window.location.href = `https://devsthan-fronend.vercel.app/invoice-page/${data.paymentId}`;
+           
           } else {
             throw new Error("Failed to fetch user data");
           }
@@ -186,6 +172,7 @@ console.log(tourData)
 
       if (response.ok) {
         console.log("User details updated successfully");
+
       } else {
         throw new Error("Failed to update user details");
       }
@@ -193,8 +180,6 @@ console.log(tourData)
       console.error("Error updating user details:", error);
     }
   };
-
- 
 
   return (
     <>
@@ -362,14 +347,14 @@ console.log(tourData)
           {/* End col-12 */}
         </div>
         <button
-  className="button h-60 px-24 -dark-1 bg-blue-1 text-white"
-  onClick={() => {
-    handleSubmit();
-    handleUpdateUser();
-  }}
->
-  Book Now <div className="icon-arrow-top-right ml-15" />
-</button>
+          className="button h-60 px-24 -dark-1 bg-blue-1 text-white"
+          onClick={() => {
+            handleSubmit();
+            handleUpdateUser();
+          }}
+        >
+          Book Now <div className="icon-arrow-top-right ml-15" />
+        </button>
 
         {/* End .row */}
       </div>
