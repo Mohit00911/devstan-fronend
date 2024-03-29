@@ -6,7 +6,7 @@ import MobileMenu from "../MobileMenu";
 const HeaderDashBoard = () => {
   const [navbar, setNavbar] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-const isVendor=localStorage.getItem("accountType")
+  const isVendor = localStorage.getItem("accountType");
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -19,8 +19,7 @@ const isVendor=localStorage.getItem("accountType")
       setNavbar(false);
     }
   };
-  const vendorId = localStorage.getItem('vendorID');
-
+  const vendorId = localStorage.getItem("vendorID");
 
   useEffect(() => {
     window.addEventListener("scroll", changeBackground);
@@ -39,26 +38,21 @@ const isVendor=localStorage.getItem("accountType")
       >
         <div className="header__container px-30 sm:px-20">
           <div className="-left-side">
-             {/* Conditionally render the Link */}
-      {vendorId ? (
-        /* If vendorId is present, don't render the Link */
-        <div className="header-logo">
+              {vendorId ? (
+           
+              <div className="header-logo">
+                <img src="/img/general/logo-dark.svg" alt="logo icon" />
+              </div>
+            ) : (
+              
+              <Link to="/" className="header-logo">
+                <img src="/img/general/logo-dark.svg" alt="logo icon" />
+              </Link>
+            )}
 
-          <img src="/img/general/logo-dark.svg" alt="logo icon" />
-
-        </div>
-      ) : (
-        /* If vendorId is not present, render the Link */
-        <Link to="/" className="header-logo">
-
-          <img src="/img/general/logo-dark.svg" alt="logo icon" />
-
-        </Link>
-      )}
-      {/* Other header content */}
-            {/* End logo */}
+            
           </div>
-          {/* End _left-side */}
+          
 
           <div className="row justify-between items-center pl-60 lg:pl-20">
             <div className="col-auto">
@@ -79,18 +73,18 @@ const isVendor=localStorage.getItem("accountType")
                 </div>
               </div>
             </div>
-            {/* End .col-auto */}
+            
 
             <div className="col-auto">
               <div className="d-flex items-center">
-              {isVendor == "vendor" ? null : (
-      <div className="header-menu">
-        <div className="header-menu__content">
-          <MainMenu style="text-dark-1" />
-        </div>
-      </div>
-    )}
-                {/* End header-menu */}
+                {isVendor == "vendor" ? null : (
+                  <div className="header-menu">
+                    <div className="header-menu__content">
+                      <MainMenu style="text-dark-1" />
+                    </div>
+                  </div>
+                )}
+                
 
                 <div className="row items-center x-gap-5 y-gap-20 pl-20 lg:d-none">
                   <div className="col-auto">
@@ -98,16 +92,16 @@ const isVendor=localStorage.getItem("accountType")
                       <i className="icon-email-2 text-20"></i>
                     </button>
                   </div>
-                  {/* End col-auto */}
+                  
 
                   <div className="col-auto">
                     <button className="button -blue-1-05 size-50 rounded-22 flex-center">
                       <i className="icon-notification text-20"></i>
                     </button>
                   </div>
-                  {/* End col-auto */}
+                  
                 </div>
-                {/* End .row */}
+                
 
                 <div className="pl-15">
                   <img
@@ -117,40 +111,39 @@ const isVendor=localStorage.getItem("accountType")
                   />
                 </div>
 
-{isVendor == "vendor" ? null : 
-                <div className="d-none xl:d-flex x-gap-20 items-center pl-20">
-                  <div>
-                    <button
-                      className="d-flex items-center icon-menu text-20"
-                      data-bs-toggle="offcanvas"
-                      aria-controls="mobile-sidebar_menu"
-                      data-bs-target="#mobile-sidebar_menu"
-                    ></button>
-                  </div>
+                {isVendor == "vendor" ? null : (
+                  <div className="d-none xl:d-flex x-gap-20 items-center pl-20">
+                    <div>
+                      <button
+                        className="d-flex items-center icon-menu text-20"
+                        data-bs-toggle="offcanvas"
+                        aria-controls="mobile-sidebar_menu"
+                        data-bs-target="#mobile-sidebar_menu"
+                      ></button>
+                    </div>
 
-                  <div
-                    className="offcanvas offcanvas-start  mobile_menu-contnet "
-                    tabIndex="-1"
-                    id="mobile-sidebar_menu"
-                    aria-labelledby="offcanvasMenuLabel"
-                    data-bs-scroll="true"
-                  >
-                    <MobileMenu />
-                    {/* End MobileMenu */}
+                    <div
+                      className="offcanvas offcanvas-start  mobile_menu-contnet "
+                      tabIndex="-1"
+                      id="mobile-sidebar_menu"
+                      aria-labelledby="offcanvasMenuLabel"
+                      data-bs-scroll="true"
+                    >
+                      <MobileMenu />
+                     
+                    </div>
                   </div>
-
-                </div>
-}
+                )}
               </div>
-              {/* End -flex items-center */}
+             
             </div>
-            {/* End col-auto */}
+
           </div>
-          {/* End .row */}
+          
         </div>
-        {/* End header_container */}
+        
       </header>
-      {/* End header */}
+      
     </>
   );
 };

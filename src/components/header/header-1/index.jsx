@@ -59,22 +59,20 @@ const Header1 = () => {
 
             <div className="col-auto">
               <div className="d-flex items-center">
-                <div className="row x-gap-20 items-center xxl:d-none">
+                {/* <div className="row x-gap-20 items-center xxl:d-none">
                   <CurrenctyMegaMenu textClass="text-white" />
-                  {/* End Megamenu for Currencty */}
+                
 
-                  {/* Start vertical devider*/}
+                
                   <div className="col-auto">
                     <div className="w-1 h-20 bg-white-20" />
                   </div>
-                  {/* End vertical devider*/}
+                  
 
                   <LanguageMegaMenu textClass="text-white" />
-                  {/* End Megamenu for Language */}
-                </div>
-                {/* End language and currency selector */}
-
-                {/* Start btn-group */}
+                
+                </div> */}
+               
                 {
                   token ? <p style={{color:'white'}}>{username}</p> : <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
                   <Link

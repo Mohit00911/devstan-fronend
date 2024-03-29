@@ -5,8 +5,9 @@ import { BASE_URL } from "@/utils/headers";
 
 const BookingTable = () => {
   const [activeTab, setActiveTab] = useState(0);
-
-const [tours,setTours]=useState("")
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [selectedActions, setSelectedActions] = useState({});
+  const [tours, setTours] = useState("");
   const handleTabClick = (index) => {
     setActiveTab(index);
   };
@@ -22,38 +23,72 @@ const [tours,setTours]=useState("")
     "Partial Payment",
   ];
   useEffect(() => {
-    
     const fetchUserData = async () => {
       try {
-        console.log(localStorage)
-        const vendorId=localStorage.getItem("vendorID")
       
-      
-        const bookingResponse = await fetch(`${BASE_URL}/api/getBookedTours/${vendorId}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-         
-        })
+        const vendorId = localStorage.getItem("vendorID");
+
+        const bookingResponse = await fetch(
+          `${BASE_URL}/api/getBookedTours/${vendorId}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         if (bookingResponse.ok) {
           const data = await bookingResponse.json();
-    
+
           setTours(data.bookedTours);
-          
-          
         } else {
-          throw new Error('Failed to fetch user data');
+          throw new Error("Failed to fetch user data");
         }
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     };
 
     fetchUserData();
-  }, []);
-console.log(tours)
+  }, [activeFilter]);
+
+
+  const handleFilterClick = async (filter,orderId) => {
+    
+  try {
+   
+    const response = await fetch(`${BASE_URL}/api/updateTourStatus`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        orderId: orderId,
+        newStatus: filter, 
+      }),
+    });
+
+    if (response.ok) {
+      
+      setActiveFilter(filter);
+     
+    } else {
+      throw new Error("Failed to update tour status");
+    }
+  } catch (error) {
+    console.error("Error updating tour status:", error);
+  }
+};
+
+  const filters = [
+    { label: "All", value: "all" },
+    { label: "Pending", value: "pending" },
+    { label: "Completed", value: "completed" },
+    { label: "Processing", value: "processing" },
+    { label: "Cancelled", value: "cancelled" },
+  ];
+
   return (
     <>
       <div className="tabs -underline-2 js-tabs">
@@ -82,7 +117,7 @@ console.log(tours)
                     <th>Type</th>
                     <th>Title</th>
                     <th>Order Date</th>
-                  
+
                     <th>Total</th>
                     <th>Paid</th>
                     <th>Remain</th>
@@ -91,43 +126,64 @@ console.log(tours)
                   </tr>
                 </thead>
                 <tbody>
-                {
-                 tours &&  tours.map((item)=>{
-                    return(
+                  {tours &&
+                    tours.map((item) => {
+                      return (
+                        <tr>
+                          <td>Tour</td>
+                          <td>{item.tourName}</td>
+                          <td>{item.createdAt}</td>
 
-                      <tr>
-                    <td>Tour</td>
-                    <td>{item.tourName}</td>
-                    <td>{item.createdAt}</td>
-                    
-                  
-                    <td className="fw-500">Rs.{item.totalPrice}</td>
-                    <td>$0</td>
-                    <td>$35</td>
-                    <td>
-                      <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3">
-                       {item.status}
-                      </span>
-                    </td>
-                    <td>
-                      <ActionsButton />
-                    </td>
-                  </tr>
-
-                    )
-
-                  
-
-                    
-                    
-                      
-                    
-                  })
-                }
-                 
-                 
-                 
-                  
+                          <td className="fw-500">Rs.{item.totalPrice}</td>
+                          <td>$0</td>
+                          <td>$35</td>
+                          <td>
+                            <span className="rounded-100 py-4 px-10 text-center text-14 fw-500  text-blue-3">
+                              {item.status}
+                            </span>
+                          </td>
+                          <td>
+                            <div className="dropdown js-dropdown js-actions-1-active">
+                              <div
+                                className="dropdown__button d-flex items-center rounded-4 text-blue-1  text-14 px-15 py-5"
+                                data-bs-toggle="dropdown"
+                                data-bs-auto-close="true"
+                                aria-expanded="false"
+                                data-bs-offset="0,10"
+                              >
+                                 <span className="js-dropdown-title">
+                                {selectedActions[item.orderId] === undefined
+                                  ? "Actions"
+                                  : selectedActions[item.orderId]}
+                              </span>
+                                <i className="icon icon-chevron-sm-down text-7 ml-10" />
+                              </div>
+                              <div className="toggle-element -dropdown-2 js-click-dropdown dropdown-menu">
+                                <div className="text-14 fw-500 js-dropdown-list">
+                                  {filters.map((filter) => (
+                                    <div key={filter.value}>
+                                      <button
+                                        className={`d-block js-dropdown-link ${
+                                          activeFilter === filter.value
+                                            ? "text-blue-1"
+                                            : ""
+                                        }`}
+                                        onClick={() =>
+                                          handleFilterClick(filter.value,item.orderId)
+                                        }
+                                      >
+                                        {filter.label}
+                                      </button>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                            {/* <ActionsButton /> */}
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>

@@ -1,17 +1,17 @@
-import { Link ,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const handleLogout = () => {
-
-
+  
     localStorage.removeItem("userName");
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("vendorID");
 
     navigate("/");
   };
 
-  
   const sidebarData = [
     {
       icon: "/img/dashboard/sidebar/booking.svg",
@@ -19,14 +19,14 @@ const Sidebar = () => {
       links: [
         { title: "All Hotel", href: "#" },
         { title: "Add Hotel", href: "#" },
-        { title: "Recovery", href: "#" }
+        { title: "Recovery", href: "#" },
       ],
     },
     {
       icon: "/img/dashboard/sidebar/map.svg",
       title: "Manage Tour",
       links: [
-        { title: "All Tour", href: "/vendor-dashboard/tours"},
+        { title: "All Tour", href: "/vendor-dashboard/tours" },
         // { title: "Add Tour", href: "/vendor-dashboard/add-tour" },
         { title: "Recovery", href: "#" },
       ],
@@ -183,12 +183,8 @@ const Sidebar = () => {
           </div>
         ))}
 
-        <div className="sidebar__item "
-       onClick={() => handleLogout()}>
-          <a
-            href="#"
-            className="sidebar__button d-flex items-center text-15 lh-1 fw-500"
-          >
+        <div className="sidebar__item " onClick={() => handleLogout()}>
+          <a className="sidebar__button d-flex items-center text-15 lh-1 fw-500">
             <img
               src="/img/dashboard/sidebar/log-out.svg"
               alt="image"
@@ -197,7 +193,6 @@ const Sidebar = () => {
             Logout
           </a>
         </div>
-   
       </div>
     </>
   );

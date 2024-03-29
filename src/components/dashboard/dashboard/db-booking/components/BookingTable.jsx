@@ -92,7 +92,7 @@ console.log(tours)
                     <th>Paid</th>
                     <th>Remain</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    
                   </tr>
                 </thead>
                 <tbody>
@@ -114,9 +114,9 @@ console.log(tours)
                       {item.status}
                       </span>
                     </td>
-                    <td>
+                    {/* <td>
                       <ActionsButton />
-                    </td>
+                    </td> */}
                   </tr>
                     </>
 

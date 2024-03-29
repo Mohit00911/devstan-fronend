@@ -11,6 +11,10 @@ const Sidebar = () => {
    
     localStorage.removeItem("userName");
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("vendorID");
+    
+
     navigate("/");
   };
   const sidebarContent = [

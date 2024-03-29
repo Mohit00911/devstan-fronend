@@ -88,8 +88,6 @@ const MobileMenu = () => {
               </MenuItem>
             ))}
           </SubMenu>
-          {/* End  All Home Menu */}
-
           <SubMenu
             label="Categories"
             className={isActiveParent ? "menu-active-link" : ""}
@@ -140,7 +138,7 @@ const MobileMenu = () => {
           >
             Desitinations
           </MenuItem>
-          {/* End  Desitinations Menu */}
+          
 
           <SubMenu
             label="Blog"
@@ -167,7 +165,7 @@ const MobileMenu = () => {
               </MenuItem>
             ))}
           </SubMenu>
-          {/* End  All Blog Menu */}
+        
 
           <SubMenu
             label="Pages"
@@ -219,7 +217,7 @@ const MobileMenu = () => {
               </MenuItem>
             ))}
           </SubMenu>
-          {/* End  All Dashboard Menu */}
+       
 
           <MenuItem
             onClick={() => navigate("/contact")}
@@ -227,7 +225,7 @@ const MobileMenu = () => {
           >
             Contact
           </MenuItem>
-          {/* End Contact  Menu */}
+          
         </Menu>
       </Sidebar>
 
