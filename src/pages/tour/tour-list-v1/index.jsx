@@ -33,14 +33,14 @@ const TourListPage1 = () => {
               <div className="text-center">
                 <h1 className="text-30 fw-600">Tours in London</h1>
               </div>
-              {/* End text-center */}
+              
               <MainFilterSearchBox />
             </div>
-            {/* End col-12 */}
+            
           </div>
         </div>
       </section>
-      {/* Top SearchBanner */}
+  
 
       <section className="layout-pt-md layout-pb-lg">
         <div className="container">
@@ -49,7 +49,7 @@ const TourListPage1 = () => {
               <aside className="sidebar y-gap-40 xl:d-none">
                 <Sidebar />
               </aside>
-              {/* End sidebar for desktop */}
+            
 
               <div
                 className="offcanvas offcanvas-start"
@@ -67,16 +67,16 @@ const TourListPage1 = () => {
                     aria-label="Close"
                   ></button>
                 </div>
-                {/* End offcanvas header */}
+                
 
                 <div className="offcanvas-body">
                   <aside className="sidebar y-gap-40  xl:d-block">
                     <Sidebar />
                   </aside>
                 </div>
-                {/* End offcanvas body */}
+               
               </div>
-              {/* End mobile menu sidebar */}
+             
             </div>
             {/* End col */}
 

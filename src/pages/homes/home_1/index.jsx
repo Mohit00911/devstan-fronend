@@ -93,16 +93,16 @@ const Home_1 = () => {
         </div>
        
       </section>
-      {/* End AddBanner */}
+     
 
       <section className="layout-pt-md layout-pb-md">
         <div className="container">
           <div className="row y-gap-10 justify-between items-end">
             <div className="col-auto">
               <div className="sectionTitle -md">
-                <h2 className="sectionTitle__title">Recommended</h2>
+                <h2 className="sectionTitle__title">All Tours</h2>
                 <p className=" sectionTitle__text mt-5 sm:mt-0">
-                  Interdum et malesuada fames ac ante ipsum
+                 All Tours
                 </p>
               </div>
             </div>
@@ -110,17 +110,17 @@ const Home_1 = () => {
               <SelectFilter />
             </div>
           </div>
-          {/* End .row */}
+
 
           <div className="relative overflow-hidden pt-40 sm:pt-20 js-section-slider item_gap-x30">
           {selectedTab == "Hotel" ? <Hotels /> : null}
             {selectedTab == "Tour" ?  <Tours/> : null}
            
           </div>
-          {/* End relative */}
+         
         </div>
       </section>
-      {/* Recommended Properties */}
+    
 
       <section className="layout-pt-md layout-pb-lg">
         <div className="container">
@@ -129,7 +129,7 @@ const Home_1 = () => {
           </div>
         </div>
       </section>
-      {/* Block Guide Section */}
+     
 
       <section className="layout-pt-lg layout-pb-lg bg-blue-2">
         <div className="container">
@@ -137,7 +137,7 @@ const Home_1 = () => {
             <div className="col-xl-5 col-lg-6" data-aos="fade-up">
               <TestimonialLeftCol />
             </div>
-            {/* End col */}
+           
 
             <div className="col-lg-6">
               <div
@@ -149,12 +149,12 @@ const Home_1 = () => {
               </div>
             </div>
           </div>
-          {/* End .row */}
+         
         </div>
-        {/* End container */}
+       
       </section>
-      {/* End testimonial Section */}
-
+     
+{/* 
       <section className="layout-pt-lg layout-pb-md">
         <div className="container">
           <div className="row justify-center text-center">
@@ -169,17 +169,13 @@ const Home_1 = () => {
               </div>
             </div>
           </div>
-          {/* End .row  */}
-          <div className="row y-gap-30 pt-40">
-            <Blog />
-          </div>
-          {/* End .row */}
+          
         </div>
        
-      </section>
-      {/* End blog Section */}
+      </section> */}
+      
 
-      <section className="layout-pt-md layout-pb-lg">
+      {/* <section className="layout-pt-md layout-pb-lg">
         <div className="container">
           <div className="row">
             <div className="col-auto">
@@ -191,21 +187,21 @@ const Home_1 = () => {
               </div>
             </div>
           </div>
-          {/* End .row */}
+
 
           <div className="tabs -pills pt-40 js-tabs">
             <Destinations />
           </div>
-          {/* End tabs */}
+
         </div>
-      </section>
-      {/* End Destination we love Section */}
+      </section> */}
+     
 
       <CallToActions />
-      {/* End Call To Actions Section */}
+    
 
       <DefaultFooter />
-      {/* End Footer Section */}
+     
     </>
   );
 };

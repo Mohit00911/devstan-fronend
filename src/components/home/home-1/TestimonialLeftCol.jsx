@@ -5,10 +5,10 @@ const TestimonialLeftCol = () => {
         What our customers are
         <br /> saying us?
       </h2>
-      <p className="mt-20">
+      {/* <p className="mt-20">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius
         tortor nibh, sit amet tempor nibh finibus et. Aenean eu enim justo.
-      </p>
+      </p> */}
       <div className="row y-gap-30 pt-60 lg:pt-40">
         <div className="col-sm-5 col-6">
           <div className="text-30 lh-15 fw-600">13m+</div>

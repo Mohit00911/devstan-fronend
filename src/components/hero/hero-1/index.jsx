@@ -13,7 +13,7 @@ const index = ({ onTabChange}) => {
   return (
     <section className="masthead -type-1 z-5">
       <div className="masthead__bg">
-        <img alt="image" src="/img/masthead/1/bg.webp" className="js-lazy" />
+        <img alt="image" src="/img/kedarnath-4k.jpg" className="js-lazy" />
       </div>
       <div className="container">
         <div className="row justify-center">

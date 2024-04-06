@@ -7,8 +7,14 @@ import LanguageMegaMenu from "../LanguageMegaMenu";
 import MobileMenu from "../MobileMenu";
 
 const Header1 = () => {
-  const [navbar, setNavbar] = useState(false);
+ 
+  const token = localStorage.getItem('token')
+  const username = localStorage.getItem('userName')
+  // const history = useHistory();
 
+  const [navbar, setNavbar] = useState(false);
+  const vendorId = localStorage.getItem('vendorID');
+  const userId = localStorage.getItem('userId');
   const changeBackground = () => {
     if (window.scrollY >= 10) {
       setNavbar(true);
@@ -23,6 +29,15 @@ const Header1 = () => {
       window.removeEventListener("scroll", changeBackground);
     };
   }, []);
+  function handleRedirect(){
+
+    if (vendorId) {
+      window.location.href = '/vendor-dashboard/dashboard';
+    }
+    if (userId) {
+      window.location.href = '/dashboard/db-booking';
+    }
+}
 
   return (
     <>
@@ -56,36 +71,40 @@ const Header1 = () => {
 
             <div className="col-auto">
               <div className="d-flex items-center">
-                <div className="row x-gap-20 items-center xxl:d-none">
+                {/* <div className="row x-gap-20 items-center xxl:d-none">
                   <CurrenctyMegaMenu textClass="text-white" />
-                  {/* End Megamenu for Currencty */}
-
-                  {/* Start vertical devider*/}
+                  
+                
                   <div className="col-auto">
                     <div className="w-1 h-20 bg-white-20" />
                   </div>
-                  {/* End vertical devider*/}
+                 
 
                   <LanguageMegaMenu textClass="text-white" />
-                  {/* End Megamenu for Language */}
-                </div>
-                {/* End language and currency selector */}
-
-                {/* Start btn-group */}
-                <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
-                  <Link
-                    to="/login"
-                    className="button px-30 fw-400 text-14 -white bg-white h-50 text-dark-1"
-                  >
-                    Become An Expert
-                  </Link>
-                  <Link
-                    to="/signup"
-                    className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
-                  >
-                    Sign In / Register
-                  </Link>
-                </div>
+                 
+                </div> */}
+               
+                {token ? (
+          // Display username if token exists
+          <p style={{color:'white'}} onClick={handleRedirect}>{username}</p>
+        ) : (
+          // Display login/register buttons if no token
+          <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
+            <Link
+              to="/become-expert"
+              className="button px-30 fw-400 text-14 -white bg-white h-50 text-dark-1"
+            >
+              Become An Expert
+            </Link>
+            <Link
+              to="/signup"
+              className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
+            >
+              Sign In / Register
+            </Link>
+          </div>
+        )}
+               
                 {/* End btn-group */}
 
                 {/* Start mobile menu icon */}
@@ -112,7 +131,7 @@ const Header1 = () => {
                       data-bs-scroll="true"
                     >
                       <MobileMenu />
-                      {/* End MobileMenu */}
+                      
                     </div>
                   </div>
                 </div>

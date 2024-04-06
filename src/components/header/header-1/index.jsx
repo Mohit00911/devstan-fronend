@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
+// import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import MainMenu from "../MainMenu";
 import CurrenctyMegaMenu from "../CurrenctyMegaMenu";
@@ -9,9 +10,11 @@ const Header1 = () => {
 
   const token = localStorage.getItem('token')
   const username = localStorage.getItem('userName')
-  
-  const [navbar, setNavbar] = useState(false);
+  // const history = useHistory();
 
+  const [navbar, setNavbar] = useState(false);
+  const vendorId = localStorage.getItem('vendorID');
+  const userId = localStorage.getItem('userId');
   const changeBackground = () => {
     if (window.scrollY >= 10) {
       setNavbar(true);
@@ -26,6 +29,20 @@ const Header1 = () => {
       window.removeEventListener("scroll", changeBackground);
     };
   }, []);
+
+
+function handleRedirect(){
+
+    if (vendorId) {
+      window.location.href = '/vendor-dashboard/dashboard';
+    }
+    if (userId) {
+      window.location.href = '/dashboard/db-booking';
+    }
+}
+
+  // Your component JSX here
+
 
   return (
     <>
@@ -73,22 +90,26 @@ const Header1 = () => {
                 
                 </div> */}
                
-                {
-                  token ? <p style={{color:'white'}}>{username}</p> : <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
-                  <Link
-                    to="/become-expert"
-                    className="button px-30 fw-400 text-14 -white bg-white h-50 text-dark-1"
-                  >
-                    Become An Expert
-                  </Link>
-                  <Link
-                    to="/signup"
-                    className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
-                  >
-                    Sign In / Register
-                  </Link>
-                </div>
-                }
+                {token ? (
+          // Display username if token exists
+          <p style={{color:'white'}} onClick={handleRedirect}>{username}</p>
+        ) : (
+          // Display login/register buttons if no token
+          <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
+            <Link
+              to="/become-expert"
+              className="button px-30 fw-400 text-14 -white bg-white h-50 text-dark-1"
+            >
+              Become An Expert
+            </Link>
+            <Link
+              to="/signup"
+              className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
+            >
+              Sign In / Register
+            </Link>
+          </div>
+        )}
                 
                 {/* End btn-group */}
 

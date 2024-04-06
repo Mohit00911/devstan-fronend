@@ -108,6 +108,10 @@ const TourListPage2 = ({ onTabChange }) => {
     );
   };
   useEffect(() => {
+    console.log(checkedCategories)
+    console.log(minPrice)
+    console.log(maxPrice)
+    console.log(checkedDuration)
     const fetchToursByCategories = async () => {
       try {
         const response = await fetch(`${BASE_URL}/api/allTours`, {
@@ -326,12 +330,12 @@ const TourListPage2 = ({ onTabChange }) => {
                     ))}
                   </div>
                 </div>
-                <div className="sidebar__item">
+                {/* <div className="sidebar__item">
                   <h5 className="text-18 fw-500 mb-10">Languages</h5>
                   <div className="sidebar-checkbox">
-                    {/* <Languages /> */}
+                  
                   </div>
-                </div>
+                </div> */}
               </aside>
 
               <div
@@ -359,7 +363,53 @@ const TourListPage2 = ({ onTabChange }) => {
               </div>
             </div>
             <div className="col-xl-9 ">
-              <TopHeaderFilter />
+
+
+
+            <div className="row y-gap-10 items-center justify-between">
+        <div className="col-auto">
+          <div className="text-18">
+          <span className="fw-500">
+  {tours1 && tours1.length}{' '}
+  {tours1 && tours1.length > 1 ? 'tours' : 'tour'} in {locationParam}
+</span>
+
+          </div>
+        </div>
+        {/* End .col */}
+
+        <div className="col-auto">
+          <div className="row x-gap-20 y-gap-20">
+            <div className="col-auto">
+              <button className="button -blue-1 h-40 px-20 rounded-100 bg-blue-1-05 text-15 text-blue-1">
+                <i className="icon-up-down text-14 mr-10" />
+                Sort
+              </button>
+            </div>
+            {/* End .col */}
+
+            <div className="col-auto d-none xl:d-block">
+              <button
+                data-bs-toggle="offcanvas"
+                data-bs-target="#listingSidebar"
+                className="button -blue-1 h-40 px-20 rounded-100 bg-blue-1-05 text-15 text-blue-1"
+              >
+                <i className="icon-up-down text-14 mr-10" />
+                Filter
+              </button>
+            </div>
+            {/* End .col */}
+          </div>
+          {/* End .row */}
+        </div>
+        {/* End .col */}
+      </div>
+              {/* <TopHeaderFilter locationParam={locationParam}/> */}
+
+
+
+
+
               <div className="mt-30"></div>
               <div className="row y-gap-30">
                 {tours1 &&

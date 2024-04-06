@@ -46,7 +46,7 @@ const Index = () => {
     tourType: "",
   });
   
-
+console.log(receivedData)
   const handleDataFromChild = (data) => {
     setReceivedData((prevData) => ({
       ...prevData,
