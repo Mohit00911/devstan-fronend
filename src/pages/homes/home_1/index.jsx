@@ -41,7 +41,7 @@ const Home_1 = () => {
       <MetaComponent meta={metadata} />
       {/* End Page Title */}
 
-      {/* <Header1 /> */}
+      <Header1 />
       {/* End Header 1 */}
 
       {/* <Hero1 onTabChange={handleTabChange} /> */}
@@ -107,14 +107,14 @@ const Home_1 = () => {
               </div>
             </div>
             <div className="col-sm-auto">
-              {/* <SelectFilter /> */}
+              <SelectFilter />
             </div>
           </div>
 
 
           <div className="relative overflow-hidden pt-40 sm:pt-20 js-section-slider item_gap-x30">
-          {/* {selectedTab == "Hotel" ? <Hotels /> : null} */}
-            {/* {selectedTab == "Tour" ?  <Tours/> : null} */}
+          {selectedTab == "Hotel" ? <Hotels /> : null}
+            {selectedTab == "Tour" ?  <Tours/> : null}
            
           </div>
          
@@ -125,7 +125,7 @@ const Home_1 = () => {
       <section className="layout-pt-md layout-pb-lg">
         <div className="container">
           <div className="row y-gap-20 justify-between">
-            {/* <BlockGuide /> */}
+            <BlockGuide />
           </div>
         </div>
       </section>
@@ -135,7 +135,7 @@ const Home_1 = () => {
         <div className="container">
           <div className="row y-gap-40 justify-between">
             <div className="col-xl-5 col-lg-6" data-aos="fade-up">
-              {/* <TestimonialLeftCol /> */}
+              <TestimonialLeftCol />
             </div>
            
 
@@ -145,7 +145,7 @@ const Home_1 = () => {
                 data-aos="fade-up"
                 data-aos-delay="50"
               >
-                {/* <Testimonial /> */}
+                <Testimonial />
               </div>
             </div>
           </div>
