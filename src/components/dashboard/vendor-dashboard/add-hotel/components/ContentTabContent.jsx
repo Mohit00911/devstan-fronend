@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CloudinaryContext, Image, Transformation, Video } from 'cloudinary-react';
+
 import Loader from "@/components/loader/loader";
 import { Link } from "react-router-dom";
 // import {v2 as cloudinary} from 'cloudinary';
@@ -21,24 +21,24 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
   const [images, setImages] = useState([]);
   const [error, setError] = useState("");
 
-  const handleFileUpload = (event) => {
-    const fileList = event.target.files;
-    const newImages = [];
-    const fileObjects = []; // Array to store file objects
+  // const handleFileUpload = (event) => {
+  //   const fileList = event.target.files;
+  //   const newImages = [];
+  //   const fileObjects = []; // Array to store file objects
   
-    for (let i = 0; i < fileList.length; i++) {
-      const file = fileList[i];
-      // Push the file object to the fileObjects array
-      fileObjects.push(file);
+  //   for (let i = 0; i < fileList.length; i++) {
+  //     const file = fileList[i];
+  //     // Push the file object to the fileObjects array
+  //     fileObjects.push(file);
   
-      // Optionally, you can push the file name to the newImages array
-      newImages.push(file.name);
-    }
+  //     // Optionally, you can push the file name to the newImages array
+  //     newImages.push(file.name);
+  //   }
   
-    // Update the state with the new file objects and image names
-    setImages([...images, ...newImages]);
-    setError("");
-  };
+  //   // Update the state with the new file objects and image names
+  //   setImages([...images, ...newImages]);
+  //   setError("");
+  // };
   console.log(images)
   const handleRemoveImage = (index) => {
     const newImages = [...images];
@@ -115,7 +115,7 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
           setShowLoader(false);
         });
         // console.log(images)
-        uploadImageToCloudinary()
+        // uploadImageToCloudinary()
       // const uploadedImages = await Promise.all(
       //   images.map((image) => uploadImageToCloudinary(image))
       // );
@@ -140,32 +140,32 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
   };
 
   
-  const uploadImageToCloudinary = async () => {
-    try {
-      const formData = new FormData();
-      images.forEach((image, index) => {
-        formData.append(`file${index + 1}`, image);
-        console.log(image)
-      });
-      formData.append('upload_preset', 'ljqbwqy9');
+  // const uploadImageToCloudinary = async () => {
+  //   try {
+  //     const formData = new FormData();
+  //     images.forEach((image, index) => {
+  //       formData.append(`file${index + 1}`, image);
+  //       console.log(image)
+  //     });
+  //     formData.append('upload_preset', 'ljqbwqy9');
 
-      const response = await fetch(`https://api.cloudinary.com/v1_1/dmyzudtut/image/upload`, {
-        method: "POST",
-        body: formData,
-      });
+  //     const response = await fetch(`https://api.cloudinary.com/v1_1/dmyzudtut/image/upload`, {
+  //       method: "POST",
+  //       body: formData,
+  //     });
   
-      if (!response.ok) {
-        throw new Error('Failed to upload image to Cloudinary');
-      }
+  //     if (!response.ok) {
+  //       throw new Error('Failed to upload image to Cloudinary');
+  //     }
   
-      const data = await response.json();
-      console.log(data);
-      return data.secure_url;
-    } catch (error) {
-      console.error("Error uploading image to Cloudinary:", error);
-      throw error;
-    }
-  };
+  //     const data = await response.json();
+  //     console.log(data);
+  //     return data.secure_url;
+  //   } catch (error) {
+  //     console.error("Error uploading image to Cloudinary:", error);
+  //     throw error;
+  //   }
+  // };
   
  
   return (
