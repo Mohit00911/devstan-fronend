@@ -1,12 +1,12 @@
 const BookingDetails = ({tourData}) => {
- 
+ console.log(tourData)
   return (
     <div className="px-30 py-30 border-light rounded-4">
       <div className="text-20 fw-500 mb-30">Your booking details</div>
       <div className="row x-gap-15 y-gap-20">
         <div className="col-auto">
           <img
-            src="/img/backgrounds/1.png"
+            src={tourData && tourData.images[0]}
             alt="image"
             className="size-140 rounded-4 object-cover"
           />

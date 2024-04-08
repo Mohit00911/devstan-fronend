@@ -27,7 +27,7 @@ const BookingPage = () => {
     } finally {
     }
   };
-  console.log(tourData)
+  
   useEffect(() => {
     searchTours();
   }, []);

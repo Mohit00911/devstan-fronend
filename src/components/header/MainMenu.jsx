@@ -15,7 +15,7 @@ import {
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
-const MainMenu = ({ style = "" }) => {
+const MainMenu = ({ style = "" }) => {  
   const { pathname } = useLocation();
   const [isActiveParent, setIsActiveParent] = useState(false);
   const vendorId = localStorage.getItem('vendorID');
