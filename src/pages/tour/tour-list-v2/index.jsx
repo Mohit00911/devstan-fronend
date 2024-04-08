@@ -47,8 +47,14 @@ const durationOptions = [
   { label: "15 Days", count: 21 },
 ];
 
-const marks = [10000, 50000, 100000, 1500000, 200000];
-
+const marks = {
+  10000: { label: '10000' },
+  50000: { label: '50000' },
+  100000: { label: '100000' },
+  150000: { label: '150000' },
+  200000: { label: '200000' },
+  1500000: { label: '1500000' }
+};
 const stepSize = 200000 / (marks.length - 4);
 
 const TourListPage2 = ({ onTabChange }) => {
@@ -65,27 +71,7 @@ const TourListPage2 = ({ onTabChange }) => {
   const locationParam = queryParams.get("location");
   const dateParam = queryParams.get("date");
 
-  // useEffect(() => {
-  //   const searchTours = async () => {
-  //     try {
 
-  //       const response = await fetch(
-  //         `${BASE_URL}/api/tours/${locationParam}/${dateParam}`
-  //       );
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch tours');
-  //       }
-  //       const data = await response.json();
-
-  //       setTours1(data);
-  //     } catch (error) {
-  //       console.error("Error fetching tours:", error);
-  //     }
-  //   };
-
-  //   searchTours();
-
-  // }, [locationParam, dateParam]);
 
   const handleRangeChange = (newRange) => {
     const [start, end] = newRange.sort((a, b) => a - b);
@@ -108,10 +94,7 @@ const TourListPage2 = ({ onTabChange }) => {
     );
   };
   useEffect(() => {
-    console.log(checkedCategories)
-    console.log(minPrice)
-    console.log(maxPrice)
-    console.log(checkedDuration)
+    
     const fetchToursByCategories = async () => {
       try {
         const response = await fetch(`${BASE_URL}/api/allTours`, {
@@ -238,15 +221,15 @@ const TourListPage2 = ({ onTabChange }) => {
                           </div>
                         </div>
                         <div className="col-auto">
-                          <div className="text-15 text-light-1">
+                          {/* <div className="text-15 text-light-1">
                             {category.count}
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
-                <div className="sidebar__item">
+                {/* <div className="sidebar__item">
                   <h5 className="text-18 fw-500 mb-10">Other</h5>
                   <div className="sidebar-checkbox">
                     {others.map((item, index) => (
@@ -271,30 +254,25 @@ const TourListPage2 = ({ onTabChange }) => {
                       </div>
                     ))}
                   </div>
-                </div>
+                </div> */}
 
                 <div className="sidebar__item pb-30">
                   <h5 className="text-18 fw-500 mb-10">Price</h5>
                   <div className="row x-gap-10 y-gap-30">
                     <div className="col-12">
-                      <div>
-                        <Slider
-                          min={10000}
-                          max={200000}
-                          value={range}
-                          onChange={handleRangeChange}
-                          step={stepSize}
-                          range
-                          marks={{
-                            ...marks.reduce((acc, mark) => {
-                              acc[mark] = { label: `${mark}` };
-                              return acc;
-                            }, {}),
-                          }}
-                          allowCross={false}
-                          dots
-                        />
-                      </div>
+                    <div>
+  <Slider
+    min={10000}
+    max={200000}
+    value={range}
+    onChange={handleRangeChange}
+    step={stepSize}
+    range
+    marks={marks}
+    allowCross={false}
+    dots
+  />
+</div>
                     </div>
                   </div>
                 </div>
@@ -322,9 +300,9 @@ const TourListPage2 = ({ onTabChange }) => {
                           </div>
                         </div>
                         <div className="col-auto">
-                          <div className="text-15 text-light-1">
+                          {/* <div className="text-15 text-light-1">
                             {option.count}
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     ))}
