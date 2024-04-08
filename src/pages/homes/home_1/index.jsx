@@ -44,7 +44,7 @@ const Home_1 = () => {
       <Header1 />
       {/* End Header 1 */}
 
-      <Hero1 onTabChange={handleTabChange} />
+      {/* <Hero1 onTabChange={handleTabChange} /> */}
       {/* End Hero 1 */}
 
       {/* <section className="layout-pt-lg layout-pb-md" data-aos="fade-up">
@@ -85,17 +85,17 @@ const Home_1 = () => {
       </section>
     */}
 
-      <section className="layout-pt-md layout-pb-md">
+      {/* <section className="layout-pt-md layout-pb-md">
         <div className="container">
           <div className="row y-gap-20">
-            {/* <AddBanner /> */}
+          
           </div>
         </div>
        
-      </section>
+      </section> */}
      
 
-      <section className="layout-pt-md layout-pb-md">
+      {/* <section className="layout-pt-md layout-pb-md">
         <div className="container">
           <div className="row y-gap-10 justify-between items-end">
             <div className="col-auto">
@@ -120,7 +120,7 @@ const Home_1 = () => {
          
         </div>
       </section>
-    
+     */}
 
       <section className="layout-pt-md layout-pb-lg">
         <div className="container">
@@ -131,7 +131,7 @@ const Home_1 = () => {
       </section>
      
 
-      <section className="layout-pt-lg layout-pb-lg bg-blue-2">
+      {/* <section className="layout-pt-lg layout-pb-lg bg-blue-2">
         <div className="container">
           <div className="row y-gap-40 justify-between">
             <div className="col-xl-5 col-lg-6" data-aos="fade-up">
@@ -153,7 +153,7 @@ const Home_1 = () => {
         </div>
        
       </section>
-     
+      */}
 {/* 
       <section className="layout-pt-lg layout-pb-md">
         <div className="container">
@@ -197,10 +197,10 @@ const Home_1 = () => {
       </section> */}
      
 
-      <CallToActions />
+      {/* <CallToActions /> */}
     
 
-      <DefaultFooter />
+      {/* <DefaultFooter /> */}
      
     </>
   );
