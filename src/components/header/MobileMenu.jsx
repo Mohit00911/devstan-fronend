@@ -42,11 +42,11 @@ const MobileMenu = () => {
 
   return (
     <>
-      <div className="pro-header d-flex align-items-center justify-between border-bottom-light">
+      <div className="pro-header d-flex align-items-center justify-between border-bottom-light" style={{paddingBlock:"0px"}}>
         <Link to="/">
-
-          <img src="/img/general/logo-dark.svg" alt="brand" />
-
+        <div to="/" className="header-logo mr-20">
+          <img src="/img/logo/logo.png" alt="logo icon" />
+</div>
         </Link>
         {/* End logo */}
 
@@ -63,7 +63,7 @@ const MobileMenu = () => {
 
       <Sidebar width="400" backgroundColor="#fff">
         <Menu>
-          <SubMenu
+          {/* <SubMenu
             label="Home"
             className={
               homeItems.some(
@@ -87,8 +87,8 @@ const MobileMenu = () => {
                 {item.name}
               </MenuItem>
             ))}
-          </SubMenu>
-          <SubMenu
+          </SubMenu> */}
+          {/* <SubMenu
             label="Categories"
             className={isActiveParent ? "menu-active-link" : ""}
           >
@@ -129,16 +129,16 @@ const MobileMenu = () => {
                 ))}
               </SubMenu>
             ))}
-          </SubMenu>
+          </SubMenu> */}
           {/* End  All Categories Menu */}
 
-          <MenuItem
+          {/* <MenuItem
             onClick={() => navigate("/destinations")}
             className={pathname === "/destinations" ? "menu-active-link" : ""}
           >
             Desitinations
           </MenuItem>
-          
+           */}
 
           <SubMenu
             label="Blog"
@@ -167,7 +167,7 @@ const MobileMenu = () => {
           </SubMenu>
         
 
-          <SubMenu
+          {/* <SubMenu
             label="Pages"
             className={
               pageItems.some(
@@ -191,10 +191,10 @@ const MobileMenu = () => {
                 {item.name}
               </MenuItem>
             ))}
-          </SubMenu>
+          </SubMenu> */}
           {/* End  All Pages Menu */}
 
-          <SubMenu
+          {/* <SubMenu
             label="Dashboard"
             className={
               pathname.split("/")[1] == "dashboard" ||
@@ -216,7 +216,7 @@ const MobileMenu = () => {
                 {item.name}
               </MenuItem>
             ))}
-          </SubMenu>
+          </SubMenu> */}
        
 
           <MenuItem

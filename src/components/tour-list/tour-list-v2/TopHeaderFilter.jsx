@@ -18,7 +18,7 @@ const TopHeaderFilter = ({locationParam}) => {
           }),
         });
         const data = await response.json();
-      console.log(data)
+     
       } catch (error) {
         console.error("Error fetching tours:", error);
       }

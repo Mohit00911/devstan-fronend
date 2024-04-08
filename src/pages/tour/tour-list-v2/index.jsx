@@ -428,15 +428,15 @@ const TourListPage2 = ({ onTabChange }) => {
                           <div className="cardImage ratio ratio-1:1">
                             <div className="cardImage__content">
                               <div className="cardImage-slider rounded-4 overflow-hidden custom_inside-slider">
-                                {/* <Swiper
+                                <Swiper
                       className="mySwiper"
-                      modules={[Pagination, Navigation]}
+                      // modules={[Pagination, Navigation]}
                       pagination={{
                         clickable: true,
                       }}
                       navigation={true}
                     >
-                      {item?.slideImg?.map((slide, i) => (
+                      {item?.images?.map((slide, i) => (
                         <SwiperSlide key={i}>
                           <img
                             className="rounded-4 col-12 js-lazy"
@@ -445,7 +445,7 @@ const TourListPage2 = ({ onTabChange }) => {
                           />
                         </SwiperSlide>
                       ))}
-                    </Swiper> */}
+                    </Swiper>
                               </div>
                             </div>
                           </div>
