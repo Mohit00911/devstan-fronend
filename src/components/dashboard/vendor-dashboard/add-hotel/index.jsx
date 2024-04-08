@@ -13,12 +13,12 @@ const index = () => {
       <div className="header-margin"></div>
 
       <Header />
-      {/* End dashboard-header */}
+      
 
       <div className="dashboard">
         <div className="dashboard__sidebar bg-white scroll-bar-1">
           <Sidebar />
-          {/* End sidebar */}
+          
         </div>
         {/* End dashboard__sidebar */}
 

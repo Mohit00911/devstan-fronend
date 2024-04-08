@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-
+import { useEffect } from 'react';
 import Loader from "@/components/loader/loader";
 import { Link } from "react-router-dom";
+import { render } from "react-dom";
 // import {v2 as cloudinary} from 'cloudinary';
 
 const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
@@ -14,32 +15,96 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
     tourType: [],
     images: [],
   });
-
+console.log(tourData)
   const [showLoader, setShowLoader] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
+  const [imgData, setImgData] = useState([]);
   const [images, setImages] = useState([]);
   const [error, setError] = useState("");
 
-  // const handleFileUpload = (event) => {
-  //   const fileList = event.target.files;
-  //   const newImages = [];
-  //   const fileObjects = []; // Array to store file objects
+  let newArray = [];
+
+const handleFileUpload = async (event) => {
+  const fileList = event.target.files;
+  const newImages = [];
+
+  const formData = new FormData();
+
+  for (let i = 0; i < fileList.length; i++) {
+    const file = fileList[i];
+
+    if (!["image/png", "image/jpeg"].includes(file.type.toLowerCase())) {
+      setError(`Image ${file.name} is not a valid file type. Only PNG and JPEG are allowed.`);
+      continue;
+    }
+
+    formData.append('file', file); 
+    newImages.push(URL.createObjectURL(file)); 
+
+    
+    const fileReader = new FileReader();
+
+    
+    const fileReaderPromise = new Promise((resolve, reject) => {
+      fileReader.onload = () => {
+        resolve(fileReader.result); 
+      };
+      fileReader.onerror = reject; 
+    });
+
+   
+    fileReader.readAsDataURL(file);
+
+    
+    try {
+      const result = await fileReaderPromise;
+      formData.append('file', result); 
+    } catch (error) {
+      console.error('Error reading file:', error);
+      setError(`Error reading file ${file.name}`);
+    }
+  }
+
+ 
+  setImages([...images, ...newImages]);
+  setError(""); 
+
+ 
+  formData.append('upload_preset', 'ljqbwqy9');
+ 
+  try {
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/dmyzudtut/image/upload`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
   
-  //   for (let i = 0; i < fileList.length; i++) {
-  //     const file = fileList[i];
-  //     // Push the file object to the fileObjects array
-  //     fileObjects.push(file);
+    const data = await response.json();
   
-  //     // Optionally, you can push the file name to the newImages array
-  //     newImages.push(file.name);
-  //   }
+    setTourData(prevData => ({
+      ...prevData,
+      images: [...prevData.images, data.url] 
+    }), () => {
+      // This callback function will be executed after setTourData has completed
+      onDataFromChild({ images: tourData.images }); // Send updated images array to parent component
+    });
   
-  //   // Update the state with the new file objects and image names
-  //   setImages([...images, ...newImages]);
-  //   setError("");
-  // };
-  console.log(images)
+  } catch (error) {
+    console.error("Error uploading image(s) to Cloudinary:", error);
+  }
+  
+  
+  
+
+
+};
+useEffect(() => {
+  onDataFromChild({ images: tourData.images }); // Send updated images array to parent component
+}, [tourData.images]); 
+console.log(tourData)
+
   const handleRemoveImage = (index) => {
     const newImages = [...images];
     newImages.splice(index, 1);
@@ -99,75 +164,71 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
     }
   };
   
-  
   const handleSaveChanges = async () => {
     setShowLoader(true);
   
     if (isAnyFieldFilled()) {
-      onSaveChanges()
-        .then(() => {
-          setShowLoader(false);
-          setShowSuccessMessage(true);
-        })
-
-        .catch((error) => {
-          console.error("Error:", error);
-          setShowLoader(false);
-        });
-        // console.log(images)
-        // uploadImageToCloudinary()
-      // const uploadedImages = await Promise.all(
-      //   images.map((image) => uploadImageToCloudinary(image))
-      // );
-      // console.log(uploadedImages);
-
-      // const imageUrls = uploadedImages.map((response) => response.secure_url);
-      // console.log(imageUrls)
+      try {
+        // Upload images to Cloudinary first
+        await uploadImageToCloudinary();
+        
+        // Once images are uploaded, proceed to save changes
+        await onSaveChanges();
+  
+        setShowLoader(false);
+        setShowSuccessMessage(true);
+      } catch (error) {
+        console.error("Error:", error);
+        setShowLoader(false);
+      }
     } else {
       setShowLoader(false);
       setShowSuccessMessage(false);
       setError("Please fill at least one input field.");
     }
   };
+  
   const isAnyFieldFilled = () => {
     for (let key in tourData) {
-      // Check if the value is a string before calling trim()
-      if (typeof tourData[key] === 'string' && tourData[key].trim() !== "") {
+      console.log(tourData);
+      if (tourData[key].trim() !== "") {
         return true;
       }
     }
     return false;
   };
-
+  const uploadImageToCloudinary = async () => {
+    try {
+      let imgArray=[]
+      try {
+        const response = await fetch(
+          `https://api.cloudinary.com/v1_1/dmyzudtut/image/upload`,
+          {
+            method: "POST",
+            body: imgData,
+          }
+        );
   
-  // const uploadImageToCloudinary = async () => {
-  //   try {
-  //     const formData = new FormData();
-  //     images.forEach((image, index) => {
-  //       formData.append(`file${index + 1}`, image);
-  //       console.log(image)
-  //     });
-  //     formData.append('upload_preset', 'ljqbwqy9');
-
-  //     const response = await fetch(`https://api.cloudinary.com/v1_1/dmyzudtut/image/upload`, {
-  //       method: "POST",
-  //       body: formData,
-  //     });
+        if (!response.ok) {
+          throw new Error("Failed to upload image(s) to Cloudinary");
+        }
   
-  //     if (!response.ok) {
-  //       throw new Error('Failed to upload image to Cloudinary');
-  //     }
+        const data = await response.json();
+        console.log(data.url);
+        imgArray.push(data.url)
+        onDataFromChild({ images:imgArray});
+      
   
-  //     const data = await response.json();
-  //     console.log(data);
-  //     return data.secure_url;
-  //   } catch (error) {
-  //     console.error("Error uploading image to Cloudinary:", error);
-  //     throw error;
-  //   }
-  // };
+      } catch (error) {
+        console.error("Error uploading image(s) to Cloudinary:", error);
+        // Handle error
+      }
+    } catch (error) {
+      console.error("Error uploading image(s) to Cloudinary:", error);
+      throw error;
+    }
+  };
   
- 
   return (
     <div className="col-xl-10">
       <div className="row x-gap-20 y-gap-20">

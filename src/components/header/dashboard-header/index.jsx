@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import MainMenu from "../MainMenu";
 import MobileMenu from "../MobileMenu";
 
-const HeaderDashBoard = () => {
+export default function DefaultHeader() {
   const [navbar, setNavbar] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const isVendor = localStorage.getItem("accountType");
@@ -148,4 +148,4 @@ const HeaderDashBoard = () => {
   );
 };
 
-export default HeaderDashBoard;
+// export default HeaderDashBoard;

@@ -44,6 +44,7 @@ const Index = () => {
     }],
     additionalInfo: "",
     tourType: "",
+    images:""
   });
   
 console.log(receivedData)
@@ -64,7 +65,7 @@ console.log(receivedData)
       const payload = {
         ...receivedData,
       };
-
+console.log(payload)
       const response = await fetch(`${BASE_URL}/api/createTours`, {
         method: "POST",
         headers: {

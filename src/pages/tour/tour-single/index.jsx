@@ -151,7 +151,7 @@ const TourSingleV1Dynamic = () => {
                     prevEl: ".js-img-prev",
                   }}
                 >
-                  {tour?.slideImg?.map((slide, i) => (
+                  {tour?.images?.map((slide, i) => (
                     <SwiperSlide key={i}>
                       <img
                         src={slide}
@@ -164,7 +164,7 @@ const TourSingleV1Dynamic = () => {
                 </Swiper>
 
                 <Gallery>
-                  {tour?.slideImg?.map((slide, i) => (
+                  {tour?.images?.map((slide, i) => (
                     <div
                       className="absolute px-10 py-10 col-12 h-full d-flex justify-end items-end z-2 bottom-0 end-0"
                       key={i}
