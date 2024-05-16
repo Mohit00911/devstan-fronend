@@ -3,9 +3,9 @@ import DateSearch from "./DateSearch";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-const index = ({ tour }) => {
+const index = ({ tour,selectedPrice }) => {
  
-
+console.log(selectedPrice)
   const token  =  localStorage.getItem("userId");
  
   const [tourData, setTourData] = useState({
@@ -39,15 +39,14 @@ const index = ({ tour }) => {
       </div>
 <div className="col-12">
       { token ? (
-          // If the token exists, render the "Book Now" button with the booking page URL
+
           <Link
-            to={`/booking-page/${tour && tour.uuid}`}
+            to={`/booking-page/${tour && tour.uuid}/${selectedPrice && selectedPrice.name}/${ selectedPrice  && selectedPrice.price}`}
             className="button -dark-1 py-15 px-35 h-60 col-12 rounded-4 bg-blue-1 text-white"
           >
             Book Now
           </Link>
         ) : (
-          // If the token doesn't exist, render the "Book Now" button with the login page URL
           <Link
             to="/login"
             className="button -dark-1 py-15 px-35 h-60 col-12 rounded-4 bg-blue-1 text-white"

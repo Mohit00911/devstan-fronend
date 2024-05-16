@@ -114,9 +114,7 @@ console.log(tours)
                       {item.status}
                       </span>
                     </td>
-                    {/* <td>
-                      <ActionsButton />
-                    </td> */}
+                   
                   </tr>
                     </>
 

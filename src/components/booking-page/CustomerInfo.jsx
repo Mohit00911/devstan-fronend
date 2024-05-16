@@ -3,7 +3,8 @@ import BookingDetails from "./sidebar/BookingDetails";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "@/utils/headers";
 
-const CustomerInfo = ({ tourData }) => {
+const CustomerInfo = ({ tourData, selectedPriceName, selectedPrice }) => {
+ 
   const token = localStorage.getItem("userId");
   const [userData, setUserData] = useState({
     token: token,
@@ -53,7 +54,6 @@ const CustomerInfo = ({ tourData }) => {
         },
         body: JSON.stringify(userData),
       });
-      console.log(response);
 
       if (response.ok) {
         console.log("User details updated successfully");
@@ -83,13 +83,13 @@ const CustomerInfo = ({ tourData }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ price: tourData && tourData.cost }),
+        body: JSON.stringify({ price: selectedPrice && selectedPrice }),
       });
       const responseData = await response.json();
 
       const options = {
         key,
-        amount: tourData.cost,
+        amount: selectedPrice,
         currency: "INR",
         name: "Mohit",
         description: "Test Transaction",
@@ -123,9 +123,12 @@ const CustomerInfo = ({ tourData }) => {
               headers: {
                 "Content-Type": "application/json",
               },
+
               body: JSON.stringify({
                 orderId: orderId,
                 userId: userData._id,
+                selectedPriceName: selectedPriceName,
+                selectedPrice: selectedPrice,
                 userDetails: {
                   firstName: userData.firstName,
                   lastName: userData.lastName,
@@ -135,21 +138,21 @@ const CustomerInfo = ({ tourData }) => {
                   addressLine2: userData.addressLine2,
                   state: userData.state,
                   postalCode: userData.postalCode,
-                  specialRequirement: userData.specialRequests
+                  specialRequirement: userData.specialRequests,
                 },
                 totalPrice: tourData.cost,
                 paymentId: data.paymentId,
                 bookedTour: tourData.uuid,
                 vendorId: tourData.vendor,
                 status: "pending",
-                tourName: tourData.name
+                tourName: tourData.name,
               }),
             });
+            console.log(selectedPriceName);
 
             console.log(await bookingResponse.json());
-            
+
             window.location.href = `https://devsthan-fronend.vercel.app/invoice-page/${data.paymentId}`;
-           
           } else {
             throw new Error("Failed to fetch user data");
           }
@@ -172,7 +175,6 @@ const CustomerInfo = ({ tourData }) => {
 
       if (response.ok) {
         console.log("User details updated successfully");
-
       } else {
         throw new Error("Failed to update user details");
       }

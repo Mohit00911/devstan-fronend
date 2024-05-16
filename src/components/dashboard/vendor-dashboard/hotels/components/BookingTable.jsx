@@ -40,7 +40,7 @@ const BookingTable = () => {
   const handleEnableButtonClick = async (tourId) => {
     try {
       const response = await fetch(`${BASE_URL}/api/updateTour/${tourId}`, {
-        method: "PUT",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },

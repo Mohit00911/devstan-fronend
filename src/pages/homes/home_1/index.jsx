@@ -106,9 +106,9 @@ const Home_1 = () => {
                 </p>
               </div>
             </div>
-            <div className="col-sm-auto">
+            {/* <div className="col-sm-auto">
               <SelectFilter />
-            </div>
+            </div> */}
           </div>
 
 

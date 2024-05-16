@@ -8,6 +8,7 @@ import ContactForm from "@/components/common/ContactForm";
 import LocationTopBar from "@/components/common/LocationTopBar";
 
 import MetaComponent from "@/components/common/MetaComponent";
+import Header11 from "@/components/header/header-11";
 
 const metadata = {
   title: "Contact || GoTrip - Travel & Tour ReactJs Template",
@@ -18,16 +19,13 @@ const Contact = () => {
   return (
     <>
       <MetaComponent meta={metadata} />
-      {/* End Page Title */}
+    
 
       <div className="header-margin"></div>
-      {/* header top margin */}
+    
 
-      <DefaultHeader />
-      {/* End Header 1 */}
-
-      <LocationTopBar />
-      {/* End location top bar section */}
+      <Header11 />
+      
 
       <div className="map-outer">
         <div className="map-canvas">
@@ -37,7 +35,7 @@ const Contact = () => {
           ></iframe>
         </div>
       </div>
-      {/* End map section */}
+     
 
       <section className="relative container">
         <div className="row justify-end">
@@ -49,7 +47,7 @@ const Contact = () => {
           </div>
         </div>
       </section>
-      {/* End contact section form */}
+    
 
       <section className="layout-pt-md layout-pb-lg">
         <div className="container">
@@ -57,10 +55,9 @@ const Contact = () => {
             <div className="col-12">
               <div className="text-30 sm:text-24 fw-600">Contact Us</div>
             </div>
-            {/* End .col */}
-
+      
             <Address />
-            {/* End address com */}
+         
 
             <div className="col-auto">
               <div className="text-14 text-light-1">
@@ -70,12 +67,12 @@ const Contact = () => {
                 <Social />
               </div>
             </div>
-            {/* End .col */}
+         
           </div>
-          {/* End .row */}
+       
         </div>
       </section>
-      {/* End Address Section */}
+   
 
       <section className="layout-pt-lg layout-pb-lg bg-blue-2">
         <div className="container">
@@ -94,17 +91,17 @@ const Contact = () => {
           <div className="row y-gap-40 justify-between pt-50">
             <WhyChoose />
           </div>
-          {/* End .row */}
+        
         </div>
-        {/* End .container */}
+      
       </section>
-      {/* End Why Choose Us section */}
+   
 
       <CallToActions />
-      {/* End Call To Actions Section */}
+    
 
       <DefaultFooter />
-      {/* End Call To Actions Section */}
+    
     </>
   );
 };

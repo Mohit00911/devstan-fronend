@@ -171,7 +171,7 @@ function App() {
                 element={<HotelSingleV2Dynamic />}
               />
                <Route path="invoice-page/:paymentId" element={<Invoice />} />
-              <Route path="booking-page/:tourUUID" element={<BookingPage />} />
+              <Route path="booking-page/:tourUUID/:selectedPriceName/:selectedPrice" element={<BookingPage />} />
 
               <Route path="tour-list-v1" element={<TourListPage1 />} />
               <Route path="tour-list-v2" element={<TourListPage2 />} />

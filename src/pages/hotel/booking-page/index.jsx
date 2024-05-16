@@ -14,6 +14,9 @@ const metadata = {
 
 const BookingPage = () => {
   const { tourUUID } = useParams();
+  const {selectedPrice} = useParams();
+  const {selectedPriceName} = useParams();
+  console.log(useParams())
  const [tourData,setTourData] =useState()
  
   const searchTours = async () => {
@@ -43,7 +46,7 @@ const BookingPage = () => {
 
       <section className="pt-40 layout-pb-md">
         <div className="container">
-          <StepperBooking tourData={tourData}/>
+          <StepperBooking tourData={tourData} selectedPriceName={selectedPriceName} selectedPrice={selectedPrice}/>
         </div>
         {/* End container */}
       </section>

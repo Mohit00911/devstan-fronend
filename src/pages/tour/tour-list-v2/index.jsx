@@ -71,7 +71,7 @@ const TourListPage2 = ({ onTabChange }) => {
   const locationParam = queryParams.get("location");
   const dateParam = queryParams.get("date");
 
-
+console.log(tourData)
 
   const handleRangeChange = (newRange) => {
     const [start, end] = newRange.sort((a, b) => a - b);
@@ -80,9 +80,10 @@ const TourListPage2 = ({ onTabChange }) => {
     setMaxPrice(end);
   };
   const handleLocationSelect = (selectedLocation) => {
+    console.log(selectedLocation)
     setTourData((prevData) => ({
       ...prevData,
-      location: selectedLocation.location,
+      location: selectedLocation,
     }));
   };
   const handledDateSelect = (selectedDates) => {
@@ -358,12 +359,12 @@ const TourListPage2 = ({ onTabChange }) => {
 
         <div className="col-auto">
           <div className="row x-gap-20 y-gap-20">
-            <div className="col-auto">
+            {/* <div className="col-auto">
               <button className="button -blue-1 h-40 px-20 rounded-100 bg-blue-1-05 text-15 text-blue-1">
                 <i className="icon-up-down text-14 mr-10" />
                 Sort
               </button>
-            </div>
+            </div> */}
             {/* End .col */}
 
             <div className="col-auto d-none xl:d-block">
@@ -498,7 +499,8 @@ const TourListPage2 = ({ onTabChange }) => {
                                 From
                                 <span className="text-16 fw-500 text-dark-1">
                                   {" "}
-                                  Rs.{item.cost}
+                                  Rs.{item.cost[0].standardPrice}
+                  
                                 </span>
                               </div>
                             </div>

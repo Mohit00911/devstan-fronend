@@ -5,13 +5,14 @@ import CurrenctyMegaMenu from "../CurrenctyMegaMenu";
 import LanguageMegaMenu from "../LanguageMegaMenu";
 
 import MobileMenu from "../MobileMenu";
+import { BASE_URL } from "@/utils/headers";
 
 const Header1 = () => {
  
   const token = localStorage.getItem('token')
   const username = localStorage.getItem('userName')
   // const history = useHistory();
-
+  const [userData, setUserData] = useState();
   const [navbar, setNavbar] = useState(false);
   const vendorId = localStorage.getItem('vendorID');
   const userId = localStorage.getItem('userId');
@@ -22,6 +23,32 @@ const Header1 = () => {
       setNavbar(false);
     }
   };
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("userId");
+        const response = await fetch(`${BASE_URL}/api/getUser`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+
+          setUserData(data);
+        } else {
+          throw new Error("Failed to fetch user data");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", changeBackground);
@@ -70,7 +97,10 @@ const Header1 = () => {
             {/* End col */}
 
             <div className="col-auto">
-              <div className="d-flex items-center">
+            <div
+                className="d-flex gap-10px items-center"
+                style={{ gap: "10px" }}
+              >
                 {/* <div className="row x-gap-20 items-center xxl:d-none">
                   <CurrenctyMegaMenu textClass="text-white" />
                   
@@ -84,37 +114,54 @@ const Header1 = () => {
                  
                 </div> */}
                
+                {token && (
+                  <div className="pl-15">
+                    {userData && userData.profilePic ? (
+                      <img
+                        src={userData.profilePic}
+                        alt="image"
+                        className="size-50 rounded-22 object-cover"
+                      />
+                    ) : (
+                      <img
+                        src="/img/icons/blank.png" // Provide the path to your placeholder image
+                        alt="Placeholder"
+                        className="size-50 rounded-22 object-cover"
+                      />
+                    )}
+                  </div>
+                )}
+
                 {token ? (
-          // Display username if token exists
-          <p style={{color:'white'}} onClick={handleRedirect}>{username}</p>
-        ) : (
-          // Display login/register buttons if no token
-          <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
-            <Link
-              to="/become-expert"
-              className="button px-30 fw-400 text-14 -white bg-white h-50 text-dark-1"
-            >
-              Become An Expert
-            </Link>
-            <Link
-              to="/signup"
-              className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
-            >
-              Sign In / Register
-            </Link>
-          </div>
-        )}
-               
+                  <p style={{ color: "white" }} onClick={handleRedirect}>
+                    {username}
+                  </p>
+                ) : (
+                  <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
+                    <Link
+                      to="/become-expert"
+                      className="button px-30 fw-400 text-14 -white bg-white h-50 text-dark-1"
+                    >
+                      Become An Expert
+                    </Link>
+                    <Link
+                      to="/signup"
+                      className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
+                    >
+                      Sign In / Register
+                    </Link>
+                  </div>
+                )}
                 {/* End btn-group */}
 
                 {/* Start mobile menu icon */}
                 <div className="d-none xl:d-flex x-gap-20 items-center pl-30 text-white">
-                  <div>
+                  {/* <div>
                     <Link
                       to="/login"
                       className="d-flex items-center icon-user text-inherit text-22"
                     />
-                  </div>
+                  </div> */}
                   <div>
                     <button
                       className="d-flex items-center icon-menu text-inherit text-20"

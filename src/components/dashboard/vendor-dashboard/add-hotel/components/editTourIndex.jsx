@@ -72,7 +72,7 @@ const handleDataFromChild = (data) => {
 
  
   const response = await fetch(`${BASE_URL}/api/updateTour/${receivedData.uuid}`, {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },

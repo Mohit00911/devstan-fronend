@@ -14,33 +14,122 @@ import { Link, useParams } from "react-router-dom";
 import Itinerary from "@/components/tour-single/itinerary";
 import ImportantInfo from "@/components/tour-single/ImportantInfo";
 import TourGallery from "@/components/tour-single/TourGallery";
-
+import { toast } from 'react-toastify';
 import SidebarRight from "@/components/tour-single/SidebarRight";
 import Overview from "@/components/tour-single/Overview";
 import TourSnapShot from "@/components/tour-single/TourSnapShot";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
+import React, { useState } from 'react';
 import ModalVideo from "react-modal-video";
 import FilterBox from "../../../components/tour-single/filter-box";
 import MetaComponent from "@/components/common/MetaComponent";
 import { BASE_URL } from "@/utils/headers";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+const userId = localStorage.getItem("userId");
 
 const metadata = {
   title: "Tour Single || GoTrip - Travel & Tour ReactJs Template",
   description: "GoTrip - Travel & Tour ReactJs Template",
 };
+const handleWishlist = async (uuid) => {
+  try {
+   
+    const response = await fetch(`${BASE_URL}/api/addToWishlist`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ uuid, userId }),
+    });
 
+    // If the API call is successful, update the state or UI accordingly
+    if (response.ok) {
+      // setIsWishlist(true);
+      toast.success('Tour added to wishlist!');
+   
+    } else {
+      // Handle API call errors
+      throw new Error(`Error adding tour to wishlist: ${response.status}`);
+     
+    }
+  } catch (error) {
+    toast.success('Tour is already in Wishlist');
+   
+  }
+};
 const TourSingleV1Dynamic = () => {
   const [isOpen, setOpen] = useState(false);
+  const [uuid1,setUUID]=useState(null)
+  const [userDetaild, setUserDetails] = useState("");
+  const [selectedPrice, setSelectedPrice] = useState({ name: "", price: "" });
   const [tour, setTour] = useState("");
   const { id } = useParams();
+  const [formData, setFormData] = useState({
+    text: "",
+    email: "",
+    comment: "",
+    name: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+  const handleSelectChange = (event) => {
+  
+    const selectedOptionIndex = event.target.selectedIndex-1;
+    const selectedPriceObj = tour.cost[selectedOptionIndex];
+  
+    const name = Object.keys(selectedPriceObj)[0];
+   
+    const price = Object.values(selectedPriceObj)[0];
+    setSelectedPrice({ name, price });
+  };
+  console.log(selectedPrice)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`${BASE_URL}/api/updateTour/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+      
+        setFormData({
+          text: "",
+          email: "",
+          comment: "",
+          name: "",
+        });
+
+        setUserDetails(response.user);
+      } else {
+        console.error("Failed to post comment:", response.status);
+      }
+    } catch (error) {
+      console.error("Error posting comment:", error);
+    }
+  };
+
   const searchTours = async () => {
     try {
       const response = await fetch(`${BASE_URL}/api/getTour/${id}`);
       const data = await response.json();
+      const defaultPriceObj = data[0] && data[0].cost[0];
+
+      const name = Object.keys(defaultPriceObj)[0];
+      const price = Object.values(defaultPriceObj)[0];
+      setSelectedPrice({ name, price });
       setTour(data[0]);
+      setUUID(data[0].uuid)
+      
     } catch (error) {
       console.error("Error fetching tours:", error);
     } finally {
@@ -49,6 +138,7 @@ const TourSingleV1Dynamic = () => {
   useEffect(() => {
     searchTours();
   }, []);
+  console.log(selectedPrice);
 
   return (
     <>
@@ -111,14 +201,14 @@ const TourSingleV1Dynamic = () => {
 
             <div className="col-auto">
               <div className="row x-gap-10 y-gap-10">
-                <div className="col-auto">
+                {/* <div className="col-auto">
                   <button className="button px-15 py-10 -blue-1">
                     <i className="icon-share mr-10"></i>
                     Share
                   </button>
-                </div>
+                </div> */}
 
-                <div className="col-auto">
+                <div className="col-auto"  onClick={() => handleWishlist(uuid1)}>
                   <button className="button px-15 py-10 -blue-1 bg-light-2">
                     <i className="icon-heart mr-10"></i>
                     Save
@@ -211,12 +301,25 @@ const TourSingleV1Dynamic = () => {
                     <div className="text-14 text-light-1">
                       From{" "}
                       <span className="text-20 fw-500 text-dark-1 ml-5">
-                        Rs.{tour?.cost}
+                        <select onChange={handleSelectChange}>
+                          <option>Select Price</option>
+                          {tour.cost &&
+                            tour.cost.map((priceObj, index) => {
+
+                              const name = Object.keys(priceObj)[0]; // Extract the name of the cost
+                              const price = Object.values(priceObj)[0]; // Extract the price value from the object
+                              return (
+                                <option key={index} value={price}>
+                                  {name}: Rs. {price}
+                                </option>
+                              );
+                            })}
+                        </select>
                       </span>
                     </div>
 
                     <div className="row y-gap-20 pt-30">
-                      <FilterBox tour={tour} />
+                      <FilterBox tour={tour} selectedPrice={selectedPrice} />
                     </div>
 
                     <div className="d-flex items-center pt-20">
@@ -296,33 +399,22 @@ const TourSingleV1Dynamic = () => {
        
       </section> */}
 
-      {/* <section className="mt-40 border-top-light pt-40">
->>>>>>> 889f052 (latest)
+      <section className="mt-40 border-top-light pt-40">
         <div className="container">
           <div className="row y-gap-40 justify-between">
             <div className="col-xl-3">
               <h3 className="text-22 fw-500">Guest reviews</h3>
               <ReviewProgress2 />
-
-            
             </div>
-            
->>>>>>> 889f052 (latest)
 
             <div className="col-xl-8">
-              <DetailsReview2 />
+              <DetailsReview2 tour={tour.reviews && tour.reviews} />
             </div>
-
-            
           </div>
-         
         </div>
-       
-        
-      </section> */}
+      </section>
 
-      {/* <section className="mt-40 border-top-light pt-40">
->>>>>>> 889f052 (latest)
+      <section className="mt-40 border-top-light pt-40">
         <div className="container">
           <div className="row y-gap-30 justify-between">
             <div className="col-xl-3">
@@ -334,25 +426,79 @@ const TourSingleV1Dynamic = () => {
                   </p>
                 </div>
               </div>
-             
 
               <ReplyFormReview2 />
-              
             </div>
-            
->>>>>>> 889f052 (latest)
 
             <div className="col-xl-8">
-              <ReplyForm />
-            </div>
+              <form className="row y-gap-30 pt-20" onSubmit={handleSubmit}>
+                <div className="col-xl-6">
+                  <div className="form-input ">
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                    />
+                    <label className="lh-1 text-16 text-light-1">Name</label>
+                  </div>
+                </div>
+                <div className="col-xl-6">
+                  <div className="form-input ">
+                    <input
+                      type="text"
+                      name="text"
+                      value={formData.text}
+                      onChange={handleChange}
+                      required
+                    />
+                    <label className="lh-1 text-16 text-light-1">Text</label>
+                  </div>
+                </div>
 
-            
+                <div className="col-xl-6">
+                  <div className="form-input ">
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                    />
+                    <label className="lh-1 text-16 text-light-1">Email</label>
+                  </div>
+                </div>
+
+                <div className="col-12">
+                  <div className="form-input ">
+                    <textarea
+                      name="comment"
+                      value={formData.comment}
+                      onChange={handleChange}
+                      required
+                      rows={4}
+                    />
+                    <label className="lh-1 text-16 text-light-1">
+                      Write Your Comment
+                    </label>
+                  </div>
+                </div>
+
+                <div className="col-auto">
+                  <button
+                    type="submit"
+                    className="button -md -dark-1 bg-blue-1 text-white"
+                    // onClick={handleSubmit}
+                  >
+                    Post Comment <div className="icon-arrow-top-right ml-15" />
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        
         </div>
-      
       </section>
-       */}
 
       <section className="layout-pt-lg layout-pb-lg mt-50 border-top-light">
         <div className="container">
@@ -365,7 +511,6 @@ const TourSingleV1Dynamic = () => {
                 </p>
               </div>
             </div>
-            {/* End .col */}
 
             <div className="col-auto">
               <Link
@@ -375,19 +520,15 @@ const TourSingleV1Dynamic = () => {
                 More <div className="icon-arrow-top-right ml-15" />
               </Link>
             </div>
-            {/* End .col */}
           </div>
 
           <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
             <Tours />
           </div>
         </div>
-        {/* End .container */}
       </section>
-      {/* End Tours Sections */}
 
       <CallToActions />
-      {/* End Call To Actions Section */}
 
       <DefaultFooter />
     </>

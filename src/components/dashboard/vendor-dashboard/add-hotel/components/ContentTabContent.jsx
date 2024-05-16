@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import Loader from "@/components/loader/loader";
 import { Link } from "react-router-dom";
 import { render } from "react-dom";
@@ -9,13 +9,23 @@ const ContentTabContent = ({ onDataFromChild, onSaveChanges }) => {
   const [tourData, setTourData] = useState({
     name: "",
     location: "",
-    cost: "",
+    cost: [
+      {
+        standardPrice: "",
+      },
+      {
+        deluxePrice: "",
+      },
+      {
+        premiumPrice: "",
+      },
+    ],
     duration: "",
     groupSize: "",
     tourType: [],
     images: [],
   });
-console.log(tourData)
+
   const [showLoader, setShowLoader] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [imgData, setImgData] = useState([]);
@@ -24,86 +34,79 @@ console.log(tourData)
 
   let newArray = [];
 
-const handleFileUpload = async (event) => {
-  const fileList = event.target.files;
-  const newImages = [];
+  const handleFileUpload = async (event) => {
+    const fileList = event.target.files;
+    const newImages = [];
 
-  const formData = new FormData();
+    const formData = new FormData();
 
-  for (let i = 0; i < fileList.length; i++) {
-    const file = fileList[i];
+    for (let i = 0; i < fileList.length; i++) {
+      const file = fileList[i];
 
-    if (!["image/png", "image/jpeg"].includes(file.type.toLowerCase())) {
-      setError(`Image ${file.name} is not a valid file type. Only PNG and JPEG are allowed.`);
-      continue;
-    }
-
-    formData.append('file', file); 
-    newImages.push(URL.createObjectURL(file)); 
-
-    
-    const fileReader = new FileReader();
-
-    
-    const fileReaderPromise = new Promise((resolve, reject) => {
-      fileReader.onload = () => {
-        resolve(fileReader.result); 
-      };
-      fileReader.onerror = reject; 
-    });
-
-   
-    fileReader.readAsDataURL(file);
-
-    
-    try {
-      const result = await fileReaderPromise;
-      formData.append('file', result); 
-    } catch (error) {
-      console.error('Error reading file:', error);
-      setError(`Error reading file ${file.name}`);
-    }
-  }
-
- 
-  setImages([...images, ...newImages]);
-  setError(""); 
-
- 
-  formData.append('upload_preset', 'ljqbwqy9');
- 
-  try {
-    const response = await fetch(
-      `https://api.cloudinary.com/v1_1/dmyzudtut/image/upload`,
-      {
-        method: "POST",
-        body: formData,
+      if (!["image/png", "image/jpeg"].includes(file.type.toLowerCase())) {
+        setError(
+          `Image ${file.name} is not a valid file type. Only PNG and JPEG are allowed.`
+        );
+        continue;
       }
-    );
-  
-    const data = await response.json();
-  
-    setTourData(prevData => ({
-      ...prevData,
-      images: [...prevData.images, data.url] 
-    }), () => {
-      // This callback function will be executed after setTourData has completed
-      onDataFromChild({ images: tourData.images }); // Send updated images array to parent component
-    });
-  
-  } catch (error) {
-    console.error("Error uploading image(s) to Cloudinary:", error);
-  }
-  
-  
-  
 
+      formData.append("file", file);
+      newImages.push(URL.createObjectURL(file));
 
-};
-useEffect(() => {
-  onDataFromChild({ images: tourData.images }); // Send updated images array to parent component
-}, [tourData.images]); 
-console.log(tourData)
+      const fileReader = new FileReader();
+
+      const fileReaderPromise = new Promise((resolve, reject) => {
+        fileReader.onload = () => {
+          resolve(fileReader.result);
+        };
+        fileReader.onerror = reject;
+      });
+
+      fileReader.readAsDataURL(file);
+
+      try {
+        const result = await fileReaderPromise;
+        formData.append("file", result);
+      } catch (error) {
+        console.error("Error reading file:", error);
+        setError(`Error reading file ${file.name}`);
+      }
+    }
+
+    setImages([...images, ...newImages]);
+    setError("");
+
+    formData.append("upload_preset", "ljqbwqy9");
+
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/dmyzudtut/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+
+      setTourData(
+        (prevData) => ({
+          ...prevData,
+          images: [...prevData.images, data.url],
+        }),
+        () => {
+          // This callback function will be executed after setTourData has completed
+          onDataFromChild({ images: tourData.images }); // Send updated images array to parent component
+        }
+      );
+    } catch (error) {
+      console.error("Error uploading image(s) to Cloudinary:", error);
+    }
+  };
+  useEffect(() => {
+    onDataFromChild({ images: tourData.images }); // Send updated images array to parent component
+  }, [tourData.images]);
+ 
 
   const handleRemoveImage = (index) => {
     const newImages = [...images];
@@ -134,47 +137,64 @@ console.log(tourData)
   };
 
   const handleTourDataChange = (fieldName, value) => {
-    console.log(fieldName)
-    console.log(value)
-  
-    if (typeof value === 'string' || value instanceof String) {
-      value = value.trim(); 
+    // Trim string values
+    if (typeof value === "string") {
+      value = value
     }
   
+    // Update duration separately
     if (fieldName === "duration") {
       const durationNumber = parseFloat(value);
       setTourData((prevData) => ({
         ...prevData,
         [fieldName]: durationNumber,
       }));
-    } else {
-      // Check if value is a string before calling trim()
-      const fieldValue = typeof value === 'string' ? value.trim() : value;
-      
+    } else if (fieldName === "standardPrice" || fieldName === "deluxePrice" || fieldName === "premiumPrice") {
+      // Determine the index based on the fieldName
+      let index = 0;
+      if (fieldName === "deluxePrice") {
+        index = 1;
+      } else if (fieldName === "premiumPrice") {
+        index = 2;
+      }
+  
+      // Update the corresponding cost field at the specified index
       setTourData((prevData) => ({
         ...prevData,
-        [fieldName]: fieldValue,
+        cost: [
+          ...prevData.cost.slice(0, index), 
+          { ...prevData.cost[index], [fieldName]: value }, 
+          ...prevData.cost.slice(index + 1), 
+        ],
       }));
       onDataFromChild({
         ...tourData,
-        [fieldName]: fieldValue,
+        [fieldName]: value, 
       });
-  
-      setError("");
+    } else {
+      // Update other fields
+      setTourData((prevData) => ({
+        ...prevData,
+        [fieldName]: value,
+      }));
+      onDataFromChild({
+        ...tourData,
+        [fieldName]: value, // Use value instead of fieldValue
+      });
     }
-  };
-  
+};
+
   const handleSaveChanges = async () => {
     setShowLoader(true);
-  
+
     if (isAnyFieldFilled()) {
       try {
         // Upload images to Cloudinary first
         await uploadImageToCloudinary();
-        
+
         // Once images are uploaded, proceed to save changes
         await onSaveChanges();
-  
+
         setShowLoader(false);
         setShowSuccessMessage(true);
       } catch (error) {
@@ -187,10 +207,10 @@ console.log(tourData)
       setError("Please fill at least one input field.");
     }
   };
-  
+
   const isAnyFieldFilled = () => {
     for (let key in tourData) {
-      console.log(tourData);
+     
       if (tourData[key].trim() !== "") {
         return true;
       }
@@ -199,7 +219,7 @@ console.log(tourData)
   };
   const uploadImageToCloudinary = async () => {
     try {
-      let imgArray=[]
+      let imgArray = [];
       try {
         const response = await fetch(
           `https://api.cloudinary.com/v1_1/dmyzudtut/image/upload`,
@@ -208,17 +228,15 @@ console.log(tourData)
             body: imgData,
           }
         );
-  
+
         if (!response.ok) {
           throw new Error("Failed to upload image(s) to Cloudinary");
         }
-  
+
         const data = await response.json();
-        console.log(data.url);
-        imgArray.push(data.url)
-        onDataFromChild({ images:imgArray});
-      
-  
+       
+        imgArray.push(data.url);
+        onDataFromChild({ images: imgArray });
       } catch (error) {
         console.error("Error uploading image(s) to Cloudinary:", error);
         // Handle error
@@ -228,7 +246,7 @@ console.log(tourData)
       throw error;
     }
   };
-  
+
   return (
     <div className="col-xl-10">
       <div className="row x-gap-20 y-gap-20">
@@ -342,16 +360,46 @@ console.log(tourData)
         </div>
 
         <div className="col-12">
+          <h3>Pricing</h3>
           <div className="form-input">
             <input
               type="text"
               required
-              value={tourData.cost}
-              onChange={(e) => handleTourDataChange("cost", e.target.value)}
+              value={tourData.standardPrice}
+              onChange={(e) =>
+                handleTourDataChange("standardPrice", e.target.value)
+              }
             />
-            <label className="lh-1 text-16 ">Price</label>
+            <label className="lh-1 text-16">Standard Price</label>
           </div>
         </div>
+        <div className="col-12">
+          <div className="form-input">
+            <input
+              type="text"
+              required
+              value={tourData.deluxePrice}
+              onChange={(e) =>
+                handleTourDataChange("deluxePrice", e.target.value)
+              }
+            />
+            <label className="lh-1 text-16">Deluxe Price</label>
+          </div>
+        </div>
+        <div className="col-12">
+          <div className="form-input">
+            <input
+              type="text"
+              required
+              value={tourData.premiumPrice}
+              onChange={(e) =>
+                handleTourDataChange("premiumPrice", e.target.value)
+              }
+            />
+            <label className="lh-1 text-16">Premium Price</label>
+          </div>
+        </div>
+
         <div className="col-12">
           <div className="form-input">
             <input

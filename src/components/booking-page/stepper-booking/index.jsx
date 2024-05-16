@@ -4,7 +4,7 @@ import PaymentInfo from "../PaymentInfo";
 import OrderSubmittedInfo from "../OrderSubmittedInfo";
 import { BASE_URL } from "@/utils/headers";
 
-const Index = ({tourData}) => {
+const Index = ({tourData,selectedPriceName,selectedPrice}) => {
   
   const [currentStep, setCurrentStep] = useState(0);
   
@@ -22,7 +22,7 @@ const Index = ({tourData}) => {
           </div>
         </>
       ),
-      content: <CustomerInfo tourData={tourData}  />,
+      content: <CustomerInfo tourData={tourData} selectedPriceName={selectedPriceName} selectedPrice={selectedPrice} />,
     },
     {
       title: "Payment Details",

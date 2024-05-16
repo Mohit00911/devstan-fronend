@@ -21,7 +21,17 @@ const Index = () => {
     overview: "",
 
     location: "",
-    cost: "",
+    cost: [
+      {
+        standardPrice: "",
+      },
+      {
+        deluxePrice: "",
+      },
+      {
+        premiumPrice: "",
+      },
+    ],
     duration: "",
     groupSize: "",
     cancellationPolicy: "",
